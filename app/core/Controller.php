@@ -13,6 +13,7 @@ $this->view();
 
 to load views.
  */
+require_once 'app/config/Config.php';
 class Controller
 {
     public function model($model)
@@ -29,7 +30,7 @@ class Controller
         // base path for views 
         $basePath = 'app/views/'; 
 
-        
+        $BASE_URL=BASE_URL;
 
         // load selected view
         if (file_exists($basePath . $view . '.php')) {
