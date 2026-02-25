@@ -58,7 +58,7 @@
 <p class="text-xs text-slate-500 dark:text-slate-400"><?= $lang['hero_title']?></p>
 </div>
 </div>
-<?php if($_SESSION['lang'] == 'ar'): ?>
+<?php if($_SESSION['lang'] == 'ar'): ?> 
     
     <a href="<?= BASE_URL ?>Language/change/en"
        class="flex items-center gap-2 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition">
@@ -87,7 +87,7 @@
 </div>
 <!-- Auth Buttons -->
 <div class="flex items-center gap-4">
-<a class="px-5 py-2 text-primary font-medium hover:bg-primary/5 rounded-lg transition-all" href="#">تسجيل الدخول</a>
+<a class="px-5 py-2 text-primary font-medium hover:bg-primary/5 rounded-lg transition-all" href="Auth/login">تسجيل الدخول</a>
 <a class="px-6 py-2 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all" href="#">بوابة الخريجين</a>
 </div>
 </div>

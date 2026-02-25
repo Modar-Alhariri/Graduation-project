@@ -12,7 +12,7 @@ class Model{
     protected $db;
     public function __construct()
     {
-       $database=new Database();
-       $this->db=$database->connect();
+       $this->db=new Database();
+    
     }
 }
