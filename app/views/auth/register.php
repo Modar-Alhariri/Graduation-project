@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html class="light" lang="en"><head>
+<html dir="<?= $_SESSION['lang']=='ar'?'rtl':'ltr' ?>" 
+
+      lang="<?= $_SESSION['lang']=='ar'?'ar':'en' ?>">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -54,9 +57,34 @@
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display min-h-screen flex items-center justify-center p-4 md:p-8">
+
 <main class="w-full max-w-6xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl shadow-slate-200 dark:shadow-none overflow-hidden flex flex-col lg:flex-row min-h-[850px]">
 <section class="hidden lg:flex lg:w-5/12 relative flex-col justify-center items-center p-12 text-white overflow-hidden">
+
+<div class="absolute top-6 left-6 z-50">
+<?php if($_SESSION['lang'] == 'ar'): ?> 
+    <a href="<?= BASE_URL ?>Language/change/en"
+       class="flex items-center gap-2 px-5 py-3 border-2 border-primary text-primary rounded-xl font-bold 
+       hover:bg-primary hover:text-white transition-all duration-300 
+       bg-white/80 backdrop-blur-sm shadow-lg">
+
+        <!-- أيقونة الكرة الأرضية -->
+        <span class="material-icons text-xl">public</span>
+        EN
+    </a>
+<?php else: ?>
+    <a href="<?= BASE_URL ?>Language/change/ar"
+       class="flex items-center gap-2 px-5 py-3 border-2 border-primary text-primary rounded-xl font-bold 
+       hover:bg-primary hover:text-white transition-all duration-300 
+       bg-white/80 backdrop-blur-sm shadow-lg">
+
+        <span class="material-icons text-xl">public</span>
+        AR
+    </a>
+<?php endif; ?>
+</div>
 <div class="absolute inset-0 z-0">
+    
 <img alt="University Library" class="w-full h-full object-cover scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuHtUC_ZpD6e11celWKRe3AEnCg9XiGk5fxLrmmYij2QgFe-ad1nLuzbKQUUG4GrFKM8hUPOhaVWxz3TKRswZ3oGjkq1DNBV7bhBXWyEnrCDfH3Nq2G5LJXgFKAt4m0_cDCCneA4L69THjIYA3y4bjtRBPCrW5MTV782KRyswCdqQUMuFuvatJUbXty7toZiLQ8VgQLMLCLBqki35S90IlJPJcVR8Y6oQfH9ps_V0qVpF4Xzzina1WVxqYDrDRS9-_zgwiIBQpETx5"/>
 <div class="absolute inset-0 bg-navy-blue/60 mix-blend-multiply"></div>
 <div class="absolute inset-0 bg-gradient-to-br from-primary/40 to-navy-blue/80"></div>
@@ -91,17 +119,6 @@
 <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Create your account</h2>
 <p class="text-slate-500 dark:text-slate-400 mt-2 font-light">Join the professional academic portal</p>
 </div>
-<div class="bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl mb-10 flex gap-1">
-<button class="flex-1 py-2.5 px-4 text-sm font-semibold rounded-lg bg-white dark:bg-slate-700 shadow-sm text-primary transition-all">
-                        Graduate
-                    </button>
-<button class="flex-1 py-2.5 px-4 text-sm font-medium rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all">
-                        Employer
-                    </button>
-<button class="flex-1 py-2.5 px-4 text-sm font-medium rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all">
-                        Faculty
-                    </button>
-</div>
 <form class="space-y-5" method="POST" action="<?= BASE_URL?>Auth/register">
 <div class="floating-label-group">
 <input class="w-full px-4 py-4 bg-transparent border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all text-slate-900 dark:text-white" id="fullname" name="fullname" placeholder=" " type="text"/>
@@ -124,39 +141,31 @@
 <label for="password" name="confirm_password">Confirm Password</label>
 </div>
 <div class="floating-label-group">
-<input class="w-full px-4 py-4 bg-transparent border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all text-slate-900 dark:text-white" id="password" name="role_id" placeholder="123 " type="text"/>
-<label for="role_id" >Role</label>
+    <select 
+        class="w-full px-4 py-4 bg-transparent border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all text-slate-900 dark:text-white"
+        id="role_id"
+        name="role_id">
+        <option value="" disabled selected>Role</option>
+        <option value="1">Admin</option>
+        <option value="2">Graduate</option>
+        <option value="3">Company</option>
+
+    </select>
+
+    
+
 </div>
-<div class="flex items-start gap-3 pt-2">
-<div class="flex items-center h-5">
-<input class="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary/20 cursor-pointer" id="terms" type="checkbox"/>
-</div>
-<label class="text-sm text-slate-600 dark:text-slate-400 leading-tight" for="terms">
-                            I agree to the <a class="text-primary hover:underline font-semibold" href="#">Terms of Service</a> and <a class="text-primary hover:underline font-semibold" href="#">Privacy Policy</a>.
-                        </label>
-</div>
+
 <button type="submit" class="w-full bg-navy-blue hover:bg-slate-800 text-white font-bold py-4 rounded-xl shadow-xl shadow-slate-200 dark:shadow-none transition-all flex items-center justify-center gap-2 mt-4" type="submit">
 <span>Register</span>
-<span class="material-symbols-outlined text-xl">arrow_right_alt</span>
+<!-- <span class="material-symbols-outlined text-xl">arrow_right_alt</span> -->
 </button>
 </form>
-<div class="relative my-10">
-<div class="absolute inset-0 flex items-center">
-<div class="w-full border-t border-slate-100 dark:border-slate-800"></div>
-</div>
-<div class="relative flex justify-center text-xs uppercase tracking-widest font-bold">
-<span class="px-4 bg-white dark:bg-slate-900 text-slate-400">Or sign up with</span>
-</div>
-</div>
-<button class="w-full flex items-center justify-center gap-3 px-4 py-3.5 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-slate-700 dark:text-slate-200 font-semibold text-sm" type="button">
-<svg class="w-5 h-5 text-[#0A66C2]" fill="currentColor" viewBox="0 0 24 24">
-<path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
-</svg>
-                    Continue with LinkedIn
-                </button>
+
+
 <p class="text-center mt-12 text-slate-600 dark:text-slate-400 text-sm">
                     Already have an account? 
-                    <a class="text-primary font-bold hover:underline" href="#">Login here</a>
+                    <a class="text-primary font-bold hover:underline" href="<?= BASE_URL ?>Auth/login">Login here</a>
 </p>
 </div>
 </section>

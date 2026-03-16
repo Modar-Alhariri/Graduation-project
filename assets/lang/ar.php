@@ -70,4 +70,6 @@ return [
     'terms' => 'شروط الاستخدام',
     'follow_us' => 'تابعنا',
     'copyright' => 'جميع الحقوق محفوظة 2026 ©'
+    // login page
+    
 ];

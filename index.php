@@ -11,6 +11,7 @@ session_start();
 require_once 'app/config/Database.php';
 require_once 'app/core/Model.php';
 require_once 'app/core/Controller.php';
+require_once 'app/controllers/ProtectionController.php';
 require_once 'app/core/Language.php';
 require_once 'app/core/App.php';
 

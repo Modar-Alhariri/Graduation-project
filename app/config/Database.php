@@ -1,7 +1,7 @@
 <?php
 class Database {
     private $host = "localhost";
-    private $dbname = "gts_db";
+    private $dbname = "gts_db_system";
     private $user = "root";
     private $pass = "";
     private $stmt;

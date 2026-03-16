@@ -102,7 +102,7 @@
 <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
 <div class="max-w-2xl text-white">
 <span class="inline-block px-4 py-1 bg-accent-gold/20 border border-accent-gold/30 text-accent-gold rounded-full text-sm font-medium mb-6">مستقبلك يبدأ من هنا</span>
-<h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">نظام تتبع الخريجين (GTS)</h1>
+<h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight"><?= $lang['hero_title']?></h1>
 <p class="text-xl text-slate-200 mb-10 leading-relaxed">
                     جسر التواصل الدائم بين الجامعة وخريجيها. نسعى لتمكين خريجينا من خلال توفير فرص مهنية، وبناء شبكة عالمية من الكفاءات الوطنية.
                 </p>

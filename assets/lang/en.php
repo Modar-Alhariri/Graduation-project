@@ -70,4 +70,6 @@ return [
     'terms' => 'Terms of Use',
     'follow_us' => 'Follow Us',
     'copyright' => 'All Rights Reserved 2026 ©'
+    //login page 
+    
 ];

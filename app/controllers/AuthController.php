@@ -9,6 +9,7 @@ class AuthController extends controller{
      }
     //  ############# login ################
     public function login() {
+         $lang = Language::load();
          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $email = trim($_POST['email']);
@@ -25,16 +26,16 @@ class AuthController extends controller{
                 $_SESSION['role']    = $role->role_name;
 
                 
-
-                $this->view($_SESSION['role']."/dashboard");
-                exit;
+                header("Location: " . BASE_URL . $_SESSION['role'] ."/dashboard");
+                exit; 
 
             } else {
                 die(" enter your information correctly  ");
             }
 
         } else {
-            $this->view('auth/login');
+            
+            $this->view('auth/login',['lang'=>$lang]);
         }
     }
     // ############# Regiser ##############
@@ -70,7 +71,8 @@ class AuthController extends controller{
             }
 
         } else {
-            $this->view('auth/register');
+            global $lang;
+            $this->view('auth/register',['lang'=>$lang]);
         }
     }
      

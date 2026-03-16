@@ -24,7 +24,7 @@ class ProtectionController extends Controller{
 // adding middleware 
  function requireLogin()  {
    if (!isset($_SESSION['user_id'])) {
-   header("location: Auth/login");
+   header("location: ".BASE_URL."Auth/login");
    exit();
    } 
  }

@@ -29,9 +29,9 @@ class Controller
 
         // base path for views 
         $basePath = 'app/views/'; 
-
+         
         $BASE_URL=BASE_URL;
-
+        
         // load selected view
         if (file_exists($basePath . $view . '.php')) {
             require_once $basePath . $view . '.php';
