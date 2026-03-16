@@ -9,7 +9,7 @@ class AuthController extends controller{
      }
     //  ############# login ################
     public function login() {
-         $lang = Language::load();
+       
          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $email = trim($_POST['email']);
@@ -35,7 +35,7 @@ class AuthController extends controller{
 
         } else {
             
-            $this->view('auth/login',['lang'=>$lang]);
+            $this->view('auth/login');
         }
     }
     // ############# Regiser ##############
@@ -71,8 +71,8 @@ class AuthController extends controller{
             }
 
         } else {
-            global $lang;
-            $this->view('auth/register',['lang'=>$lang]);
+            
+            $this->view('auth/register');
         }
     }
      

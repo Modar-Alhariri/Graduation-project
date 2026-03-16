@@ -2,7 +2,7 @@
 
 class HomeController extends Controller{
     public function index (){
-        $lang = Language::load();
-       $this->view("home/home",['lang'=>$lang]);
+       
+       $this->view("home/home");
     }
 }
