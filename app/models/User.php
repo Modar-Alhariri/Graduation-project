@@ -32,4 +32,20 @@ public function __construct()
 
     return $this->db->execute();
     }
+
+//   Dashbosrd content
+
+//      getTotalUsers()
+//      getTotalCopanies()
+//      getTotalJobs()
+//      getActiveUsers()
+ public function getGraduatesCount(){
+    $this->db->query("SELECT COUNT(*) as total FROM users WHERE role_id = 2");
+    return $this->db->single()->total;
+}
+ public function getctiveUsersCount(){
+    $this->db->query("SELECT COUNT(*) as total FROM users WHERE status = 'active'");
+    return $this->db->single()->total;
+}
+
 }
