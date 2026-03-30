@@ -62,31 +62,31 @@ class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-sla
 
 </div>
 <nav class="flex-1 px-4 space-y-1">
-<a class="flex items-center gap-3 px-3 py-2 rounded-xl bg-primary/10 text-primary font-medium" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl bg-primary/10 text-primary font-medium" href="<?= BASE_URL ?>admin/dashboard">
 <span class="material-symbols-outlined">dashboard</span>
 <span class="text-sm">لوحة القيادة</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="<?= BASE_URL ?>admin/userManagment">
 <span class="material-symbols-outlined">group</span>
 <span class="text-sm">المستخدمين</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="<?= BASE_URL ?>admin/rolesPermetion">
 <span class="material-symbols-outlined">admin_panel_settings</span>
 <span class="text-sm">الأدوار</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="<?= BASE_URL ?>admin/departments">
 <span class="material-symbols-outlined">corporate_fare</span>
 <span class="text-sm">الأقسام</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="<?= BASE_URL ?>admin/majors">
 <span class="material-symbols-outlined">history_edu</span>
 <span class="text-sm">التخصصات</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="<?= BASE_URL ?>admin/settings">
 <span class="material-symbols-outlined">bar_chart</span>
 <span class="text-sm">التقارير</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="<?= BASE_URL ?>admin/repors">
 <span class="material-symbols-outlined">settings</span>
 <span class="text-sm">الإعدادات</span>
 </a>
@@ -200,33 +200,8 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 </div>
 </div>
 </div>
-<div class="h-64 flex items-end justify-around gap-4 px-2 pt-4">
-<!-- Abstract Bar Chart Visualization -->
-<div class="w-full flex flex-col items-center gap-2">
-<div class="w-8 bg-slate-200 dark:bg-slate-800 rounded-t-lg h-32 relative">
-<div class="absolute bottom-0 w-full bg-primary rounded-t-lg h-24"></div>
-</div>
-<span class="text-[10px] text-slate-400">سبتمبر</span>
-</div>
-<div class="w-full flex flex-col items-center gap-2">
-<div class="w-8 bg-slate-200 dark:bg-slate-800 rounded-t-lg h-40 relative">
-<div class="absolute bottom-0 w-full bg-primary rounded-t-lg h-32"></div>
-</div>
-<span class="text-[10px] text-slate-400">أكتوبر</span>
-</div>
-<div class="w-full flex flex-col items-center gap-2">
-<div class="w-8 bg-slate-200 dark:bg-slate-800 rounded-t-lg h-24 relative">
-<div class="absolute bottom-0 w-full bg-primary rounded-t-lg h-16"></div>
-</div>
-<span class="text-[10px] text-slate-400">نوفمبر</span>
-</div>
-<div class="w-full flex flex-col items-center gap-2">
-<div class="w-8 bg-slate-200 dark:bg-slate-800 rounded-t-lg h-48 relative">
-<div class="absolute bottom-0 w-full bg-primary rounded-t-lg h-40"></div>
-</div>
-<span class="text-[10px] text-slate-400">ديسمبر</span>
-</div>
-</div>
+<canvas id="new_registerations"></canvas>
+
 </div>
 </div>
 <!-- Activity Table -->
@@ -279,6 +254,44 @@ function toggleSidebar() {
       }
     }
   });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const months = <?php echo json_encode($newRegisterations['months']); ?>;
+const graduates = <?php echo json_encode(array_values($newRegisterations['graduates'])); ?>;
+const companies = <?php echo json_encode(array_values($newRegisterations['companies'])); ?>;
+
+new Chart(document.getElementById('new_registerations'), {
+    type: 'bar',
+    data: {
+        labels: months,
+        datasets: [
+            {
+                label: 'الخريجين',
+                data: graduates,
+                backgroundColor: '#f25c05', // برتقالي
+                borderRadius: 5
+            },
+            {
+                label: 'الشركات',
+                data: companies,
+                backgroundColor: '#10f053', // رمادي
+                borderRadius: 5
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { position: 'top' }
+        },
+        scales: {
+            x: { stacked: true }, // تكديس على المحور X
+            y: { stacked: true, beginAtZero: true } // تكديس على المحور Y
+        }
+    }
+});
 </script>
  
 </body></html>

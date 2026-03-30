@@ -47,5 +47,10 @@ public function __construct()
     $this->db->query("SELECT COUNT(*) as total FROM users WHERE status = 'active'");
     return $this->db->single()->total;
 }
+function isProfileCompleted()  {
+    $this->db->query("SELECT profile_completed FROM users WHERE user_id = :id");
+    $this->db->bind(':id', $_SESSION['user_id']);
+    return $this->db->single();
+}
 
 }

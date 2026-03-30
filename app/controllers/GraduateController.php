@@ -1,11 +1,22 @@
 <?php
 class GraduateController extends ProtectionController{
+    private $userModel ;
+    private $isCopleted ;
     public function __construct()
     {
         return parent::__construct();
+       $this->userModel= $this->model('User');
     }
     function dashboard()  {
-        $this->view("graduate/dashboard");
+        // if profile completed -> dashboard
+        // if not -> [role] -> complete prifile
+        $this->isCopleted =$this->userModel->isProfileCompleted();
+        if($this->isCopleted==0){
+          $this->view("graduate/profileCoplete");
+        }else{
+
+            $this->view("graduate/dashboard");
+        }
     }
     function jobs()  {
        $this->view("graduate/jobs");
