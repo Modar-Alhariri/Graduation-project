@@ -28,7 +28,8 @@ public function __construct()
         $this->view("admin/dashboard",$info);
     }
     function userManagment()  {
-       $this->view("admin/userManagment") ;
+        $info["users"]= $this->GetAllUsers();
+        $this->view("admin/userManagment",$info) ;
     }
     function rolesPermetion()  {
          $this->view("admin/rolesPermetion") ;
@@ -47,7 +48,7 @@ public function __construct()
     }
 
 
-
+//   dashboard functions 
     public function GetAllCompanies(){
     return $this->companyModel->getCompaniesCount();  
     }
@@ -157,6 +158,69 @@ function GetNewRegistrations() {
         'graduates' => $graduates,
         'companies' => $companies
     ];
+}
+
+
+
+//  user managment functions 
+// get all users 
+public function GetAllUsers()  {
+    return $this->userModel->getAllUsers();
+}
+
+public function AddUser() {
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            // جلب البيانات من الفورم
+            $data = [
+                'name' => trim($_POST['name']),
+                'email' => trim($_POST['email']),
+                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
+                'role_id' => $_POST['role_id']
+            ];
+
+            // calling adduser function from model 
+            if($this->userModel->addUser($data)) {
+                $_SESSION['flash_success'] = "تمت إضافة المستخدم بنجاح!";
+            } else {
+                $_SESSION['flash_error'] = "حدث خطأ أثناء إضافة المستخدم!";
+            }
+
+            // إعادة التوجيه لصفحة إدارة المستخدمين
+            header("Location: " . BASE_URL . "admin/userManagment");
+            exit;
+        }
+    }
+public function UpdateUser($id) {
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        $data = [
+            'id' => $id,
+            'name' => $_POST['name'],
+            'email' => $_POST['email'],
+            'role_id' => $_POST['role_id'],
+        ];
+
+        if($this->userModel->updateUser($data)){
+            $_SESSION['flash_success'] = "تم التعديل بنجاح";
+        } else {
+            $_SESSION['flash_error'] = "حدث خطأ";
+        }
+
+        header("Location: " . BASE_URL . "admin/userManagment");
+        exit;
+    }
+}
+public function DeleteUser($id){
+    if($this->userModel->deleteUser($id)){
+        $_SESSION['flash_success'] = "تم حذف المستخدم بنجاح";
+    } else {
+        $_SESSION['flash_error'] = "حدث خطأ أثناء الحذف";
+    }
+
+    // إعادة التوجيه لصفحة إدارة المستخدمين
+    header("Location: " . BASE_URL . "admin/userManagment");
+    exit;
 }
     
 }

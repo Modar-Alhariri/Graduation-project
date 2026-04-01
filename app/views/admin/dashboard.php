@@ -95,7 +95,7 @@ class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-sla
 <div class="flex items-center gap-3 p-2">
 <div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="User avatar profile picture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAf1nLXfo3IS7esVmGpDlQncG3JdQVMTTxr8OWATWfrctiLCTNdp2cEM5gQ6EjI6u8WJoMdNmb0xqu0psE7WROwasTh8Mfej1ILuGbW8IlHSzPWys5UPZliT_e2POmS_2ELY5uo4H52twgjvFvRlzMPXjLmZLIH56Bc4y-xcZttMgZjk9IBDmyqVQZ7D_OvztZVmwxufkblSS0MCv0frnlaxFci7Z6UEXvOc3aNcQFsOt1Ylqum3yuBBfg6kk05vfW28MCPd3bUm-k')"></div>
 <div class="flex-1 overflow-hidden">
-<p class="text-xs font-bold truncate">أحمد ممدوح</p>
+<p class="text-xs font-bold truncate"><?= $_SESSION['name'] ?></p>
 <p class="text-[10px] text-slate-500 truncate">مسؤول النظام</p>
 </div>
 </div>

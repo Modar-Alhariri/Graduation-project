@@ -53,4 +53,46 @@ function isProfileCompleted()  {
     return $this->db->single();
 }
 
+
+// user managment quiries 
+function getAllUsers(){
+    $this->db->query(" SELECT u.user_id, u.name, u.email, u.status, r.role_name
+            FROM users u
+            LEFT JOIN roles r ON u.role_id = r.role_id
+           ");
+    return $this->db->resultSet();
+}
+public function addUser($data) {
+        $this->db->query("
+            INSERT INTO users (name,email,password,role_id,status,created_at)
+            VALUES (:name,:email,:password,:role_id,'نشط',NOW())
+        ");
+        $this->db->bind(':name', $data['name']);
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':password', $data['password']);
+        $this->db->bind(':role_id', $data['role_id']);
+        return $this->db->execute(); // return true or false 
+    }
+public function updateUser($data){
+
+    $this->db->query("
+        UPDATE users 
+        SET name = :name,
+            email = :email,
+            role_id = :role_id
+        WHERE user_id = :id
+    ");
+
+    $this->db->bind(':name', $data['name']);
+    $this->db->bind(':email', $data['email']);
+    $this->db->bind(':role_id', $data['role_id']);
+    $this->db->bind(':id', $data['id']);
+
+    return $this->db->execute();
+}
+public function deleteUser($id){
+    $this->db->query("DELETE FROM users WHERE user_id = :id");
+    $this->db->bind(':id', $id);
+    return $this->db->execute(); // يعيد true إذا تم الحذف بنجاح
+}
 }
