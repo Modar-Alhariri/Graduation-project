@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-200">
+<div class="relative flex min-h-screen flex-col">
+<!-- Top Navigation -->
+<header class="border-b border-primary/10 bg-white dark:bg-background-dark px-6 lg:px-12 py-4">
+<div class="mx-auto max-w-[1400px] flex items-center justify-between">
+<div class="flex items-center gap-10">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight text-primary">GTS Management</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">لوحة التحكم</a>
+<a class="text-sm font-semibold text-primary" href="#">الطلبات</a>
+<a class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">المرشحون</a>
+<a class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">الإعدادات</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="h-10 w-64 rounded-xl border-none bg-primary/5 pr-10 text-sm focus:ring-2 focus:ring-primary/20 dark:bg-primary/10" placeholder="بحث..." type="text"/>
+</div>
+<button class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors hover:bg-primary/20">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-primary/20 border-2 border-primary overflow-hidden" data-alt="User profile avatar placeholder">
+<img alt="User" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpTj5f94FpZmejJD9UwUQ-7tkYb-lqMoN4-DPR0hush2MC-5Co57l6j7TlLH9xJPrva-g0bjYUldZNSTD_IA1JEjUTtkRQkEjHur2GCzquKaKDPHYhrBSHVqOXu-nla7ENlFH23fm9svBNDuv-XBJ4QhfMZn3wjcaJe-DaTSyU5WFKBQ-x2WgLOpw_aoem0HFnz4pad_7pw4pEh5oy0F0xE3ocXQsj9tQUKSYMGyqWtsg1OQVv_Hq1K88NQKH1zK7aROBn9uPiNqc"/>
+</div>
+</div>
+</div>
+</header>
+<main class="mx-auto w-full max-w-[1400px] flex-1 px-6 lg:px-12 py-8">
+<div class="grid grid-cols-1 gap-8 lg:grid-cols-12">
+<!-- Left Content: Applications Table -->
+<div class="lg:col-span-8 space-y-6">
+<div class="flex items-end justify-between">
+<div>
+<h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-slate-50">إدارة الطلبات</h1>
+<p class="mt-2 text-slate-500 dark:text-slate-400">مراجعة وإدارة طلبات الخريجين المقدمة لشركتك</p>
+</div>
+<button class="flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white transition-transform hover:scale-[1.02] active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            تصدير البيانات
+                        </button>
+</div>
+<!-- Filters -->
+<div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+<button class="flex shrink-0 items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white">الكل</button>
+<button class="flex shrink-0 items-center gap-2 rounded-xl bg-white dark:bg-primary/10 border border-primary/10 px-4 py-2 text-sm font-medium hover:bg-primary/5 transition-colors">قيد الانتظار</button>
+<button class="flex shrink-0 items-center gap-2 rounded-xl bg-white dark:bg-primary/10 border border-primary/10 px-4 py-2 text-sm font-medium hover:bg-primary/5 transition-colors">مقبول</button>
+<button class="flex shrink-0 items-center gap-2 rounded-xl bg-white dark:bg-primary/10 border border-primary/10 px-4 py-2 text-sm font-medium hover:bg-primary/5 transition-colors">مرفوض</button>
+</div>
+<!-- Table Card -->
+<div class="overflow-hidden rounded-2xl border border-primary/10 bg-white dark:bg-background-dark shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-right border-collapse">
+<thead class="bg-primary/5 dark:bg-primary/10">
+<tr>
+<th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-300">اسم الخريج</th>
+<th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-300">الوظيفة</th>
+<th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-300 text-center">التاريخ</th>
+<th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-300 text-center">الحالة</th>
+<th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-300 text-center">إجراءات</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/10">
+<tr class="group hover:bg-primary/5 transition-colors cursor-pointer bg-primary/2">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">أ</div>
+<span class="text-sm font-semibold text-slate-900 dark:text-slate-100">أحمد الفارسي</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 font-medium">مهندس برمجيات</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 text-center">2023-10-15</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 text-xs font-bold">قيد الانتظار</span>
+</td>
+<td class="px-6 py-5 text-center">
+<button class="text-primary font-bold text-xs hover:underline">عرض التفاصيل</button>
+</td>
+</tr>
+<tr class="group hover:bg-primary/5 transition-colors cursor-pointer">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">ص</div>
+<span class="text-sm font-semibold text-slate-900 dark:text-slate-100">صفاء محمد</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 font-medium">محلل بيانات</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 text-center">2023-10-14</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 text-xs font-bold">مقبول</span>
+</td>
+<td class="px-6 py-5 text-center">
+<button class="text-primary font-bold text-xs hover:underline">عرض التفاصيل</button>
+</td>
+</tr>
+<tr class="group hover:bg-primary/5 transition-colors cursor-pointer">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">ع</div>
+<span class="text-sm font-semibold text-slate-900 dark:text-slate-100">عمر بكري</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 font-medium">مصمم تجربة مستخدم</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 text-center">2023-10-12</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400 text-xs font-bold">مرفوض</span>
+</td>
+<td class="px-6 py-5 text-center">
+<button class="text-primary font-bold text-xs hover:underline">عرض التفاصيل</button>
+</td>
+</tr>
+<tr class="group hover:bg-primary/5 transition-colors cursor-pointer">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">ل</div>
+<span class="text-sm font-semibold text-slate-900 dark:text-slate-100">ليلى القحطاني</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 font-medium">مطور واجهات</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 text-center">2023-10-10</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 text-xs font-bold">قيد الانتظار</span>
+</td>
+<td class="px-6 py-5 text-center">
+<button class="text-primary font-bold text-xs hover:underline">عرض التفاصيل</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Content: Detail View Sidebar -->
+<div class="lg:col-span-4 space-y-6">
+<div class="sticky top-8 rounded-2xl border border-primary/10 bg-white dark:bg-primary/5 p-6 shadow-sm">
+<div class="flex flex-col items-center text-center">
+<div class="relative mb-4">
+<div class="h-24 w-24 rounded-full bg-primary/10 border-4 border-white dark:border-background-dark shadow-md overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-primary">person</span>
+</div>
+<span class="absolute bottom-0 right-0 h-5 w-5 rounded-full border-2 border-white bg-emerald-500 dark:border-background-dark"></span>
+</div>
+<h2 class="text-xl font-bold text-slate-900 dark:text-slate-50">أحمد الفارسي</h2>
+<p class="text-sm font-medium text-primary">خريج جامعة الملك سعود</p>
+<div class="mt-4 flex flex-wrap justify-center gap-2">
+<span class="rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary">Java</span>
+<span class="rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary">React</span>
+<span class="rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary">PostgreSQL</span>
+</div>
+</div>
+<div class="mt-8 space-y-4">
+<div class="rounded-xl bg-background-light dark:bg-background-dark/40 p-4">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-sm">description</span>
+<span class="text-xs font-bold uppercase tracking-wider">السيرة الذاتية</span>
+</div>
+<span class="text-[10px] text-slate-400">PDF • 1.2 MB</span>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 rounded-lg bg-white dark:bg-primary/20 border border-primary/10 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 transition-colors hover:bg-primary/10">عرض الملف</button>
+<button class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white shadow-sm transition-transform hover:scale-105">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+<div class="space-y-3 pt-2">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-[18px]">mail</span>
+<span class="text-sm font-medium">ahmed.farsi@example.com</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-[18px]">call</span>
+<span class="text-sm font-medium">050 123 4567</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-[18px]">school</span>
+<span class="text-sm font-medium">علوم حاسب - جيد جداً</span>
+</div>
+</div>
+</div>
+<div class="mt-8 border-t border-primary/10 pt-6">
+<h3 class="mb-4 text-sm font-bold text-slate-900 dark:text-slate-100">الإجراءات</h3>
+<div class="grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                                    قبول
+                                </button>
+<button class="flex items-center justify-center gap-2 rounded-xl bg-rose-600 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+                                    رفض
+                                </button>
+<button class="col-span-2 flex items-center justify-center gap-2 rounded-xl bg-primary/10 py-3 text-sm font-bold text-primary transition-colors hover:bg-primary/20">
+<span class="material-symbols-outlined text-[18px]">send</span>
+                                    إرسال رسالة للمرشح
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="border-t border-primary/10 bg-white dark:bg-background-dark py-6 mt-auto">
+<div class="mx-auto max-w-[1400px] px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4">
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400">© 2023 منصة GTS لإدارة التوظيف. جميع الحقوق محفوظة.</p>
+<div class="flex gap-6">
+<a class="text-xs font-bold text-slate-400 hover:text-primary transition-colors" href="#">اتفاقية الاستخدام</a>
+<a class="text-xs font-bold text-slate-400 hover:text-primary transition-colors" href="#">سياسة الخصوصية</a>
+<a class="text-xs font-bold text-slate-400 hover:text-primary transition-colors" href="#">الدعم الفني</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

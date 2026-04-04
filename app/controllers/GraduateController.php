@@ -10,13 +10,13 @@ class GraduateController extends ProtectionController{
     function dashboard()  {
         // if profile completed -> dashboard
         // if not -> [role] -> complete prifile
-        $this->isCopleted =$this->userModel->isProfileCompleted();
-        if($this->isCopleted==0){
-          $this->view("graduate/profileCoplete");
-        }else{
-
-            $this->view("graduate/dashboard");
-        }
+        $this->view("graduate/dashboard");
+        // $this->isCopleted =$this->userModel->isProfileCompleted();
+        // $this->view("graduate/profileCoplete");
+        // if($this->isCopleted==0){
+        // }else{
+        //     $this->view("graduate/dashboard");
+        // }
     }
     function jobs()  {
        $this->view("graduate/jobs");
@@ -29,5 +29,8 @@ class GraduateController extends ProtectionController{
     }
     function cvBuilder()  {
       $this->view("graduate/cvBuilder");
+    }
+    function surveys()  {
+      $this->view("graduate/surveys");
     }
 }

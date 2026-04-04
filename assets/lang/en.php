@@ -69,7 +69,89 @@ return [
     'privacy' => 'Privacy Policy',
     'terms' => 'Terms of Use',
     'follow_us' => 'Follow Us',
-    'copyright' => 'All Rights Reserved 2026 ©'
-    //login page 
+    'copyright' => 'All Rights Reserved 2026 ©',
+
+    //dashbord page: 
+    'system_name' => 'Graduate Tracking System',
+    'academic_management' => 'Academic Management',
+    'users' => 'Users',
+    'roles' => 'Roles',
+    'departments' => 'Departments',
+    'majors' => 'Majors',
+    'reports' => 'Reports',
+    'settings' => 'Settings',
+
+    'user_name' => 'Ahmed Mamdouh',
+    'system_admin' => 'System Administrator',
+
+
     
+    'total_graduates' => 'Total Graduates',
+    'registered_companies' => 'Registered Companies',
+    'posted_jobs' => 'Posted Jobs',
+    'active_users' => 'Active Users',
+
+    // Charts
+    'graduate_employment_rate' => 'Graduate Employment Rate',
+    'last_6_months' => 'Last 6 Months',
+    'current_year' => 'Current Year',
+    'new_registrations' => 'New Registrations',
+    'graduates' => 'Graduates',
+    'companies' => 'Companies',
+
+    // Months
+    'january' => 'January',
+    'february' => 'February',
+    'march' => 'March',
+    'april' => 'April',
+    'may' => 'May',
+    'june' => 'June',
+    'september' => 'September',
+    'october' => 'October',
+    'november' => 'November',
+    'december' => 'December',
+
+    // Activity Table
+    'latest_activities' => 'Latest Activities',
+    'view_all' => 'View All',
+    'action' => 'Action',
+    'responsible' => 'Responsible',
+    'time' => 'Time',
+    'status' => 'Status',
+
+    // Activity Content
+    'new_graduate_registered' => 'New Graduate Registered',
+    'new_job_added' => 'New Job Added',
+    'backup_completed' => 'System Backup Completed',
+
+    // Responsible
+    'registration_system' => 'Registration System',
+    'advanced_tech_company' => 'Advanced Tech Company',
+    'automated_system' => 'Automated System',
+
+    // Activity Times
+    'minutes_ago' => '5 minutes ago',
+    'hours_ago' => '2 hours ago',
+    'today_time' => 'Today, 04:00 AM',
+
+    // Activity Status
+    'success' => 'Success',
+    'under_review' => 'Under Review',
+
+    // Example Activities
+    'new_graduate_example' => 'New Graduate Registered: Khalid Abdullah',
+    'new_job_example' => 'New Job Added: Software Engineer',
+
+    // Stats Changes
+    'increase_5_2' => '+5.2%',
+    'decrease_1_8' => '-1.8%',
+    'increase_12' => '+12%',
+    'increase_8_4' => '+8.4%',
+
+    // Stats Numbers
+    'total_graduates_number' => '2,500',
+    'registered_companies_number' => '120',
+    'posted_jobs_number' => '450',
+    'active_users_number' => '3,200',
+
 ];

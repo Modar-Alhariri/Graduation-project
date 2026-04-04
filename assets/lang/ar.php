@@ -69,7 +69,91 @@ return [
     'privacy' => 'سياسة الخصوصية',
     'terms' => 'شروط الاستخدام',
     'follow_us' => 'تابعنا',
-    'copyright' => 'جميع الحقوق محفوظة 2026 ©'
-    // login page
+    'copyright' => 'جميع الحقوق محفوظة 2026 ©',
+
+
+
+    //dashbord page:
+    'system_name' => 'نظام تتبع الخريجين',
+    'academic_management' => 'الإدارة الأكاديمية',
+    'users' => 'المستخدمين',
+    'roles' => 'الادوار',
+    'departments' => 'الاقسام',
+    'majors' => 'التخصصات',
+    'reports' => 'التقارير',
+    'settings' => 'الاعدادات',
+
+    'user_name' => 'أحمد ممدوح',
+    'system_admin' => 'مسؤول النظام',
+    
+
+
+    'total_graduates' => 'إجمالي الخريجين',
+    'registered_companies' => 'الشركات المسجلة',
+    'posted_jobs' => 'الوظائف المعلنة',
+    'active_users' => 'المستخدمين النشطين',
+
+    // Charts
+    'graduate_employment_rate' => 'معدلات توظيف الخريجين',
+    'last_6_months' => 'آخر 6 أشهر',
+    'current_year' => 'السنة الحالية',
+    'new_registrations' => 'التسجيلات الجديدة',
+    'graduates' => 'خريجين',
+    'companies' => 'شركات',
+
+    // Months
+    'january' => 'يناير',
+    'february' => 'فبراير',
+    'march' => 'مارس',
+    'april' => 'أبريل',
+    'may' => 'مايو',
+    'june' => 'يونيو',
+    'september' => 'سبتمبر',
+    'october' => 'أكتوبر',
+    'november' => 'نوفمبر',
+    'december' => 'ديسمبر',
+
+    // Activity Table
+    'latest_activities' => 'أحدث الأنشطة',
+    'view_all' => 'عرض الكل',
+    'action' => 'الإجراء',
+    'responsible' => 'المسؤول',
+    'time' => 'الوقت',
+    'status' => 'الحالة',
+
+    // Activity Content
+    'new_graduate_registered' => 'تم تسجيل خريج جديد',
+    'new_job_added' => 'إضافة وظيفة جديدة',
+    'backup_completed' => 'اكتملت عملية النسخ الاحتياطي للنظام',
+
+    // Responsible
+    'registration_system' => 'نظام التسجيل',
+    'advanced_tech_company' => 'شركة التقنية المتقدمة',
+    'automated_system' => 'النظام الآلي',
+
+    // Activity Times
+    'minutes_ago' => 'منذ 5 دقائق',
+    'hours_ago' => 'منذ ساعتين',
+    'today_time' => 'اليوم، 04:00 ص',
+
+    // Activity Status
+    'success' => 'ناجح',
+    'under_review' => 'قيد المراجعة',
+
+    // Example Activities
+    'new_graduate_example' => 'تم تسجيل خريج جديد: خالد عبدالله',
+    'new_job_example' => 'إضافة وظيفة جديدة: مهندس برمجيات',
+
+    // Stats Changes
+    'increase_5_2' => '+5.2%',
+    'decrease_1_8' => '-1.8%',
+    'increase_12' => '+12%',
+    'increase_8_4' => '+8.4%',
+
+    // Stats Numbers
+    'total_graduates_number' => '2,500',
+    'registered_companies_number' => '120',
+    'posted_jobs_number' => '450',
+    'active_users_number' => '3,200',
     
 ];

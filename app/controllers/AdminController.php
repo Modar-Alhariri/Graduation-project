@@ -4,6 +4,7 @@ class AdminController extends ProtectionController {
     private $userModel;
     private $jobsModel;
     private $graduateModel;
+    private $roleModel;
 public function __construct()
 {
     parent::__construct();
@@ -11,7 +12,7 @@ public function __construct()
     $this->companyModel=$this->model('CompanyModel');
     $this->jobsModel=$this->model('JobsModel');
     $this->graduateModel=$this->model('GraduateModel');
-    
+    $this->roleModel=$this->model("RolesModel");
 }
    
     public function dashboard() {
@@ -32,7 +33,9 @@ public function __construct()
         $this->view("admin/userManagment",$info) ;
     }
     function rolesPermetion()  {
-         $this->view("admin/rolesPermetion") ;
+        $info=[];
+        $info["roles"]=$this->GetAllRoles();
+         $this->view("admin/rolesPermetion",$info) ;
     }
     function departments()  {
          $this->view("admin/departments") ;
@@ -43,7 +46,7 @@ public function __construct()
     function settings()  {
          $this->view("admin/setting") ;
     }
-    function repors() {
+    function reports() {
          $this->view("admin/reports") ;
     }
 
@@ -222,5 +225,50 @@ public function DeleteUser($id){
     header("Location: " . BASE_URL . "admin/userManagment");
     exit;
 }
-    
+
+// roles & permessions page functions
+    public function GetAllRoles()  {
+        return $this->roleModel->getAllRoles();
+    }
+    public function AddRole(){
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        $name = trim($_POST['role_name']);
+
+        if($this->roleModel->addRole($name)){
+            $_SESSION['flash_success'] = "تم إضافة الدور";
+        } else {
+             $_SESSION['flash_error'] = "هذا الدور موجود مسبقًا";
+        }
+
+        header("Location: " . BASE_URL . "admin/rolesPermetion");
+        exit;
+    }
+}
+public function UpdateRole($id){
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        $name = trim($_POST['role_name']);
+
+        if($this->roleModel->updateRole($id, $name)){
+            $_SESSION['flash_success'] = "تم تعديل الدور";
+        } else {
+             $_SESSION['flash_error'] = "هذا الدور موجود مسبقًا";
+        }
+
+        header("Location: " . BASE_URL . "admin/rolesPermetion");
+        exit;
+    }
+}
+public function DeleteRole($id){
+
+    if($this->roleModel->deleteRole($id)){
+        $_SESSION['flash_success'] = "تم حذف الدور";
+    } else {
+        $_SESSION['flash_error'] = "لا يمكن حذف الدور لأنه مرتبط بمستخدمين";
+    }
+
+    header("Location: " . BASE_URL . "admin/rolesPermetion");
+    exit;
+}
 }
