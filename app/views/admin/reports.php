@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
-<html class="light" lang="en"><head>
+<html dir="<?= $_SESSION['lang']=='ar'?'rtl':'ltr' ?>" 
+
+      lang="<?= $_SESSION['lang']=='ar'?'ar':'en' ?>"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -13,97 +15,112 @@
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#ec5b13",
+                        "primary": "#0f49bd",
                         "background-light": "#f8f6f6",
                         "background-dark": "#221610",
                     },
                     fontFamily: {
-                        "display": ["Public Sans"]
+                        "display": ["Public Sans", "sans-serif"]
                     },
-                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
                 },
             },
         }
     </script>
 <style>
-        body { font-family: 'Public Sans', sans-serif; }
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
     </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
-<div class="flex h-screen overflow-hidden">
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="flex min-h-screen">
 <!-- Sidebar -->
-<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark flex flex-col">
-<div class="p-6 flex items-center gap-3 border-b border-slate-200 dark:border-slate-800">
+<aside class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 flex flex-col fixed h-full z-50">
+<div class="p-6 flex items-center gap-3">
 <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white">
-<span class="material-symbols-outlined">monitoring</span>
+<span class="material-symbols-outlined">school</span>
 </div>
 <div>
-<h1 class="text-sm font-bold leading-none">GTS Admin</h1>
-<p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Global Tracking</p>
+<h1 class="text-sm font-bold leading-tight"><?= $lang['system_name'] ?></h1>
+<p class="text-xs text-slate-500 dark:text-slate-400"><?= $lang['academic_management'] ?></p>
 </div>
 </div>
-<nav class="flex-1 p-4 space-y-1">
-<a class="flex items-center gap-3 px-3 py-2 text-primary bg-primary/10 rounded-xl" href="#">
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl bg-primary/10 text-primary font-medium" href="<?= BASE_URL ?>admin/dashboard">
 <span class="material-symbols-outlined">dashboard</span>
-<span class="text-sm font-medium">Dashboard</span>
+<span class="text-sm"><?= $lang['dashboard'] ?> </span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="<?= BASE_URL ?>admin/userManagment">
 <span class="material-symbols-outlined">group</span>
-<span class="text-sm font-medium">User Analytics</span>
+<span class="text-sm"><?= $lang['users'] ?></span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors" href="#">
-<span class="material-symbols-outlined">work</span>
-<span class="text-sm font-medium">Employment</span>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="<?= BASE_URL ?>admin/rolesPermetion">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="text-sm"><?= $lang['roles'] ?></span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors" href="#">
-<span class="material-symbols-outlined">history</span>
-<span class="text-sm font-medium">System Logs</span>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="<?= BASE_URL ?>admin/departments">
+<span class="material-symbols-outlined">corporate_fare</span>
+<span class="text-sm"><?= $lang['departments'] ?></span>
 </a>
-<div class="pt-4 pb-2 px-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Reports</div>
-<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors" href="#">
-<span class="material-symbols-outlined">description</span>
-<span class="text-sm font-medium">Performance</span>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="<?= BASE_URL ?>admin/majors">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="text-sm"><?= $lang['majors'] ?></span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors" href="#">
-<span class="material-symbols-outlined">query_stats</span>
-<span class="text-sm font-medium">Metrics Archive</span>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="<?= BASE_URL ?>admin/reports">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-sm"><?= $lang['reports'] ?></span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="<?= BASE_URL ?>admin/settings">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm"><?= $lang['settings'] ?></span>
 </a>
 </nav>
 <div class="p-4 border-t border-slate-200 dark:border-slate-800">
-<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors" href="#">
-<span class="material-symbols-outlined">settings</span>
-<span class="text-sm font-medium">Settings</span>
-</a>
+<div class="flex items-center gap-3 p-2">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="User avatar profile picture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAf1nLXfo3IS7esVmGpDlQncG3JdQVMTTxr8OWATWfrctiLCTNdp2cEM5gQ6EjI6u8WJoMdNmb0xqu0psE7WROwasTh8Mfej1ILuGbW8IlHSzPWys5UPZliT_e2POmS_2ELY5uo4H52twgjvFvRlzMPXjLmZLIH56Bc4y-xcZttMgZjk9IBDmyqVQZ7D_OvztZVmwxufkblSS0MCv0frnlaxFci7Z6UEXvOc3aNcQFsOt1Ylqum3yuBBfg6kk05vfW28MCPd3bUm-k')"></div>
+<div class="flex-1 overflow-hidden">
+<p class="text-xs font-bold truncate"><?= $lang['user_name'] ?> </p>
+<p class="text-[10px] text-slate-500 truncate"><?= $lang['system_admin'] ?> </p>
+</div>
+</div>
 </div>
 </aside>
 <!-- Main Content -->
-<main class="flex-1 flex flex-col overflow-y-auto">
+<main class="flex-1 <?= $_SESSION['lang']=='ar'?'mr-64':'ml-64' ?>">
 <!-- Navbar -->
-<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-10 px-8 flex items-center justify-between">
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-40 px-8 flex items-center justify-between">
 <div class="flex items-center gap-4 flex-1">
-<div class="relative w-full max-w-md">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
-<input class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-xl pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary/20" placeholder="Search reports..." type="text"/>
+<!-- Search bar removed as per request -->
 </div>
-</div>
-<div class="flex items-center gap-4">
-<button class="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 relative">
+<div class="flex items-center gap-3">
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg relative">
 <span class="material-symbols-outlined">notifications</span>
-<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border-2 border-white dark:border-slate-900"></span>
 </button>
-<div class="h-8 w-px bg-slate-200 dark:border-slate-800 mx-2"></div>
-<div class="flex items-center gap-3 pl-2">
-<div class="text-right hidden sm:block">
-<p class="text-xs font-bold leading-none">Alex Rivera</p>
-<p class="text-[10px] text-slate-500 mt-1">Senior Admin</p>
-</div>
-<div class="w-10 h-10 rounded-full bg-slate-200 overflow-hidden">
-<img alt="User avatar" data-alt="Portrait of a male administrator avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBADLBdU4Xy-EnYxERFiTlaTXAYhqx3dFJIaZ6l_LG_VBIUuMbFIMmf5VR-UqS02GWyFvF2kJR7zYT-2mqt7I7bJlRNZbm-CA5ah4LLtzd21t05JSody8wSKfYF_NcfZe8i8U5IRMFIYo8zZOsrOtHi6tSA15JLfXnxqqgDoa18iepO_oXbMhM5jFkqi5EEZY0d71APg9lhuU_de_e0OuiDkZkKY19LYovi0JqCH72vNQ6FpXOzpqPW8SywfhKWtaHOxdijV3VtdNY"/>
-</div>
-</div>
+<?php if($_SESSION['lang'] == 'ar'): ?> 
+    
+    <a href="<?= BASE_URL ?>Language/change/en"
+       class="flex items-center gap-2 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition">
+
+       <span class="material-symbols-outlined">language</span>
+        EN
+    </a>
+
+<?php else: ?>
+
+    <a href="<?= BASE_URL ?>Language/change/ar"
+       class="flex items-center gap-2 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition">
+
+       <span class="material-symbols-outlined">language</span>
+        AR
+    </a>
+
+<?php endif; ?>
+
 </div>
 </header>
 <div class="p-8 space-y-8">
