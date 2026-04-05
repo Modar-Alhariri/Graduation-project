@@ -38,7 +38,7 @@
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
 <div class="flex min-h-screen">
 <!-- Sidebar -->
-<aside class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 flex flex-col fixed h-full z-50">
+<aside  class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 flex flex-col fixed h-full z-50">
 <div class="p-6 flex items-center gap-3">
 <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white">
 <span class="material-symbols-outlined">school</span>

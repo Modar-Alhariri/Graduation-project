@@ -1,5 +1,13 @@
+<?php if(isset($_SESSION['flash_success'])): ?>
+<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+    <?= $_SESSION['flash_success']; unset($_SESSION['flash_success']); ?>
+</div>
+<?php elseif(isset($_SESSION['flash_error'])): ?>
+<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+    <?= $_SESSION['flash_error']; unset($_SESSION['flash_error']); ?>
+</div>
+<?php endif; ?>
 <!DOCTYPE html>
-
 <html dir="<?= $_SESSION['lang']=='ar'?'rtl':'ltr' ?>" 
 
       lang="<?= $_SESSION['lang']=='ar'?'ar':'en' ?>"><head>
@@ -132,10 +140,16 @@
 <h2 class="text-3xl font-black text-slate-900 dark:text-white">إدارة الأقسام الأكاديمية</h2>
 <p class="text-slate-500 dark:text-slate-400 mt-1">عرض وتنظيم كافة الأقسام الأكاديمية وتوزيعها على الكليات</p>
 </div>
-<button class="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 transition-transform active:scale-95 shadow-lg shadow-primary/20">
+<!-- زر إضافة كلية -->
+<button id="addCollegeBtn" 
+class="bg-primary text-white px-5 py-2 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-lg">
+    <span class="material-symbols-outlined text-lg">add</span>
+    إضافة كلية جديدة
+</button>
+<!-- <button class="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 transition-transform active:scale-95 shadow-lg shadow-primary/20">
 <span class="material-symbols-outlined">add</span>
                         إضافة قسم جديد
-                    </button>
+</button> -->
 </div>
 <!-- Stats Cards (Quick View) -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -144,30 +158,32 @@
 <span class="text-slate-500 dark:text-slate-400 text-sm font-medium">إجمالي الأقسام</span>
 <span class="material-symbols-outlined text-primary">category</span>
 </div>
-<p class="text-2xl font-bold mt-2">24</p>
+<p class="text-2xl font-bold mt-2"><?= $total_departments ?></p>
 </div>
 <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
 <div class="flex items-center justify-between">
-<span class="text-slate-500 dark:text-slate-400 text-sm font-medium">الكليات النشطة</span>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium">اجمالي الكليات </span>
 <span class="material-symbols-outlined text-primary">apartment</span>
 </div>
-<p class="text-2xl font-bold mt-2">8</p>
+<p class="text-2xl font-bold mt-2"><?= $total_colleges ?></p>
 </div>
 <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
 <div class="flex items-center justify-between">
 <span class="text-slate-500 dark:text-slate-400 text-sm font-medium">إجمالي التخصصات</span>
 <span class="material-symbols-outlined text-primary">book</span>
 </div>
-<p class="text-2xl font-bold mt-2">112</p>
+<p class="text-2xl font-bold mt-2"><?= $total_majors ?></p>
 </div>
+<a href="#colleges" >
 <div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
 <div class="flex items-center justify-between">
-<span class="text-slate-500 dark:text-slate-400 text-sm font-medium">أقسام جديدة (هذا العام)</span>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium"> عرض جميع الكليات </span>
 <span class="material-symbols-outlined text-primary">fiber_new</span>
 </div>
-<p class="text-2xl font-bold mt-2">3</p>
+<p class="text-2xl font-bold mt-2"></p>
 </div>
 </div>
+</a>
 <!-- Main Layout Grid (Table + Form) -->
 <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
 <!-- Table Section -->
@@ -191,89 +207,83 @@
 <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-center">الإجراءات</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-slate-200 dark:divide-slate-800">
-<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4 text-sm font-medium text-slate-400">DEPT-001</td>
-<td class="px-6 py-4 text-sm font-bold">قسم علوم الحاسب</td>
-<td class="px-6 py-4">
-<span class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">كلية الهندسة</span>
-</td>
-<td class="px-6 py-4 text-sm">12</td>
-<td class="px-6 py-4 flex items-center justify-center gap-2">
-<button class="p-2 text-slate-400 hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-[20px]">edit</span>
-</button>
-<button class="p-2 text-slate-400 hover:text-red-500 transition-colors">
-<span class="material-symbols-outlined text-[20px]">delete</span>
-</button>
-</td>
+<tbody>
+<?php foreach($departments as $dep): ?>
+<tr class="hover:bg-slate-50">
+
+    <td class="p-4"><?= $dep->id ?></td>
+
+    <td class="p-4 font-bold">
+        <?= $dep->department_name ?>
+    </td>
+
+    <td class="p-4">
+        <?= $dep->college_name ?? '—' ?>
+    </td>
+
+    <td class="p-4 text-center">
+        <?= $dep->majors_count ?>
+    </td>
+
+    <td class="p-4 flex gap-2">
+
+        <!-- تعديل -->
+        <button 
+        onclick="openEditModal(<?= $dep->id ?>,'<?= $dep->department_name ?>')"
+        class="px-3 py-1 bg-yellow-400 text-white rounded-lg">
+        تعديل
+        </button>
+
+        <!-- حذف -->
+        <a href="<?= BASE_URL ?>admin/deleteDepartment/<?= $dep->id ?>"
+           onclick="return confirm('هل أنت متأكد؟')"
+           class="px-3 py-1 bg-red-500 text-white rounded-lg">
+        حذف
+        </a>
+
+    </td>
+
 </tr>
-<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4 text-sm font-medium text-slate-400">DEPT-002</td>
-<td class="px-6 py-4 text-sm font-bold">قسم المحاسبة والتمويل</td>
-<td class="px-6 py-4">
-<span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-full border border-slate-200 dark:border-slate-700">كلية الإدارة</span>
-</td>
-<td class="px-6 py-4 text-sm">8</td>
-<td class="px-6 py-4 flex items-center justify-center gap-2">
-<button class="p-2 text-slate-400 hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-[20px]">edit</span>
-</button>
-<button class="p-2 text-slate-400 hover:text-red-500 transition-colors">
-<span class="material-symbols-outlined text-[20px]">delete</span>
-</button>
-</td>
-</tr>
-<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4 text-sm font-medium text-slate-400">DEPT-003</td>
-<td class="px-6 py-4 text-sm font-bold">قسم التصميم الجرافيكي</td>
-<td class="px-6 py-4">
-<span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-full border border-slate-200 dark:border-slate-700">كلية التصميم</span>
-</td>
-<td class="px-6 py-4 text-sm">5</td>
-<td class="px-6 py-4 flex items-center justify-center gap-2">
-<button class="p-2 text-slate-400 hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-[20px]">edit</span>
-</button>
-<button class="p-2 text-slate-400 hover:text-red-500 transition-colors">
-<span class="material-symbols-outlined text-[20px]">delete</span>
-</button>
-</td>
-</tr>
-<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4 text-sm font-medium text-slate-400">DEPT-004</td>
-<td class="px-6 py-4 text-sm font-bold">قسم هندسة الميكانيك</td>
-<td class="px-6 py-4">
-<span class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">كلية الهندسة</span>
-</td>
-<td class="px-6 py-4 text-sm">15</td>
-<td class="px-6 py-4 flex items-center justify-center gap-2">
-<button class="p-2 text-slate-400 hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-[20px]">edit</span>
-</button>
-<button class="p-2 text-slate-400 hover:text-red-500 transition-colors">
-<span class="material-symbols-outlined text-[20px]">delete</span>
-</button>
-</td>
-</tr>
+<?php endforeach; ?>
 </tbody>
 </table>
 </div>
 <div class="p-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-center">
-<nav class="flex items-center gap-1">
-<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-<span class="material-symbols-outlined">chevron_right</span>
-</button>
-<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary text-white font-bold">1</button>
-<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">2</button>
-<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">3</button>
-<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-<span class="material-symbols-outlined">chevron_left</span>
-</button>
-</nav>
+
 </div>
 </div>
+<table id="colleges" class="min-w-full text-sm text-right ">
+    <thead class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+        <tr>
+            <th class="p-4">ID</th>
+            <th class="p-4">اسم الكلية</th>
+            <th class="p-4">عدد الأقسام</th>
+            <th class="p-4">الإجراءات</th>
+        </tr>
+    </thead>
+
+    <tbody class="divide-y divide-slate-200 dark:divide-slate-700">
+        <?php foreach($colleges as $col): ?>
+        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+            <td class="p-4"><?= $col->id ?></td>
+            <td class="p-4 font-bold"><?= $col->college_name ?></td>
+            <td class="p-4 text-center"><?= $col->departments_count ?></td>
+            <td class="p-4 flex gap-2">
+                <!-- تعديل -->
+                <button onclick="openEditCollegeModal(<?= $col->id ?>,'<?= $col->college_name ?>')"
+                class="px-3 py-1 text-gray rounded-lg hover:bg-yellow-400"><span class="material-symbols-outlined text-xl">edit</span></button>
+
+                <!-- حذف -->
+                <a href="<?= BASE_URL ?>admin/deleteCollege/<?= $col->id ?>"
+                   onclick="return confirm('هل أنت متأكد من حذف هذه الكلية؟')"
+                   class="px-3 py-1 text-gray rounded-lg hover:bg-red-400"><span class="material-symbols-outlined text-xl">delete</span></a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 </div>
+
 <!-- Form Section -->
 <div class="space-y-4">
 <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
@@ -327,5 +337,58 @@ function toggleSidebar() {
     const sidebar = document.getElementById("sidebar");
     sidebar.classList.toggle("translate-x-full");
 }
+</script>
+<!-- form  for adding new college -->
+ <!-- Form لإضافة كلية -->
+<div id="addCollegeModal" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg w-full max-w-md p-6 relative">
+        
+        <button id="closeCollegeModal" class="absolute top-3 right-3 text-slate-500 hover:text-red-500">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+
+        <h2 class="text-xl font-bold mb-4">إضافة كلية جديدة</h2>
+
+        <form action="<?= BASE_URL ?>admin/addCollege" method="POST" class="space-y-4">
+
+            <div>
+                <label class="block text-sm font-medium">اسم الكلية</label>
+                <input type="text" name="name" class="w-full px-3 py-2 border rounded-lg" required>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium">الوصف</label>
+                <textarea name="description" class="w-full px-3 py-2 border rounded-lg" required></textarea>
+            </div>
+
+            <div class="flex justify-end gap-2">
+                <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90">إضافة</button>
+                <button type="button" id="cancelCollegeBtn" class="px-4 py-2 border rounded-lg hover:bg-gray-100">إلغاء</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+<!-- script for activate adding new college form  -->
+ <script>
+const addCollegeBtn = document.getElementById('addCollegeBtn');
+const addCollegeModal = document.getElementById('addCollegeModal');
+const cancelCollegeBtn = document.getElementById('cancelCollegeBtn');
+const closeCollegeModal = document.getElementById('closeCollegeModal');
+
+addCollegeBtn.addEventListener('click', () => {
+    addCollegeModal.classList.remove('hidden');
+    addCollegeModal.classList.add('flex');
+});
+
+cancelCollegeBtn.addEventListener('click', () => {
+    addCollegeModal.classList.add('hidden');
+    addCollegeModal.classList.remove('flex');
+});
+
+closeCollegeModal.addEventListener('click', () => {
+    addCollegeModal.classList.add('hidden');
+    addCollegeModal.classList.remove('flex');
+});
 </script>
 </body></html>

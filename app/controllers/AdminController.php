@@ -5,6 +5,9 @@ class AdminController extends ProtectionController {
     private $jobsModel;
     private $graduateModel;
     private $roleModel;
+    private $departmentModel;
+    private $collegesModel;
+    private $majorsModel;
 public function __construct()
 {
     parent::__construct();
@@ -13,6 +16,9 @@ public function __construct()
     $this->jobsModel=$this->model('JobsModel');
     $this->graduateModel=$this->model('GraduateModel');
     $this->roleModel=$this->model("RolesModel");
+    $this->departmentModel=$this->model("DepartmentModel");
+    $this->collegesModel=$this->model("CollegesModel");
+    $this->majorsModel=$this->model("MajorsModel");
 }
    
     public function dashboard() {
@@ -38,7 +44,13 @@ public function __construct()
          $this->view("admin/rolesPermetion",$info) ;
     }
     function departments()  {
-         $this->view("admin/departments") ;
+        $info=[];
+        $info["total_departments"]=$this->GetAllDepartments();
+        $info["total_colleges"]=$this->GetAllColleges();
+        $info["total_majors"]=$this->GetAllMajors();
+        $info["departments"]=$this->ShowDepartments();
+        $info["colleges"]=$this->GetColleges();
+        $this->view("admin/departments",$info) ;
     }
     function majors()  {
          $this->view("admin/majors") ;
@@ -270,5 +282,56 @@ public function DeleteRole($id){
 
     header("Location: " . BASE_URL . "admin/rolesPermetion");
     exit;
+}
+
+// departments page functions 
+function GetAllDepartments() {
+    return $this->departmentModel->getDepartmentsCount();
+}
+function GetAllColleges()  {
+    return $this->collegesModel->getCollegesCount();
+}
+function GetAllMajors()  {
+    return $this->majorsModel->getMajorsCount();
+}
+function ShowDepartments()  {
+    return $this->departmentModel->getAllDepartments();
+}
+// public function addCollege(){
+//     if($_SERVER['REQUEST_METHOD'] == 'POST'){
+//         $data = [
+//             'name' => trim($_POST['name']),
+//             'description' => trim($_POST['description'])
+//         ];
+
+//         if($this->collegesModel->addCollege($data)){
+//             $_SESSION['flash_success'] = "تمت إضافة الكلية بنجاح!";
+//         } else {
+//             $_SESSION['flash_error'] = "حدث خطأ أثناء إضافة الكلية!";
+//         }
+
+//         header("Location: " . BASE_URL . "admin/departments");
+//         exit;
+//     }
+// }
+public function addCollege(){
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $data = [
+            'name' => trim($_POST['name']),
+            'description' => trim($_POST['description'])
+        ];
+
+        if($this->collegesModel->addCollege($data)){
+            $_SESSION['flash_success'] = "تمت إضافة الكلية بنجاح!";
+        } else {
+            $_SESSION['flash_error'] = "هذه الكلية موجودة مسبقًا أو حدث خطأ!";
+        }
+
+        header("Location: " . BASE_URL . "admin/departments");
+        exit;
+    }
+}
+public function GetColleges(){
+   return $this->collegesModel->getAllColleges();
 }
 }
