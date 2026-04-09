@@ -334,4 +334,89 @@ public function addCollege(){
 public function GetColleges(){
    return $this->collegesModel->getAllColleges();
 }
+public function UpdateCollege($id){
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        $data = [
+            'id' => $id,
+            'name' => trim($_POST['name']),
+            'description' => trim($_POST['description'])
+        ];
+
+        if($this->collegesModel->updateCollege($data)){
+            $_SESSION['flash_success'] = "تم التعديل بنجاح";
+        } else {
+            $_SESSION['flash_error'] = "الاسم مكرر أو حدث خطأ";
+        }
+
+        header("Location: " . BASE_URL . "admin/departments");
+        exit;
+    }
+}
+public function DeleteCollege($id){
+
+    if($this->collegesModel->deleteCollege($id)){
+        $_SESSION['flash_success'] = "تم حذف الكلية بنجاح";
+    } else {
+        $_SESSION['flash_error'] = "لا يمكن حذف الكلية لأنها تحتوي على أقسام!";
+    }
+
+    header("Location: " . BASE_URL . "admin/departments");
+    exit;
+}
+public function AddDepartment(){
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        $data = [
+            'name' => trim($_POST['name']),
+            'college_id' => $_POST['college_id'],
+            'description' => trim($_POST['description'])
+        ];
+
+        if($this->departmentModel->addDepartment($data)){
+            $_SESSION['flash_success'] = "تم إضافة القسم";
+        } else {
+            $_SESSION['flash_error'] = "القسم موجود مسبقاً";
+        }
+
+        header("Location: " . BASE_URL . "admin/departments");
+        exit;
+    }
+}
+public function UpdateDepartment(){
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        $data = [
+            'id' => $_POST['id'],
+            'name' => trim($_POST['name']),
+            'college_id' => $_POST['college_id'],
+            'description' => trim($_POST['description'])
+        ];
+
+        $result = $this->departmentModel->updateDepartment($data);
+
+        if($result == "duplicate"){
+            $_SESSION['flash_error'] = "القسم موجود مسبقًا في نفس الكلية";
+        } elseif($result == "success"){
+            $_SESSION['flash_success'] = "تم تعديل القسم بنجاح";
+        } else {
+            $_SESSION['flash_error'] = "حدث خطأ أثناء التعديل";
+        }
+
+        header("Location: " . BASE_URL . "admin/departments");
+        exit;
+    }
+}
+public function DeleteDepartment($id){
+    if($this->departmentModel->deleteDepartment($id)){
+        $_SESSION['flash_success'] = "تم حذف القسم بنجاح";
+    } else {
+        $_SESSION['flash_error'] = "لا يمكن حذف القسم لأنه يحتوي على تخصصات!";
+    }
+    header("Location: " . BASE_URL . "admin/departments");
+    exit;
+}
 }

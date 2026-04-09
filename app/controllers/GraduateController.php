@@ -2,15 +2,19 @@
 class GraduateController extends ProtectionController{
     private $userModel ;
     private $isCopleted ;
+    private $jobsModel;
     public function __construct()
     {
-        return parent::__construct();
+       $this->jobsModel=$this->model("JobsModel");
        $this->userModel= $this->model('User');
+       return parent::__construct();
     }
     function dashboard()  {
         // if profile completed -> dashboard
         // if not -> [role] -> complete prifile
-        $this->view("graduate/dashboard");
+        $info=[];
+        $info["totalJobs"]=$this->GetAllJobs();
+        $this->view("graduate/dashboard",$info);
         // $this->isCopleted =$this->userModel->isProfileCompleted();
         // $this->view("graduate/profileCoplete");
         // if($this->isCopleted==0){
@@ -33,4 +37,9 @@ class GraduateController extends ProtectionController{
     function surveys()  {
       $this->view("graduate/surveys");
     }
+    function GetAllJobs()  {
+      return $this->jobsModel->getJobsCount();
+    }
+   
+     
 }

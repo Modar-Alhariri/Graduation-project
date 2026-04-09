@@ -5,7 +5,7 @@ class JobsModel extends Model{
         return parent::__construct();
     }
 
-     public function getJobsCount(){
+    public function getJobsCount(){
     $this->db->query("SELECT COUNT(*) as total FROM jobs");
     return $this->db->single()->total;
     }

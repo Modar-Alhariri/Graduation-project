@@ -54,4 +54,54 @@ public function getAllColleges(){
 
     return $this->db->resultSet();
 }
+public function updateCollege($data){
+
+    // تحقق من التكرار (مع استثناء نفس الكلية)
+    $this->db->query("
+        SELECT COUNT(*) as count 
+        FROM colleges 
+        WHERE name = :name AND id != :id
+    ");
+
+    $this->db->bind(':name', $data['name']);
+    $this->db->bind(':id', $data['id']);
+
+    $row = $this->db->single();
+
+    if($row->count > 0){
+        return false;
+    }
+
+    // تحديث البيانات
+    $this->db->query("
+        UPDATE colleges 
+        SET name = :name, description = :description
+        WHERE id = :id
+    ");
+
+    $this->db->bind(':name', $data['name']);
+    $this->db->bind(':description', $data['description']);
+    $this->db->bind(':id', $data['id']);
+
+    return $this->db->execute();
+}
+public function deleteCollege($id){
+
+    // تحقق هل الكلية مرتبطة بأقسام
+    $this->db->query("SELECT COUNT(*) as count FROM departments WHERE college_id = :id");
+    $this->db->bind(':id', $id);
+
+    $row = $this->db->single();
+
+    if($row->count > 0){
+        return false; // ❌ لا تحذف
+    }
+
+    // حذف الكلية
+    $this->db->query("DELETE FROM colleges WHERE id = :id");
+    $this->db->bind(':id', $id);
+
+    return $this->db->execute();
+}
+
 }

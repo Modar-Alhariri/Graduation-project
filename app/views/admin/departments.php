@@ -229,17 +229,23 @@ class="bg-primary text-white px-5 py-2 rounded-xl font-bold text-sm flex items-c
 
         <!-- تعديل -->
         <button 
-        onclick="openEditModal(<?= $dep->id ?>,'<?= $dep->department_name ?>')"
-        class="px-3 py-1 bg-yellow-400 text-white rounded-lg">
-        تعديل
+            onclick="openEditModal(this)"
+            data-id="<?= $dep->id ?>"
+            data-name="<?= htmlspecialchars($dep->department_name) ?>"
+            data-college="<?= $dep->college_id ?>"
+            data-desc="<?= htmlspecialchars($dep->description ??'') ?>"
+            class="px-3 py-1 text-gray rounded-lg hover:bg-yellow-400">
+            
+            <span class="material-symbols-outlined text-xl">edit</span>
         </button>
 
+
         <!-- حذف -->
-        <a href="<?= BASE_URL ?>admin/deleteDepartment/<?= $dep->id ?>"
-           onclick="return confirm('هل أنت متأكد؟')"
-           class="px-3 py-1 bg-red-500 text-white rounded-lg">
-        حذف
-        </a>
+       <button type="button"
+            onclick="openDeleteDeptModal(<?= $dep->id ?>, '<?= addslashes($dep->department_name) ?>')"
+            class="px-3 py-1 text-gray rounded-lg hover:bg-red-400">
+            <span class="material-symbols-outlined text-xl">delete</span>
+        </button>
 
     </td>
 
@@ -274,10 +280,11 @@ class="bg-primary text-white px-5 py-2 rounded-xl font-bold text-sm flex items-c
                 class="px-3 py-1 text-gray rounded-lg hover:bg-yellow-400"><span class="material-symbols-outlined text-xl">edit</span></button>
 
                 <!-- حذف -->
-                <a href="<?= BASE_URL ?>admin/deleteCollege/<?= $col->id ?>"
-                   onclick="return confirm('هل أنت متأكد من حذف هذه الكلية؟')"
-                   class="px-3 py-1 text-gray rounded-lg hover:bg-red-400"><span class="material-symbols-outlined text-xl">delete</span></a>
-            </td>
+                <button onclick="openDeleteModal(<?= $col->id ?>)"
+                    class="px-3 py-1 text-gray rounded-lg hover:bg-red-400">
+                    <span class="material-symbols-outlined text-xl">delete</span>
+                    </button>
+ </td>
         </tr>
         <?php endforeach; ?>
     </tbody>
@@ -285,33 +292,33 @@ class="bg-primary text-white px-5 py-2 rounded-xl font-bold text-sm flex items-c
 </div>
 
 <!-- Form Section -->
-<div class="space-y-4">
+<div class="space-y-4 ">
 <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-<div class="p-6 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
-<h3 class="font-bold text-lg">إضافة قسم جديد</h3>
-<p class="text-xs text-slate-500 dark:text-slate-400">يرجى تعبئة كافة الحقول المطلوبة</p>
+<div class="p-6 bg-blue-600 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 ">
+<h3 class="font-bold text-lg text-white">إضافة قسم جديد</h3>
+<p class="text-xs text-white dark:text-slate-400">يرجى تعبئة كافة الحقول المطلوبة</p>
 </div>
-<form class="p-6 space-y-6">
+<form class="p-6 space-y-6" method="POST" action="<?= BASE_URL ?>admin/AddDepartment">
 <div class="space-y-2">
 <label class="text-sm font-bold text-slate-700 dark:text-slate-300">اسم القسم الأكاديمي</label>
-<input class="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm outline-none" placeholder="مثال: قسم الأمن السيبراني" type="text"/>
+<input class="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm outline-none" placeholder="مثال: قسم الأمن السيبراني" type="text" name="name"/>
 </div>
 <div class="space-y-2">
 <label class="text-sm font-bold text-slate-700 dark:text-slate-300">الكلية التابع لها</label>
 <div class="relative">
-<select class="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary appearance-none transition-all text-sm outline-none">
-<option value="">اختر الكلية</option>
-<option value="1">كلية الهندسة</option>
-<option value="2">كلية الإدارة</option>
-<option value="3">كلية الآداب</option>
-<option value="4">كلية العلوم</option>
+<select name="college_id" class="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary appearance-none transition-all text-sm outline-none">
+<?php foreach($colleges as $col): ?>
+<option value="<?= $col->id ?>">
+    <?= $col->college_name?>
+</option>
+<?php endforeach; ?>
 </select>
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
 </div>
 </div>
 <div class="space-y-2">
 <label class="text-sm font-bold text-slate-700 dark:text-slate-300">وصف القسم</label>
-<textarea class="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm outline-none resize-none" placeholder="اكتب وصفاً مختصراً لأهداف القسم..." rows="4"></textarea>
+<textarea name="description" class="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm outline-none resize-none" placeholder="اكتب وصفاً مختصراً لأهداف القسم..." rows="4"></textarea>
 </div>
 <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex gap-3">
 <button class="flex-1 bg-primary text-white font-bold py-3 rounded-xl hover:bg-primary/90 transition-colors shadow-md shadow-primary/20" type="submit">حفظ البيانات</button>
@@ -339,7 +346,7 @@ function toggleSidebar() {
 }
 </script>
 <!-- form  for adding new college -->
- <!-- Form لإضافة كلية -->
+
 <div id="addCollegeModal" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
     <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg w-full max-w-md p-6 relative">
         
@@ -390,5 +397,195 @@ closeCollegeModal.addEventListener('click', () => {
     addCollegeModal.classList.add('hidden');
     addCollegeModal.classList.remove('flex');
 });
+</script>
+<!-- form for editing colleges  -->
+ <div id="editCollegeModal" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg w-full max-w-md p-6 relative">
+        
+        <button onclick="closeEditCollegeModal()" class="absolute top-3 right-3">✖</button>
+
+        <h2 class="text-xl font-bold mb-4">تعديل الكلية</h2>
+
+        <form id="editCollegeForm" method="POST" class="space-y-4">
+            
+            <input type="hidden" name="id" id="edit_college_id">
+
+            <div>
+                <label>اسم الكلية</label>
+                <input type="text" name="name" id="edit_college_name" class="w-full border p-2 rounded" required>
+            </div>
+
+            <div>
+                <label>الوصف</label>
+                <textarea name="description" id="edit_college_desc" class="w-full border p-2 rounded"></textarea>
+            </div>
+
+            <div class="flex justify-end gap-2">
+                <button type="submit" class="bg-primary text-white px-4 py-2 rounded">حفظ</button>
+                <button type="button" onclick="closeEditCollegeModal()" class="px-4 py-2 border rounded">إلغاء</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+<!-- script for activate edit college form   -->
+ <script>
+function openEditCollegeModal(id, name){
+    document.getElementById('edit_college_id').value = id;
+    document.getElementById('edit_college_name').value = name;
+
+    document.getElementById('editCollegeForm').action = "<?= BASE_URL ?>admin/UpdateCollege/" + id;
+
+    document.getElementById('editCollegeModal').classList.remove('hidden');
+    document.getElementById('editCollegeModal').classList.add('flex');
+}
+
+function closeEditCollegeModal(){
+    document.getElementById('editCollegeModal').classList.add('hidden');
+    document.getElementById('editCollegeModal').classList.remove('flex');
+}
+</script>
+<!-- form for confirm delete -->
+ <div id="deleteModal" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
+
+    <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg w-full max-w-sm p-6 text-center">
+        
+        <h2 class="text-lg font-bold mb-4">تأكيد الحذف</h2>
+        
+        <p class="text-slate-500 mb-6">
+            هل أنت متأكد من حذف هذه الكلية؟
+        </p>
+
+        <div class="flex justify-center gap-3">
+            <a id="confirmDeleteBtn" href="#"
+            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+            نعم، حذف
+            </a>
+
+            <button onclick="closeDeleteModal()"
+            class="px-4 py-2 border rounded-lg hover:bg-gray-100">
+            إلغاء
+            </button>
+        </div>
+
+    </div>
+
+</div>
+<!-- script for activate delete form   -->
+<script>
+function openDeleteModal(id){
+
+    // وضع الرابط داخل زر الحذف
+    document.getElementById('confirmDeleteBtn').href =
+        "<?= BASE_URL ?>admin/DeleteCollege/" + id;
+
+    // إظهار المودال
+    const modal = document.getElementById('deleteModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+function closeDeleteModal(){
+    const modal = document.getElementById('deleteModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+</script>
+<!-- form for editting department -->
+ <div id="editDepModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+
+    <h2 class="text-xl font-bold mb-4">تعديل القسم</h2>
+
+    <form method="POST" action="<?= BASE_URL ?>admin/UpdateDepartment">
+
+      <!-- ID -->
+      <input type="hidden" name="id" id="depId">
+
+      <!-- اسم القسم -->
+      <label class="block mb-2">اسم القسم</label>
+      <input type="text" name="name" id="depName"
+             class="w-full border rounded px-3 py-2 mb-4" required>
+
+      <!-- الكلية -->
+      <label class="block mb-2">الكلية</label>
+      <select name="college_id" id="depCollege"
+              class="w-full border rounded px-3 py-2 mb-4" required>
+        <?php foreach($colleges as $col): ?>
+          <option value="<?= $col->id ?>">
+            <?= $col->college_name ?>
+          </option>
+        <?php endforeach; ?>
+      </select>
+
+      <!-- الوصف -->
+      <label class="block mb-2">الوصف</label>
+      <textarea name="description" id="depDescription"
+                class="w-full border rounded px-3 py-2 mb-4"></textarea>
+
+      <!-- الأزرار -->
+      <div class="flex justify-end gap-2">
+        <button type="button" onclick="closeEditDepModal()"
+                class="px-4 py-2 bg-gray-300 rounded">إلغاء</button>
+
+        <button type="submit"
+                class="px-4 py-2 bg-primary text-white rounded">حفظ</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+<!-- script for activate depatrment edit form  -->
+<script>
+function openEditModal(btn) {
+    document.getElementById('depId').value = btn.dataset.id;
+    document.getElementById('depName').value = btn.dataset.name;
+    document.getElementById('depCollege').value = btn.dataset.college;
+    document.getElementById('depDescription').value = btn.dataset.desc;
+
+    document.getElementById('editDepModal').classList.remove('hidden');
+}
+
+function closeEditDepModal() {
+    document.getElementById('editDepModal').classList.add('hidden');
+}
+</script>
+<!-- confirm deleting department  -->
+ <div id="deleteDeptModal" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
+  <div class="bg-white rounded-xl p-6 w-full max-w-sm text-center">
+    
+    <h2 class="text-lg font-bold mb-4">تأكيد الحذف</h2>
+    <p class="text-slate-500 mb-6">
+      هل أنت متأكد من حذف القسم <span id="deptNameToDelete"></span>؟
+    </p>
+    
+    <div class="flex justify-center gap-3">
+      <a id="confirmDeleteDeptBtn" href="#"
+        class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+        نعم، حذف
+      </a>
+      <button type="button" onclick="closeDeleteDeptModal()" class="px-4 py-2 border rounded hover:bg-gray-100">
+        إلغاء
+      </button>
+    </div>
+
+  </div>
+</div>
+<!-- script to activate delete department -->
+ <script>
+function openDeleteDeptModal(id, name){
+    document.getElementById('deptNameToDelete').textContent = name;
+    document.getElementById('confirmDeleteDeptBtn').href = "<?= BASE_URL ?>admin/DeleteDepartment/" + id;
+
+    const modal = document.getElementById('deleteDeptModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+function closeDeleteDeptModal(){
+    const modal = document.getElementById('deleteDeptModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
 </script>
 </body></html>
