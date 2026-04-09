@@ -53,7 +53,13 @@ public function __construct()
         $this->view("admin/departments",$info) ;
     }
     function majors()  {
-         $this->view("admin/majors") ;
+       $info=[];
+       $info["total_majors"]= $this->GetAllMajors();
+       $info["total_departments"]=$this->GetAllDepartments();
+       $info['totalGraduates']=$this->GetAllGraduates();
+        $info['majors'] = $this->GetAllMajorsInfo();
+        $info["departments"]=$this->ShowDepartments();
+       $this->view("admin/majors",$info) ;
     }
     function settings()  {
          $this->view("admin/setting") ;
@@ -138,7 +144,7 @@ public function __construct()
 //         'companies' => $companies
 //     ];
 // }
-function GetNewRegistrations() {
+ function GetNewRegistrations() {
 
     $rows = $this->graduateModel->getNewRegistrationsLast6Months();
 
@@ -417,6 +423,54 @@ public function DeleteDepartment($id){
         $_SESSION['flash_error'] = "لا يمكن حذف القسم لأنه يحتوي على تخصصات!";
     }
     header("Location: " . BASE_URL . "admin/departments");
+    exit;
+}
+// majors page functions 
+function GetAllMajorsInfo()  {
+    return $this->majorsModel->getAllMajors();
+}
+public function AddMajor(){
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $data = [
+            'name' => trim($_POST['name']),
+            'department_id' => $_POST['department_id']
+        ];
+
+        if($this->majorsModel->addMajor($data)){
+            $_SESSION['flash_success'] = "تم إضافة التخصص بنجاح";
+        } else {
+            $_SESSION['flash_error'] = "التخصص مكرر أو حدث خطأ";
+        }
+
+        header("Location: " . BASE_URL . "admin/majors");
+        exit;
+    }
+}
+public function UpdateMajor($id){
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $data = [
+            'id' => $id,
+            'name' => trim($_POST['name']),
+            'department_id' => $_POST['department_id']
+        ];
+
+        if($this->majorsModel->updateMajor($data)){
+            $_SESSION['flash_success'] = "تم تعديل التخصص بنجاح";
+        } else {
+            $_SESSION['flash_error'] = "التخصص مكرر أو حدث خطأ";
+        }
+
+        header("Location: " . BASE_URL . "admin/majors");
+        exit;
+    }
+}
+public function DeleteMajor($id){
+    if($this->majorsModel->deleteMajor($id)){
+        $_SESSION['flash_success'] = "تم حذف التخصص بنجاح";
+    } else {
+        $_SESSION['flash_error'] = "لا يمكن حذف التخصص لأنه مرتبط بخريجين!";
+    }
+    header("Location: " . BASE_URL . "admin/majors");
     exit;
 }
 }

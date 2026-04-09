@@ -1,3 +1,12 @@
+<?php if(isset($_SESSION['flash_success'])): ?>
+<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+    <?= $_SESSION['flash_success']; unset($_SESSION['flash_success']); ?>
+</div>
+<?php elseif(isset($_SESSION['flash_error'])): ?>
+<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+    <?= $_SESSION['flash_error']; unset($_SESSION['flash_error']); ?>
+</div>
+<?php endif; ?>
 <!DOCTYPE html>
 
 <html dir="<?= $_SESSION['lang']=='ar'?'rtl':'ltr' ?>" 
@@ -131,7 +140,7 @@
 <h2 class="text-2xl font-black text-slate-900 dark:text-slate-100">إدارة التخصصات</h2>
 <p class="text-slate-500 dark:text-slate-400 mt-1">عرض وإدارة جميع التخصصات الأكاديمية المتاحة في النظام</p>
 </div>
-<button class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-primary/20 shrink-0">
+<button id="addMajorBtn"  class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-primary/20 shrink-0">
 <span class="material-symbols-outlined">add</span>
                         إضافة تخصص جديد
                     </button>
@@ -147,148 +156,46 @@
 </div>
 <!-- Table Container -->
 <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-<div class="overflow-x-auto @container">
-<table class="w-full text-right border-collapse">
-<thead>
-<tr class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
-<th class="px-6 py-4 font-semibold text-sm w-24">معرف التخصص</th>
-<th class="px-6 py-4 font-semibold text-sm">اسم التخصص</th>
-<th class="px-6 py-4 font-semibold text-sm">القسم المرتبط</th>
-<th class="px-6 py-4 font-semibold text-sm">عدد الخريجين</th>
-<th class="px-6 py-4 font-semibold text-sm text-center">الإجراءات</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group">
-<td class="px-6 py-4 text-sm font-mono text-slate-400">#101</td>
-<td class="px-6 py-4">
-<span class="font-bold text-slate-900 dark:text-slate-100">علوم الحاسب</span>
-</td>
-<td class="px-6 py-4">
-<span class="inline-flex items-center px-3 py-1 rounded-lg bg-primary/10 text-primary text-xs font-bold">
-                                            قسم التقنية
-                                        </span>
-</td>
-<td class="px-6 py-4 font-semibold text-slate-700 dark:text-slate-300">450</td>
-<td class="px-6 py-4">
-<div class="flex items-center justify-center gap-2">
-<button class="size-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-primary hover:bg-primary/10 transition-all">
-<span class="material-symbols-outlined text-lg">edit</span>
-</button>
-<button class="size-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-all">
-<span class="material-symbols-outlined text-lg">delete</span>
-</button>
-</div>
-</td>
-</tr>
-<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group">
-<td class="px-6 py-4 text-sm font-mono text-slate-400">#102</td>
-<td class="px-6 py-4">
-<span class="font-bold text-slate-900 dark:text-slate-100">هندسة الشبكات</span>
-</td>
-<td class="px-6 py-4">
-<span class="inline-flex items-center px-3 py-1 rounded-lg bg-blue-500/10 text-blue-500 text-xs font-bold">
-                                            قسم الهندسة
-                                        </span>
-</td>
-<td class="px-6 py-4 font-semibold text-slate-700 dark:text-slate-300">320</td>
-<td class="px-6 py-4">
-<div class="flex items-center justify-center gap-2">
-<button class="size-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-primary hover:bg-primary/10 transition-all">
-<span class="material-symbols-outlined text-lg">edit</span>
-</button>
-<button class="size-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-all">
-<span class="material-symbols-outlined text-lg">delete</span>
-</button>
-</div>
-</td>
-</tr>
-<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group">
-<td class="px-6 py-4 text-sm font-mono text-slate-400">#103</td>
-<td class="px-6 py-4">
-<span class="font-bold text-slate-900 dark:text-slate-100">الذكاء الاصطناعي</span>
-</td>
-<td class="px-6 py-4">
-<span class="inline-flex items-center px-3 py-1 rounded-lg bg-primary/10 text-primary text-xs font-bold">
-                                            قسم التقنية
-                                        </span>
-</td>
-<td class="px-6 py-4 font-semibold text-slate-700 dark:text-slate-300">180</td>
-<td class="px-6 py-4">
-<div class="flex items-center justify-center gap-2">
-<button class="size-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-primary hover:bg-primary/10 transition-all">
-<span class="material-symbols-outlined text-lg">edit</span>
-</button>
-<button class="size-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-all">
-<span class="material-symbols-outlined text-lg">delete</span>
-</button>
-</div>
-</td>
-</tr>
-<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group">
-<td class="px-6 py-4 text-sm font-mono text-slate-400">#104</td>
-<td class="px-6 py-4">
-<span class="font-bold text-slate-900 dark:text-slate-100">إدارة الأعمال</span>
-</td>
-<td class="px-6 py-4">
-<span class="inline-flex items-center px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-500 text-xs font-bold">
-                                            قسم الإدارة
-                                        </span>
-</td>
-<td class="px-6 py-4 font-semibold text-slate-700 dark:text-slate-300">600</td>
-<td class="px-6 py-4">
-<div class="flex items-center justify-center gap-2">
-<button class="size-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-primary hover:bg-primary/10 transition-all">
-<span class="material-symbols-outlined text-lg">edit</span>
-</button>
-<button class="size-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-all">
-<span class="material-symbols-outlined text-lg">delete</span>
-</button>
-</div>
-</td>
-</tr>
-<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group">
-<td class="px-6 py-4 text-sm font-mono text-slate-400">#105</td>
-<td class="px-6 py-4">
-<span class="font-bold text-slate-900 dark:text-slate-100">الأمن السيبراني</span>
-</td>
-<td class="px-6 py-4">
-<span class="inline-flex items-center px-3 py-1 rounded-lg bg-primary/10 text-primary text-xs font-bold">
-                                            قسم التقنية
-                                        </span>
-</td>
-<td class="px-6 py-4 font-semibold text-slate-700 dark:text-slate-300">215</td>
-<td class="px-6 py-4">
-<div class="flex items-center justify-center gap-2">
-<button class="size-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-primary hover:bg-primary/10 transition-all">
-<span class="material-symbols-outlined text-lg">edit</span>
-</button>
-<button class="size-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-all">
-<span class="material-symbols-outlined text-lg">delete</span>
-</button>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<!-- Table Footer -->
-<div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/20 flex items-center justify-between">
-<div class="text-sm text-slate-500">
-                            عرض 1 إلى 5 من أصل 24 تخصص
-                        </div>
-<div class="flex items-center gap-2">
-<button class="size-8 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:bg-white dark:hover:bg-slate-800 transition-colors">
-<span class="material-symbols-outlined text-sm">chevron_right</span>
-</button>
-<button class="size-8 flex items-center justify-center rounded-lg bg-primary text-white font-bold text-sm">1</button>
-<button class="size-8 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-800 transition-colors text-sm">2</button>
-<button class="size-8 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-800 transition-colors text-sm">3</button>
-<button class="size-8 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:bg-white dark:hover:bg-slate-800 transition-colors">
-<span class="material-symbols-outlined text-sm">chevron_left</span>
-</button>
-</div>
-</div>
+ <div class="overflow-x-auto bg-white rounded-2xl shadow">
+        <table class="min-w-full text-sm text-right">
+            <thead class="bg-slate-100 text-slate-600">
+                <tr>
+                    <th class="p-3">ID</th>
+                    <th class="p-3">اسم التخصص</th>
+                    <th class="p-3">القسم</th>
+                    <th class="p-3">عدد الخريجين</th>
+                    <th class="p-3">الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+                <?php foreach($majors as $major): ?>
+                <tr class="hover:bg-slate-50">
+                    <td class="p-3"><?= $major->id ?></td>
+                    <td class="p-3 font-medium"><?= $major->major_name ?></td>
+                    <td class="p-3"><?= $major->department_name ?></td>
+                    <td class="p-3"><?= $major->graduates_count ?></td>
+                    <td class="p-3 flex gap-2">
+                        <!-- زر تعديل -->
+                       <button 
+                        onclick="openEditMajorModal(this)"
+                        data-id="<?= $major->id ?>"
+                        data-name="<?= htmlspecialchars($major->major_name) ?>"
+                        data-department="<?= $major->department_id ?>"
+                        class="px-3 py-1 text-gray rounded-lg hover:bg-yellow-400">
+                        <span class="material-symbols-outlined text-xl">edit</span>
+                    </button>
+                        <!-- زر حذف -->
+                       <button type="button"
+                        onclick="openDeleteMajorModal(<?= $major->id ?>,'<?= addslashes($major->major_name) ?>')"
+                        class="px-3 py-1 text-gray rounded-lg hover:bg-red-400">
+                        <span class="material-symbols-outlined text-xl">delete</span>
+                    </button>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 <!-- Stats Overview (Academic Feel) -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -298,7 +205,7 @@
 </div>
 <div>
 <p class="text-slate-500 text-sm font-medium">إجمالي التخصصات</p>
-<p class="text-2xl font-black">24</p>
+<p class="text-2xl font-black"><?=$total_majors?></p>
 </div>
 </div>
 <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4">
@@ -307,7 +214,7 @@
 </div>
 <div>
 <p class="text-slate-500 text-sm font-medium">الأقسام النشطة</p>
-<p class="text-2xl font-black">6</p>
+<p class="text-2xl font-black"><?= $total_departments ?></p>
 </div>
 </div>
 <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4">
@@ -316,11 +223,160 @@
 </div>
 <div>
 <p class="text-slate-500 text-sm font-medium">إجمالي الخريجين</p>
-<p class="text-2xl font-black">1,765</p>
+<p class="text-2xl font-black"><?= $totalGraduates ?></p>
 </div>
 </div>
 </div>
 </div>
 </main>
 </div>
+<!-- form for adding new major -->
+ <div id="addMajorModal" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
+  <div class="bg-white rounded-xl p-6 w-full max-w-md relative">
+
+    <button type="button" id="closeAddMajor" class="absolute top-3 right-3">✖</button>
+
+    <h2 class="text-xl font-bold mb-4">إضافة تخصص جديد</h2>
+
+    <form action="<?= BASE_URL ?>admin/AddMajor" method="POST" class="space-y-4">
+      <div>
+        <label>اسم التخصص</label>
+        <input type="text" name="name" class="w-full border p-2 rounded" required>
+      </div>
+
+      <div>
+        <label>القسم</label>
+        <select name="department_id" class="w-full border p-2 rounded" required>
+          <?php foreach($departments as $dep): ?>
+            <option value="<?= $dep->id ?>"><?= $dep->department_name ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+
+      <div class="flex justify-end gap-2">
+        <button type="submit" class="bg-primary text-white px-4 py-2 rounded">إضافة</button>
+        <button type="button" id="cancelAddMajor" class="px-4 py-2 border rounded">إلغاء</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+<!-- script to activate adding form  -->
+ <script>
+const addMajorBtn = document.getElementById('addMajorBtn');
+const addMajorModal = document.getElementById('addMajorModal');
+const cancelAddMajor = document.getElementById('cancelAddMajor');
+const closeAddMajor = document.getElementById('closeAddMajor');
+
+addMajorBtn.addEventListener('click', () => {
+    addMajorModal.classList.remove('hidden');
+    addMajorModal.classList.add('flex');
+});
+
+cancelAddMajor.addEventListener('click', () => {
+    addMajorModal.classList.add('hidden');
+    addMajorModal.classList.remove('flex');
+});
+
+closeAddMajor.addEventListener('click', () => {
+    addMajorModal.classList.add('hidden');
+    addMajorModal.classList.remove('flex');
+});
+</script>
+<!-- form for updating majors -->
+ <div id="editMajorModal" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
+  <div class="bg-white rounded-xl p-6 w-full max-w-md relative">
+
+    <button type="button" onclick="closeEditMajorModal()" class="absolute top-3 right-3">✖</button>
+
+    <h2 class="text-xl font-bold mb-4">تعديل التخصص</h2>
+
+    <form id="editMajorForm" method="POST" class="space-y-4">
+      <input type="hidden" name="id" id="edit_major_id">
+
+      <div>
+        <label>اسم التخصص</label>
+        <input type="text" name="name" id="edit_major_name" class="w-full border p-2 rounded" required>
+      </div>
+
+      <div>
+        <label>القسم</label>
+        <select name="department_id" id="edit_major_department" class="w-full border p-2 rounded" required>
+          <?php foreach($departments as $dep): ?>
+            <option value="<?= $dep->id ?>"><?= $dep->department_name ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+
+      <div class="flex justify-end gap-2">
+        <button type="submit" class="bg-primary text-white px-4 py-2 rounded">حفظ</button>
+        <button type="button" onclick="closeEditMajorModal()" class="px-4 py-2 border rounded">إلغاء</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+<!-- script to activate updating form  -->
+<script>
+function openEditMajorModal(btn){
+    // جلب البيانات من data-attributes
+    const id = btn.dataset.id;
+    const name = btn.dataset.name;
+    const department = btn.dataset.department;
+
+    // ملء الفورم
+    document.getElementById('edit_major_id').value = id;
+    document.getElementById('edit_major_name').value = name;
+    document.getElementById('edit_major_department').value = department;
+    document.getElementById('editMajorForm').action = "<?= BASE_URL ?>admin/UpdateMajor/" + id;
+    // عرض المودال
+    const modal = document.getElementById('editMajorModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+function closeEditMajorModal(){
+    const modal = document.getElementById('editMajorModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+</script>
+<!-- delete major confirm -->
+ <div id="deleteMajorModal" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
+  <div class="bg-white rounded-xl p-6 w-full max-w-sm text-center">
+
+    <h2 class="text-lg font-bold mb-4">تأكيد الحذف</h2>
+    <p class="text-slate-500 mb-6">
+      هل أنت متأكد من حذف التخصص <span id="majorNameToDelete"></span>؟
+    </p>
+
+    <div class="flex justify-center gap-3">
+      <a id="confirmDeleteMajorBtn" href="#"
+         class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+         نعم، حذف
+      </a>
+      <button type="button" onclick="closeDeleteMajorModal()" class="px-4 py-2 border rounded hover:bg-gray-100">
+        إلغاء
+      </button>
+    </div>
+
+  </div>
+</div>
+<!-- script to activate delete confirm -->
+ <script>
+function openDeleteMajorModal(id, name){
+    document.getElementById('majorNameToDelete').textContent = name;
+    document.getElementById('confirmDeleteMajorBtn').href = "<?= BASE_URL ?>admin/deleteMajor/" + id;
+
+    const modal = document.getElementById('deleteMajorModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+function closeDeleteMajorModal(){
+    const modal = document.getElementById('deleteMajorModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+</script>
 </body></html>
