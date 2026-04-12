@@ -33,37 +33,65 @@
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-200">
 <div class="relative flex min-h-screen flex-col">
 <!-- Top Navigation -->
-<header class="border-b border-primary/10 bg-white dark:bg-background-dark px-6 lg:px-12 py-4">
-<div class="mx-auto max-w-[1400px] flex items-center justify-between">
-<div class="flex items-center gap-10">
-<div class="flex items-center gap-3">
-<div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
-<span class="material-symbols-outlined">rocket_launch</span>
+<aside id="sidebar"
+class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 flex flex-col fixed h-full z-50 transform translate-x-full md:translate-x-0 transition-transform duration-300">
+
+<div class="p-6 flex items-center gap-3 border-b border-slate-200 dark:border-slate-800">
+<div class="bg-primary p-2 rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">analytics</span>
 </div>
-<h2 class="text-xl font-bold tracking-tight text-primary">GTS Management</h2>
+<h2 class="text-xl font-bold tracking-tight text-primary">GTS Dashboard</h2>
+<button onclick="toggleSidebar()" 
+    class="md:hidden p-1 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+        <span class="material-symbols-outlined">close</span>
+    </button>
 </div>
-<nav class="hidden md:flex items-center gap-6">
-<a class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">لوحة التحكم</a>
-<a class="text-sm font-semibold text-primary" href="#">الطلبات</a>
-<a class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">المرشحون</a>
-<a class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">الإعدادات</a>
+<nav class="flex-1 p-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-semibold" href="<?= BASE_URL ?>company/dashboard">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>company/jobsManagment">
+<span class="material-symbols-outlined">work</span>
+<span>Jobs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>company/manageApplecations">
+<span class="material-symbols-outlined">group</span>
+<span>Applicants</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>company/graduatesSearch">
+<span class="material-symbols-outlined">groups</span>
+<span>Graduates</span>
+</a>
+
 </nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2 rounded-xl bg-slate-100 dark:bg-slate-800">
+<div class="size-10 rounded-full bg-slate-300 dark:bg-slate-600 bg-cover" data-alt="User avatar profile picture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCO2pxVAQ6FY8-ILaabaq5CiriNhVYGfsIWcRr7LPeW20OBv-JHFo0QVeYrojV8tFLm77q37aKTw4rgch8a09yVnhUWkHLdBFlLWWObqoSs48jw44FcA6sRV7cxbBEi20IwQnJ962TGwAIoXHJXjaYcD1vkchI5qUFhWIpMPo-g0lMMhV2P3NoyPxTGzHL47EybXezPou1XQhyEuIiQSmo5-vpAOtSPfIJ23fxgxTLCnsPGEtCQw2XgDn-486aYGtIqeGMx_AanUKs')"></div>
+<div class="flex flex-col overflow-hidden">
+<span class="text-sm font-bold truncate">Admin GTS</span>
+<span class="text-xs text-slate-500 truncate">admin@gts.com</span>
 </div>
-<div class="flex items-center gap-4">
-<div class="relative hidden sm:block">
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
-<input class="h-10 w-64 rounded-xl border-none bg-primary/5 pr-10 text-sm focus:ring-2 focus:ring-primary/20 dark:bg-primary/10" placeholder="بحث..." type="text"/>
 </div>
-<button class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors hover:bg-primary/20">
-<span class="material-symbols-outlined">notifications</span>
+</div>
+</aside>
+<main class="flex-1 md:mr-64">
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-40 px-8 flex items-center justify-between">
+<button onclick="toggleSidebar()" 
+class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+    <span class="material-symbols-outlined">menu</span>
 </button>
-<div class="h-10 w-10 rounded-full bg-primary/20 border-2 border-primary overflow-hidden" data-alt="User profile avatar placeholder">
-<img alt="User" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpTj5f94FpZmejJD9UwUQ-7tkYb-lqMoN4-DPR0hush2MC-5Co57l6j7TlLH9xJPrva-g0bjYUldZNSTD_IA1JEjUTtkRQkEjHur2GCzquKaKDPHYhrBSHVqOXu-nla7ENlFH23fm9svBNDuv-XBJ4QhfMZn3wjcaJe-DaTSyU5WFKBQ-x2WgLOpw_aoem0HFnz4pad_7pw4pEh5oy0F0xE3ocXQsj9tQUKSYMGyqWtsg1OQVv_Hq1K88NQKH1zK7aROBn9uPiNqc"/>
+<div class="flex items-center gap-4 flex-1">
+
 </div>
-</div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg relative">
+<span class="material-symbols-outlined">language</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border-2 border-white dark:border-slate-900"></span>
+</button>
+
 </div>
 </header>
-<main class="mx-auto w-full max-w-[1400px] flex-1 px-6 lg:px-12 py-8">
 <div class="grid grid-cols-1 gap-8 lg:grid-cols-12">
 <!-- Left Content: Applications Table -->
 <div class="lg:col-span-8 space-y-6">

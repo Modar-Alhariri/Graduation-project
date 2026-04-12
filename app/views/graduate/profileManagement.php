@@ -44,59 +44,85 @@
 <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
 <div class="layout-container flex h-full grow flex-col">
 <!-- Top Navigation Bar -->
-<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-6 md:px-20 py-4 sticky top-0 z-50">
-<div class="flex items-center gap-4">
-<div class="size-8 text-primary">
-<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path clip-rule="evenodd" d="M47.2426 24L24 47.2426L0.757355 24L24 0.757355L47.2426 24ZM12.2426 21H35.7574L24 9.24264L12.2426 21Z" fill-rule="evenodd"></path>
-</svg>
+<aside id="sidebar"
+class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 flex flex-col fixed h-full z-50 transform translate-x-full md:translate-x-0 transition-transform duration-300">
+
+<div class="p-6 flex items-center gap-3 border-b border-slate-100 dark:border-slate-800">
+<div class="bg-primary rounded-xl p-2 flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-2xl">school</span>
 </div>
-<h2 class="text-xl font-bold tracking-tight">نظام تتبع الخريجين</h2>
+<div>
+<h1 class="text-lg font-bold leading-tight">نظام تتبع الخريجين</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">جامعة المستقبل</p>
 </div>
-<div class="flex flex-1 justify-end gap-4">
-<div class="flex gap-2">
-<button class="flex items-center justify-center rounded-xl h-10 w-10 bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 transition-colors">
-<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">notifications</span>
+<button onclick="toggleSidebar()" 
+    class="md:hidden p-1 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+        <span class="material-symbols-outlined">close</span>
+    </button>
+</div>
+<nav class="flex-1 p-4 space-y-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-bold" href="<?= BASE_URL ?>graduate/dashboard">
+<span class="material-symbols-outlined">dashboard</span>
+<span>لوحة القيادة</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>graduate/jobs">
+<span class="material-symbols-outlined">work</span>
+<span>الوظائف المتاحة</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>graduate/myApplecations">
+<span class="material-symbols-outlined">description</span>
+<span>طلباتي</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>graduate/surveys">
+<span class="material-symbols-outlined">mail</span>
+<span>Surveys</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>graduate/cvBuilder">
+    <span class="material-symbols-outlined">badge</span>
+    <span>CV</span>
+</a>
+<div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>graduate/profileManagement">
+    <span class="material-symbols-outlined">account_circle</span>
+    <span>حسابي</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-50 text-red-600 transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>تسجيل الخروج</span>
+</a>
+</div>
+</nav>
+<div class="p-4 border-t border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-3 px-2 py-2">
+<div class="size-10 rounded-full bg-slate-200 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Profile picture of the graduate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByECDc2YKpgTQXk51KFWLv7YYnQ24xpgLx2-1yvuLcxwu-3bV8oQfju3JNYG7_IQ8GL_8DlhouSHnUedSqhBxWQjQcUUm57myD2qoPCUH3B-WMLDf3rjPDy1SXP24rNS7baZSTmUk4tkpK8TZ55fZIeu3wGzYqOVAHkxIsWa3bGykodQAQQO1Lt2ar58PhYBgJ03nQhR6cXh-i1Zs74E_tueTT3AegFW6nrwniZ_IwVSgwPQ02dL2bOCxu03ChmJIWqVEH3lD4c9s"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold truncate">أحمد محمد</p>
+<p class="text-xs text-slate-500 truncate">خريج هندسة حاسب</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 md:mr-64">
+<!-- Header -->
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-40 px-8 flex items-center justify-between">
+<button onclick="toggleSidebar()" 
+class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+    <span class="material-symbols-outlined">menu</span>
 </button>
-<button class="flex items-center justify-center rounded-xl h-10 w-10 bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 transition-colors">
-<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">settings</span>
-</button>
+<div class="flex items-center gap-4 flex-1">
+
 </div>
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary" data-alt="صورة الملف الشخصي للمستخدم" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAOFQAuRg8dO2sv_jtKaJN62aYjM_UnpHiP78mT6vph9dxu7JHsmuSgBmLoirDqbTt5BqzxRxpY-43mO1wg4S4zNB_acxAPHsXMMDwtmyB7npSwjLhUjSVvKjC0bBqF17nBD1BA_yDm6fGBBGXS8Ut_3oNOxLmR1g-p-aMwhUtM24J4txBNtr6zI9x8hihcieVy63QqbipESvR_9OD1EgvMpzFQQFIscZGndV2tH3DxWmsn2P1HGEWb6vVFClsQMkCGY-8GmGewUOc");'></div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg relative">
+<span class="material-symbols-outlined">language</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border-2 border-white dark:border-slate-900"></span>
+</button>
+
 </div>
 </header>
-<main class="flex-1 flex flex-col md:flex-row max-w-7xl mx-auto w-full px-4 md:px-10 py-8 gap-8">
-<!-- Sidebar Navigation -->
-<aside class="w-full md:w-64 flex flex-col gap-2">
-<div class="p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm mb-4 text-center">
-<div class="relative inline-block mb-3">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-24 mx-auto border-4 border-primary/20" data-alt="صورة الخريج" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDagHeprETOzP760dlDnnQW3TE1LuL1aNsnzA33VKECyCCn8_UJxGhVjgeh8ZdMDrYFx_nyUsDTVIOZLsWM2n3X2gDGrlAoPuCborJnJ7yjlI_YnyzDgQTg8RowGC7LAxudPed8Gr0kE1csQvMYWQ_I50aHuNQVwNBMml35lxfVvnwo-fztUmbkvZpWj5Sw2nIM98ZYvwfCCjsb1ELDtrx1Ul7aCZrbWx9oJ7HHAdD1urc47gDMlsapwsfqgEegSxtLRRyAZh7rluY");'></div>
-<button class="absolute bottom-0 right-0 bg-primary text-white p-1.5 rounded-full shadow-lg hover:scale-105 transition-transform">
-<span class="material-symbols-outlined text-sm">photo_camera</span>
-</button>
-</div>
-<h3 class="font-bold text-lg">أحمد محمد علي</h3>
-<p class="text-sm text-slate-500 dark:text-slate-400">خريج علوم الحاسب</p>
-</div>
-<nav class="flex flex-col gap-1">
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-md shadow-primary/20" href="#">
-<span class="material-symbols-outlined">person</span>
-<span class="font-medium text-sm">الملف الشخصي</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
-<span class="material-symbols-outlined">work</span>
-<span class="font-medium text-sm">فرص العمل</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
-<span class="material-symbols-outlined">school</span>
-<span class="font-medium text-sm">الأبحاث العلمية</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
-<span class="material-symbols-outlined">forum</span>
-<span class="font-medium text-sm">المنتدى</span>
-</a>
-</nav>
-</aside>
 <!-- Content Area -->
 <div class="flex-1 flex flex-col gap-6">
 <!-- Tabs Navigation -->

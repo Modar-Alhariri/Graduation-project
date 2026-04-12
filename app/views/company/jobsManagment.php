@@ -33,34 +33,65 @@
 <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
 <div class="layout-container flex h-full grow flex-col">
 <!-- Top Navigation Bar -->
-<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 py-3 bg-white dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
-<div class="flex items-center gap-8">
-<div class="flex items-center gap-3 text-primary">
-<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<aside id="sidebar"
+class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 flex flex-col fixed h-full z-50 transform translate-x-full md:translate-x-0 transition-transform duration-300">
+
+<div class="p-6 flex items-center gap-3 border-b border-slate-200 dark:border-slate-800">
+<div class="bg-primary p-2 rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight text-primary">GTS Dashboard</h2>
+<button onclick="toggleSidebar()" 
+    class="md:hidden p-1 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+        <span class="material-symbols-outlined">close</span>
+    </button>
+</div>
+<nav class="flex-1 p-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-semibold" href="<?= BASE_URL ?>company/dashboard">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>company/jobsManagment">
 <span class="material-symbols-outlined">work</span>
+<span>Jobs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>company/manageApplecations">
+<span class="material-symbols-outlined">group</span>
+<span>Applicants</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>company/graduatesSearch">
+<span class="material-symbols-outlined">groups</span>
+<span>Graduates</span>
+</a>
+
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2 rounded-xl bg-slate-100 dark:bg-slate-800">
+<div class="size-10 rounded-full bg-slate-300 dark:bg-slate-600 bg-cover" data-alt="User avatar profile picture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCO2pxVAQ6FY8-ILaabaq5CiriNhVYGfsIWcRr7LPeW20OBv-JHFo0QVeYrojV8tFLm77q37aKTw4rgch8a09yVnhUWkHLdBFlLWWObqoSs48jw44FcA6sRV7cxbBEi20IwQnJ962TGwAIoXHJXjaYcD1vkchI5qUFhWIpMPo-g0lMMhV2P3NoyPxTGzHL47EybXezPou1XQhyEuIiQSmo5-vpAOtSPfIJ23fxgxTLCnsPGEtCQw2XgDn-486aYGtIqeGMx_AanUKs')"></div>
+<div class="flex flex-col overflow-hidden">
+<span class="text-sm font-bold truncate">Admin GTS</span>
+<span class="text-xs text-slate-500 truncate">admin@gts.com</span>
 </div>
-<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight">GTS Jobs</h2>
 </div>
-<label class="flex flex-col min-w-64 h-10 hidden md:block">
-<div class="flex w-full flex-1 items-stretch rounded-xl h-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
-<div class="text-slate-400 flex items-center justify-center px-3">
-<span class="material-symbols-outlined text-[20px]">search</span>
 </div>
-<input class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 text-sm placeholder:text-slate-400" placeholder="البحث عن الوظائف..." value=""/>
-</div>
-</label>
-</div>
-<div class="flex flex-1 justify-end gap-4 items-center">
-<button class="flex items-center justify-center rounded-xl h-10 px-5 bg-primary text-white text-sm font-bold transition-all hover:bg-primary/90">
-<span>نشر وظيفة جديدة</span>
+</aside>
+<main class="flex-1 md:mr-64">
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-40 px-8 flex items-center justify-between">
+<button onclick="toggleSidebar()" 
+class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+    <span class="material-symbols-outlined">menu</span>
 </button>
-<div class="h-10 w-10 rounded-full border-2 border-primary/20 p-0.5">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-full w-full" data-alt="User profile avatar circle" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC9ejCcTDLLSBqTnqTB9uSqlywDTqoId0t2mCy8XKv6RA5_xH2N31i7835jOBgk3P51Z4UkDdzPEyf-A6tIygPLDxzIBhzpzjb4xo1GygttbekgmcM6vMeVKvYtHiM8wIfPBhZ_IrMtf4DfZ4aSOuUcDl78bNvbCJJ0MStPEmWfpOhIwTQjl5T27-p1oN3ba_PgGwTS2CsBVPT1oTflYVaps2UZTw2qtUL3IVb8Lq029tzM3ZGFcx1eckUgJytqj6XSFJmD6TWIQzg");'></div>
+<div class="flex items-center gap-4 flex-1">
+
 </div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg relative">
+<span class="material-symbols-outlined">language</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border-2 border-white dark:border-slate-900"></span>
+</button>
+
 </div>
 </header>
-<main class="flex-1 px-4 md:px-10 lg:px-20 py-8">
-<!-- Header Section -->
 <div class="flex flex-wrap justify-between items-end gap-4 mb-8">
 <div class="flex flex-col gap-2">
 <h1 class="text-slate-900 dark:text-white text-4xl font-black leading-tight">إدارة الوظائف</h1>

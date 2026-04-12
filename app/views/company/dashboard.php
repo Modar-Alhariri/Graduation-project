@@ -51,28 +51,23 @@ class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-sla
     </button>
 </div>
 <nav class="flex-1 p-4 space-y-2">
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-semibold" href="#">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-semibold" href="<?= BASE_URL ?>company/dashboard">
 <span class="material-symbols-outlined">dashboard</span>
 <span>Dashboard</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="#">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>company/jobsManagment">
 <span class="material-symbols-outlined">work</span>
 <span>Jobs</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="#">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>company/manageApplecations">
 <span class="material-symbols-outlined">group</span>
 <span>Applicants</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="#">
-<span class="material-symbols-outlined">monitoring</span>
-<span>Analytics</span>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>company/graduatesSearch">
+<span class="material-symbols-outlined">groups</span>
+<span>Graduates</span>
 </a>
-<div class="pt-4 mt-4 border-t border-slate-200 dark:border-slate-800">
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="#">
-<span class="material-symbols-outlined">settings</span>
-<span>Settings</span>
-</a>
-</div>
+
 </nav>
 <div class="p-4 border-t border-slate-200 dark:border-slate-800">
 <div class="flex items-center gap-3 p-2 rounded-xl bg-slate-100 dark:bg-slate-800">

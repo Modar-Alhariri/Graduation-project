@@ -263,9 +263,9 @@ function toggleSidebar() {
             <div>
                 <label class="block text-sm font-medium">الدور</label>
                 <select name="role_id" class="w-full px-3 py-2 border rounded-lg" required>
-                    <option value="1">Admin</option>
-                    <option value="2">Graduate</option>
-                    <option value="3">Company</option>
+                    <?php foreach($roles as $role): ?>
+                        <option value="<?= $role->role_id ?>"><?= $role->role_name ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <div class="flex justify-end gap-2">

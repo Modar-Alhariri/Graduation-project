@@ -36,6 +36,7 @@ public function __construct()
     }
     function userManagment()  {
         $info["users"]= $this->GetAllUsers();
+        $info["roles"]=$this->GetAllRoles();
         $this->view("admin/userManagment",$info) ;
     }
     function rolesPermetion()  {

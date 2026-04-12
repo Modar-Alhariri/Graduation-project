@@ -59,30 +59,30 @@ class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-sla
     </button>
 </div>
 <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-bold" href="#">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-bold" href="<?= BASE_URL ?>graduate/dashboard">
 <span class="material-symbols-outlined">dashboard</span>
 <span>لوحة القيادة</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="#">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>graduate/jobs">
 <span class="material-symbols-outlined">work</span>
 <span>الوظائف المتاحة</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="#">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>graduate/myApplecations">
 <span class="material-symbols-outlined">description</span>
 <span>طلباتي</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="#">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>graduate/surveys">
 <span class="material-symbols-outlined">mail</span>
-<span>الرسائل</span>
+<span>Surveys</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="#">
-<span class="material-symbols-outlined">notifications</span>
-<span>الإشعارات</span>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>graduate/cvBuilder">
+    <span class="material-symbols-outlined">badge</span>
+    <span>CV</span>
 </a>
 <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800">
 <a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="#">
-<span class="material-symbols-outlined">settings</span>
-<span>الإعدادات</span>
+    <span class="material-symbols-outlined">account_circle</span>
+    <span>حسابي</span>
 </a>
 <a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-50 text-red-600 transition-colors" href="#">
 <span class="material-symbols-outlined">logout</span>
