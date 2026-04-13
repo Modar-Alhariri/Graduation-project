@@ -137,22 +137,22 @@
 <div class="p-8">
 <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
 <div>
-<h2 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">الأدوار والصلاحيات</h2>
-<p class="text-slate-500 dark:text-slate-400 mt-2">Manage system roles and access control levels for the GTS Portal.</p>
+<h2 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight"><?= $lang['roles_permissions_title'] ?> </h2>
+<p class="text-slate-500 dark:text-slate-400 mt-2"><?= $lang['roles_permissions_description'] ?>.</p>
 </div>
 <button id="addRoleBtn" class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-primary/20 transition-all">
 <span class="material-symbols-outlined">add</span>
-                   إضافة دور
+                   <?= $lang['add_role'] ?>
                 </button>
 </div>
 <!-- Tabs -->
 <div class="flex border-b border-slate-200 dark:border-slate-800 mb-6 overflow-x-auto">
-<button class="px-6 py-3 border-b-2 border-primary text-primary font-bold text-sm whitespace-nowrap">Roles List</button>
-<button class="px-6 py-3 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 font-medium text-sm whitespace-nowrap">Permission Matrix</button>
+<button class="px-6 py-3 border-b-2 border-primary text-primary font-bold text-sm whitespace-nowrap"><?= $lang['roles_list'] ?></button>
+<button class="px-6 py-3 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 font-medium text-sm whitespace-nowrap"><?= $lang['permission_matrix'] ?></button>
 </div>
 <!-- Roles Table Section -->
 <div class="p-6">
-    <h2 class="text-2xl font-bold mb-6">إدارة الأدوار</h2>
+    <h2 class="text-2xl font-bold mb-6"><?= $lang['roles_management_title'] ?></h2>
 
     <div class="overflow-x-auto bg-white dark:bg-slate-900 rounded-2xl shadow">
         <table class="min-w-full text-sm text-right">
@@ -160,10 +160,10 @@
             <!-- Header -->
             <thead class="bg-slate-100 dark:bg-slate-800">
                 <tr>
-                    <th class="p-4">ID</th>
-                    <th class="p-4">اسم الدور</th>
-                    <th class="p-4">عدد المستخدمين</th>
-                    <th class="p-4">الإجراءات</th>
+                    <th class="p-4"><?= $lang['table_id'] ?></th>
+                    <th class="p-4"><?= $lang['table_role_name'] ?></th>
+                    <th class="p-4"><?= $lang['table_users_count'] ?></th>
+                    <th class="p-4"><?= $lang['table_actions'] ?></th>
                 </tr>
             </thead>
 
@@ -198,10 +198,10 @@
 <!-- Permission Matrix Section -->
 <div class="mb-8">
 <div class="flex items-center justify-between mb-4">
-<h3 class="text-xl font-bold text-slate-900 dark:text-white">Permission Matrix</h3>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white"><?= $lang['permission_matrix_title'] ?></h3>
 <button class="text-sm font-bold text-primary flex items-center gap-1 hover:underline">
 <span class="material-symbols-outlined text-sm">save</span>
-                        Update All Permissions
+                        <?= $lang['update_permissions'] ?>
                     </button>
 </div>
 <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
@@ -209,18 +209,18 @@
 <table class="w-full text-right border-collapse">
 <thead>
 <tr class="bg-slate-50 dark:bg-slate-800/50">
-<th class="px-6 py-4 text-sm font-bold text-slate-900 dark:text-white border-l border-slate-200 dark:border-slate-800 w-64">Permission Name</th>
-<th class="px-6 py-4 text-center text-xs font-bold uppercase text-slate-500 border-l border-slate-200 dark:border-slate-800">Admin</th>
-<th class="px-6 py-4 text-center text-xs font-bold uppercase text-slate-500 border-l border-slate-200 dark:border-slate-800">Faculty</th>
-<th class="px-6 py-4 text-center text-xs font-bold uppercase text-slate-500">Company</th>
+<th class="px-6 py-4 text-sm font-bold text-slate-900 dark:text-white border-l border-slate-200 dark:border-slate-800 w-64"><?= $lang['permission_name'] ?></th>
+<th class="px-6 py-4 text-center text-xs font-bold uppercase text-slate-500 border-l border-slate-200 dark:border-slate-800"><?= $lang['admin'] ?></th>
+<th class="px-6 py-4 text-center text-xs font-bold uppercase text-slate-500 border-l border-slate-200 dark:border-slate-800"><?= $lang['faculty'] ?></th>
+<th class="px-6 py-4 text-center text-xs font-bold uppercase text-slate-500"><?= $lang['company'] ?></th>
 </tr>
 </thead>
 <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
 <tr>
 <td class="px-6 py-4 border-l border-slate-200 dark:border-slate-800">
 <div class="flex flex-col">
-<span class="text-sm font-semibold text-slate-800 dark:text-slate-200">Manage Users</span>
-<span class="text-xs text-slate-500">Create, edit, and delete user accounts</span>
+<span class="text-sm font-semibold text-slate-800 dark:text-slate-200"><?= $lang['manage_users'] ?></span>
+<span class="text-xs text-slate-500"><?= $lang['manage_users_desc'] ?></span>
 </div>
 </td>
 <td class="px-6 py-4 text-center border-l border-slate-200 dark:border-slate-800">
@@ -236,8 +236,8 @@
 <tr>
 <td class="px-6 py-4 border-l border-slate-200 dark:border-slate-800">
 <div class="flex flex-col">
-<span class="text-sm font-semibold text-slate-800 dark:text-slate-200">Post Jobs</span>
-<span class="text-xs text-slate-500">Create internship and job listings</span>
+<span class="text-sm font-semibold text-slate-800 dark:text-slate-200"><?= $lang['post_jobs'] ?></span>
+<span class="text-xs text-slate-500"><?= $lang['post_jobs_desc'] ?></span>
 </div>
 </td>
 <td class="px-6 py-4 text-center border-l border-slate-200 dark:border-slate-800">
@@ -253,8 +253,8 @@
 <tr>
 <td class="px-6 py-4 border-l border-slate-200 dark:border-slate-800">
 <div class="flex flex-col">
-<span class="text-sm font-semibold text-slate-800 dark:text-slate-200">View Reports</span>
-<span class="text-xs text-slate-500">Access student and internship analytics</span>
+<span class="text-sm font-semibold text-slate-800 dark:text-slate-200"><?= $lang['view_reports'] ?></span>
+<span class="text-xs text-slate-500"><?= $lang['view_reports_desc'] ?></span>
 </div>
 </td>
 <td class="px-6 py-4 text-center border-l border-slate-200 dark:border-slate-800">
@@ -270,8 +270,8 @@
 <tr>
 <td class="px-6 py-4 border-l border-slate-200 dark:border-slate-800">
 <div class="flex flex-col">
-<span class="text-sm font-semibold text-slate-800 dark:text-slate-200">System Configuration</span>
-<span class="text-xs text-slate-500">Change global portal settings</span>
+<span class="text-sm font-semibold text-slate-800 dark:text-slate-200"><?= $lang['system_config'] ?></span>
+<span class="text-xs text-slate-500"><?= $lang['system_config_desc'] ?></span>
 </div>
 </td>
 <td class="px-6 py-4 text-center border-l border-slate-200 dark:border-slate-800">
@@ -292,7 +292,7 @@
 <!-- Footer Note -->
 <div class="flex items-center gap-2 text-slate-400 text-xs">
 <span class="material-symbols-outlined text-sm">info</span>
-<span>Any changes to roles or permissions will take effect after the user's next login.</span>
+<span><?= $lang['footer_note'] ?></span>
 </div>
 </div>
 </main>
@@ -304,21 +304,21 @@
 
     <button id="closeRoleModal" class="absolute top-3 right-3">✖</button>
 
-    <h2 class="text-lg font-bold mb-4">إضافة دور جديد</h2>
+    <h2 class="text-lg font-bold mb-4"><?= $lang['modal_add_role_title'] ?></h2>
 
     <form action="<?= BASE_URL ?>admin/AddRole" method="POST" class="space-y-4">
       
       <div>
-        <label class="block text-sm">اسم الدور</label>
+        <label class="block text-sm"><?= $lang['label_role_name'] ?></label>
         <input type="text" name="role_name" class="w-full border p-2 rounded" required>
       </div>
 
       <div class="flex justify-end gap-2">
         <button type="submit" class="bg-primary text-white px-4 py-2 rounded">
-          حفظ
+          <?= $lang['btn_save'] ?>
         </button>
         <button type="button" id="cancelRoleBtn" class="border px-4 py-2 rounded">
-          إلغاء
+          <?= $lang['btn_cancel'] ?>
         </button>
       </div>
 
@@ -353,20 +353,20 @@ cancelRoleBtn.addEventListener('click', closeModal);
 
     <button onclick="closeEditRoleModal()" class="absolute top-3 right-3">✖</button>
 
-    <h2 class="text-lg font-bold mb-4">تعديل الدور</h2>
+    <h2 class="text-lg font-bold mb-4"><?= $lang['modal_edit_role_title'] ?></h2>
 
     <form id="editRoleForm" method="POST" class="space-y-4">
 
       <input type="hidden" id="edit_role_id" name="id">
 
       <div>
-        <label class="block text-sm">اسم الدور</label>
+        <label class="block text-sm"><?= $lang['label_role_name'] ?></label>
         <input type="text" id="edit_role_name" name="role_name" class="w-full border p-2 rounded" required>
       </div>
 
       <div class="flex justify-end gap-2">
-        <button type="submit" class="bg-primary text-white px-4 py-2 rounded">حفظ</button>
-        <button type="button" onclick="closeEditRoleModal()" class="border px-4 py-2 rounded">إلغاء</button>
+        <button type="submit" class="bg-primary text-white px-4 py-2 rounded"><?= $lang['btn_save'] ?></button>
+        <button type="button" onclick="closeEditRoleModal()" class="border px-4 py-2 rounded"><?= $lang['btn_cancel'] ?></button>
       </div>
 
     </form>
@@ -400,12 +400,12 @@ function closeEditRoleModal(){
 <!-- dleete role form  -->
  <div id="deleteRoleModal" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
   <div class="bg-white p-6 rounded-xl text-center">
-    <h2 class="text-lg font-bold mb-4">تأكيد الحذف</h2>
-    <p class="mb-4">هل أنت متأكد من حذف هذا الدور؟</p>
+    <h2 class="text-lg font-bold mb-4"><?= $lang['modal_delete_role_title'] ?></h2>
+    <p class="mb-4"><?= $lang['modal_delete_role_question'] ?></p>
 
     <div class="flex justify-center gap-3">
-      <button id="confirmDeleteRole" class="bg-red-500 text-white px-4 py-2 rounded">حذف</button>
-      <button onclick="closeDeleteRoleModal()" class="border px-4 py-2 rounded">إلغاء</button>
+      <button id="confirmDeleteRole" class="bg-red-500 text-white px-4 py-2 rounded"><?= $lang['btn_delete'] ?></button>
+      <button onclick="closeDeleteRoleModal()" class="border px-4 py-2 rounded"><?= $lang['btn_cancel'] ?></button>
     </div>
   </div>
 </div>

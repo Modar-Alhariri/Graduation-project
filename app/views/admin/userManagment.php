@@ -138,31 +138,31 @@
 <!-- Page Header -->
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
 <div>
-<h2 class="text-2xl font-black tracking-tight">إدارة المستخدمين</h2>
-<p class="text-slate-500 dark:text-slate-400 text-sm mt-1">عرض وإدارة جميع حسابات المستخدمين في النظام</p>
+<h2 class="text-2xl font-black tracking-tight"><?= $lang['page_users_title'] ?> </h2>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-1"><?= $lang['page_users_description'] ?></p>
 </div>
 <button id="addUserBtn"  class="bg-primary text-white px-5 py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
 <span class="material-symbols-outlined text-lg">add</span>
-                        إضافة مستخدم جديد
+                        <?= $lang['add_user'] ?>
                     </button>
 </div>
 <!-- Filters -->
 <div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-wrap items-center gap-4">
 <div class="flex items-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400">
 <span class="material-symbols-outlined text-xl leading-none">filter_list</span>
-                        تصفية حسب:
+                       <?= $lang['filter_by'] ?>
                     </div>
 <div class="flex gap-2">
-<button class="bg-primary text-white px-4 py-1.5 rounded-lg text-sm font-medium">الكل</button>
-<button class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">مسؤول</button>
-<button class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">خريج</button>
-<button class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">عضو هيئة تدريس</button>
+<button class="bg-primary text-white px-4 py-1.5 rounded-lg text-sm font-medium"><?= $lang['all'] ?></button>
+<button class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"><?= $lang['admin'] ?></button>
+<button class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"><?= $lang['graduate'] ?></button>
+<button class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"><?= $lang['faculty_member'] ?></button>
 </div>
 <div class="mr-auto">
 <select class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg text-sm font-medium py-1.5 pr-8 pl-4 focus:ring-primary/20">
-<option>ترتيب حسب: الأحدث</option>
-<option>ترتيب حسب: الاسم (أ-ي)</option>
-<option>ترتيب حسب: الحالة</option>
+<option><?= $lang['sort_latest'] ?></option>
+<option><?= $lang['sort_name'] ?></option>
+<option><?= $lang['sort_status'] ?></option>
 </select>
 </div>
 </div>
@@ -170,7 +170,7 @@
 <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
 <div class="overflow-x-auto">
 <div class="p-6">
-    <h2 class="text-2xl font-bold mb-6">إدارة المستخدمين</h2>
+    <h2 class="text-2xl font-bold mb-6"><?= $lang['users_management_title'] ?></h2>
 
      <div class="overflow-x-auto bg-white dark:bg-slate-900 rounded-2xl shadow">
         <table class="min-w-full text-sm text-right">
@@ -178,10 +178,10 @@
             <thead class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
                 <tr>
                     <th class="p-3 md:p-4">ID</th>
-                    <th class="p-3 md:p-4">الاسم</th>
-                    <th class="p-3 md:p-4">البريد</th>
-                    <th class="p-3 md:p-4">الدور</th>
-                    <th class="p-3 md:p-4">الإجراءات</th>
+                    <th class="p-3 md:p-4"><?= $lang['table_name'] ?> (الاسم)</th>
+                    <th class="p-3 md:p-4"><?= $lang['table_email'] ?></th>
+                    <th class="p-3 md:p-4"><?= $lang['table_role'] ?></th>
+                    <th class="p-3 md:p-4"><?= $lang['table_actions'] ?></th>
                 </tr>
             </thead>
 
@@ -245,32 +245,32 @@ function toggleSidebar() {
         <button id="closeModal" class="absolute top-3 right-3 text-slate-500 hover:text-red-500">
             <span class="material-symbols-outlined">close</span>
         </button>
-        <h2 class="text-xl font-bold mb-4">إضافة مستخدم جديد</h2>
+        <h2 class="text-xl font-bold mb-4"><?= $lang['modal_add_user_title'] ?></h2>
 
         <form action="<?= BASE_URL ?>admin/AddUser" method="POST" class="space-y-4">
             <div>
-                <label class="block text-sm font-medium">الاسم</label>
+                <label class="block text-sm font-medium"><?= $lang['label_name'] ?></label>
                 <input type="text" name="name" class="w-full px-3 py-2 border rounded-lg" required>
             </div>
             <div>
-                <label class="block text-sm font-medium">البريد الإلكتروني</label>
+                <label class="block text-sm font-medium"><?= $lang['label_email'] ?></label>
                 <input type="email" name="email" class="w-full px-3 py-2 border rounded-lg" required>
             </div>
             <div>
-                <label class="block text-sm font-medium">كلمة المرور</label>
+                <label class="block text-sm font-medium"><?= $lang['label_password'] ?></label>
                 <input type="password" name="password" class="w-full px-3 py-2 border rounded-lg" required>
             </div>
             <div>
-                <label class="block text-sm font-medium">الدور</label>
+                <label class="block text-sm font-medium"><?= $lang['label_role'] ?></label>
                 <select name="role_id" class="w-full px-3 py-2 border rounded-lg" required>
-                    <?php foreach($roles as $role): ?>
-                        <option value="<?= $role->role_id ?>"><?= $role->role_name ?></option>
-                    <?php endforeach; ?>
+                    <option value="1"><?= $lang['role_admin'] ?></option>
+                    <option value="2"><?= $lang['role_graduate'] ?></option>
+                    <option value="3"><?= $lang['role_company'] ?></option>
                 </select>
             </div>
             <div class="flex justify-end gap-2">
-                <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90">إضافة</button>
-                <button type="button" id="cancelBtn" class="px-4 py-2 rounded-lg border hover:bg-gray-100">إلغاء</button>
+                <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90"><?= $lang['btn_add'] ?></button>
+                <button type="button" id="cancelBtn" class="px-4 py-2 rounded-lg border hover:bg-gray-100"><?= $lang['btn_cancel'] ?></button>
             </div>
         </form>
     </div>
@@ -303,24 +303,24 @@ closeBtn.addEventListener('click', () => {
     
     <button onclick="closeEditModal()" class="absolute top-3 right-3">✖</button>
 
-    <h2 class="text-xl font-bold mb-4">تعديل المستخدم</h2>
+    <h2 class="text-xl font-bold mb-4"><?= $lang['modal_edit_user_title'] ?> </h2>
 
     <form id="editForm" method="POST" class="space-y-4">
       
       <input type="hidden" name="id" id="edit_id">
 
       <div>
-        <label>الاسم</label>
+        <label><?= $lang['label_name'] ?></label>
         <input type="text" name="name" id="edit_name" class="w-full border p-2 rounded">
       </div>
 
       <div>
-        <label>البريد</label>
+        <label><?= $lang['label_email'] ?></label>
         <input type="email" name="email" id="edit_email" class="w-full border p-2 rounded">
       </div>
 
       <div>
-        <label>الدور</label>
+        <label><?= $lang['label_role'] ?></label>
         <select name="role_id" id="edit_role" class="w-full border p-2 rounded" required>
           <option value="1">Admin</option>
           <option value="2">Graduate</option>
@@ -331,8 +331,8 @@ closeBtn.addEventListener('click', () => {
       
 
       <div class="flex justify-end gap-2">
-        <button type="submit" class="bg-primary text-white px-4 py-2 rounded">حفظ</button>
-        <button type="button" onclick="closeEditModal()" class="px-4 py-2 border rounded">إلغاء</button>
+        <button type="submit" class="bg-primary text-white px-4 py-2 rounded"><?= $lang['btn_save'] ?></button>
+        <button type="button" onclick="closeEditModal()" class="px-4 py-2 border rounded"><?= $lang['btn_cancel'] ?></button>
       </div>
 
     </form>
@@ -366,12 +366,12 @@ function closeEditModal(){
 <!-- delete user confirm -->
  <div id="deleteModal" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
   <div class="bg-white p-6 rounded-xl text-center ">
-    <h2 class="text-lg font-bold mb-4">تأكيد الحذف</h2>
-    <p class="mb-4">هل أنت متأكد؟</p>
+    <h2 class="text-lg font-bold mb-4"><?= $lang['modal_delete_title'] ?> </h2>
+    <p class="mb-4"><?= $lang['modal_delete_question'] ?></p>
 
     <div class="flex justify-center gap-3">
-      <button id="confirmDelete" class="bg-red-500 text-white px-4 py-2 rounded">حذف</button>
-      <button onclick="closeDeleteModal()" class="border px-4 py-2 rounded">إلغاء</button>
+      <button id="confirmDelete" class="bg-red-500 text-white px-4 py-2 rounded"><?= $lang['btn_delete'] ?></button>
+      <button onclick="closeDeleteModal()" class="border px-4 py-2 rounded"><?= $lang['btn_cancel'] ?></button>
     </div>
   </div>
 </div>

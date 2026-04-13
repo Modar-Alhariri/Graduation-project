@@ -96,12 +96,13 @@
 
         <!-- Title -->
         <h1 class="text-4xl font-bold mb-4">
-            Welcome to the GTS System
+            <?= $lang['welcome_title'] ?>
+
         </h1>
 
         <!-- Description -->
         <p class="text-lg text-slate-200 max-w-md leading-relaxed">
-            The integrated platform for tracking graduates and connecting them with companies and career opportunities.
+            <?= $lang['welcome_description'] ?>.
         </p>
 
         <!-- Indicators -->
@@ -120,15 +121,15 @@
 <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
 <span class="material-icons text-white">insights</span>
 </div>
-<span class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">GTS Portal</span>
+<span class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight"><?= $lang['portal_name'] ?></span>
 </div>
 <header class="mb-10">
-<h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Welcome Back</h1>
-<p class="text-slate-500 dark:text-slate-400">Please enter your credentials to access your dashboard.</p>
+<h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-2"><?= $lang['welcome_back'] ?></h1>
+<p class="text-slate-500 dark:text-slate-400"><?= $lang['login_description'] ?></p>
 </header>
 <form  method="POST" action="<?= BASE_URL?>Auth/login" class="space-y-6">
 <div>
-<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2" for="id-email">Email Address / ID</label>
+<label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2" for="id-email"><?= $lang['email_label'] ?></label>
 <div class="relative">
 <span class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">alternate_email</span>
 <input class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder:text-slate-400" id="id-email" name="email" placeholder="name@university.edu" type="text"/>
@@ -144,15 +145,15 @@
 <div class="flex items-center justify-between">
 <div class="flex items-center">
 <input class="w-4 h-4 text-primary border-slate-300 dark:border-slate-700 rounded focus:ring-primary bg-white dark:bg-slate-900" id="remember" name="remember" type="checkbox"/>
-<label class="ml-2 text-sm text-slate-600 dark:text-slate-400" for="remember">Keep me signed in</label>
+<label class="ml-2 text-sm text-slate-600 dark:text-slate-400" for="remember"><?= $lang['remember_me'] ?></label>
 </div>
 <div class="flex justify-between items-center mb-2">
-<a class="text-sm font-semibold text-primary hover:underline" href="#">Forgot Password?</a>
+<a class="text-sm font-semibold text-primary hover:underline" href="#"><?= $lang['forgot_password'] ?></a>
 </div>
 </div>
 <div class="space-y-4 pt-4">
 <button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-4 rounded-xl shadow-xl shadow-primary/20 transition-all active:scale-[0.99]" type="submit">
-                                Sign In
+                                <?= $lang['sign_in'] ?>
                             </button>
 
 
@@ -160,8 +161,8 @@
 </form>
 <footer class="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
 <p class="text-sm text-slate-600 dark:text-slate-400">
-                            New to the portal? 
-                            <a class="font-bold text-primary hover:underline ml-1" href=  "<?= BASE_URL?>Auth/register">Create an account</a>
+                           <?= $lang['new_to_portal'] ?> 
+                            <a class="font-bold text-primary hover:underline ml-1" href=  "<?= BASE_URL?>Auth/register"><?= $lang['create_account'] ?></a>
 </p>
 </footer>
 </div>
@@ -169,11 +170,11 @@
 </div>
 </main>
 <footer class="w-full max-w-7xl mx-auto px-8 py-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-<p class="text-xs text-slate-400 tracking-wide">© 2024 Graduate Tracking System. All rights reserved.</p>
+<p class="text-xs text-slate-400 tracking-wide"><?= $lang['footer_rights'] ?></p>
 <div class="flex space-x-6 text-xs font-medium text-slate-400">
-<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
-<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
-<a class="hover:text-primary transition-colors" href="#">System Status</a>
+<a class="hover:text-primary transition-colors" href="#"><?= $lang['privacy_policy'] ?></a>
+<a class="hover:text-primary transition-colors" href="#"><?= $lang['terms_of_service'] ?></a>
+<a class="hover:text-primary transition-colors" href="#"><?= $lang['system_status'] ?></a>
 </div>
 </footer>
 
