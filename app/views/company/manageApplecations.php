@@ -75,7 +75,6 @@ class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-sla
 </div>
 </div>
 </aside>
-<main class="flex-1 md:mr-64">
 <header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-40 px-8 flex items-center justify-between">
 <button onclick="toggleSidebar()" 
 class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
@@ -92,6 +91,8 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 
 </div>
 </header>
+<main class="flex-1 md:mr-64 px-4 sm:px-6 lg:px-8 py-6">
+
 <div class="grid grid-cols-1 gap-8 lg:grid-cols-12">
 <!-- Left Content: Applications Table -->
 <div class="lg:col-span-8 space-y-6">
@@ -100,10 +101,7 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-slate-50">إدارة الطلبات</h1>
 <p class="mt-2 text-slate-500 dark:text-slate-400">مراجعة وإدارة طلبات الخريجين المقدمة لشركتك</p>
 </div>
-<button class="flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white transition-transform hover:scale-[1.02] active:scale-[0.98]">
-<span class="material-symbols-outlined text-[18px]">download</span>
-                            تصدير البيانات
-                        </button>
+
 </div>
 <!-- Filters -->
 <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
@@ -120,84 +118,53 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <tr>
 <th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-300">اسم الخريج</th>
 <th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-300">الوظيفة</th>
-<th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-300 text-center">التاريخ</th>
 <th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-300 text-center">الحالة</th>
 <th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-300 text-center">إجراءات</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-primary/10">
+    <?php foreach($data["allApplications"] as $application): ?>
 <tr class="group hover:bg-primary/5 transition-colors cursor-pointer bg-primary/2">
 <td class="px-6 py-5">
 <div class="flex items-center gap-3">
 <div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">أ</div>
-<span class="text-sm font-semibold text-slate-900 dark:text-slate-100">أحمد الفارسي</span>
+<span class="text-sm font-semibold text-slate-900 dark:text-slate-100"> <?= $application->graduate_name ?></span>
 </div>
 </td>
-<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 font-medium">مهندس برمجيات</td>
-<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 text-center">2023-10-15</td>
+<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 font-medium"> <?= $application->job_title ?></td>
 <td class="px-6 py-5 text-center">
-<span class="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 text-xs font-bold">قيد الانتظار</span>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 text-xs font-bold"> <?= $application->status ?></span>
 </td>
 <td class="px-6 py-5 text-center">
-<button class="text-primary font-bold text-xs hover:underline">عرض التفاصيل</button>
+    <!-- button to show details that send all application data as data parameters  -->
+<button onclick="showDetails(this)"
+data-graduate-name="<?= $application->graduate_name ?>"
+data-graduate-email="<?= $application->graduate_email ?>"
+data-phone="<?= $application->phone ?>"
+class="text-slate-400 hover:text-primary transition-colors" title="عرض"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button
+ 
+class="text-slate-400 hover:text-blue-500 transition-colors" title="تعديل"><span class="material-symbols-outlined text-[20px]">check_circle</span></button>
+<button
+  
+class="text-slate-400 hover:text-red-500 transition-colors" title="حذف"><span class="material-symbols-outlined text-[20px]">cancel</span></button>
 </td>
 </tr>
-<tr class="group hover:bg-primary/5 transition-colors cursor-pointer">
-<td class="px-6 py-5">
-<div class="flex items-center gap-3">
-<div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">ص</div>
-<span class="text-sm font-semibold text-slate-900 dark:text-slate-100">صفاء محمد</span>
-</div>
-</td>
-<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 font-medium">محلل بيانات</td>
-<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 text-center">2023-10-14</td>
-<td class="px-6 py-5 text-center">
-<span class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 text-xs font-bold">مقبول</span>
-</td>
-<td class="px-6 py-5 text-center">
-<button class="text-primary font-bold text-xs hover:underline">عرض التفاصيل</button>
-</td>
-</tr>
-<tr class="group hover:bg-primary/5 transition-colors cursor-pointer">
-<td class="px-6 py-5">
-<div class="flex items-center gap-3">
-<div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">ع</div>
-<span class="text-sm font-semibold text-slate-900 dark:text-slate-100">عمر بكري</span>
-</div>
-</td>
-<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 font-medium">مصمم تجربة مستخدم</td>
-<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 text-center">2023-10-12</td>
-<td class="px-6 py-5 text-center">
-<span class="inline-flex items-center px-3 py-1 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400 text-xs font-bold">مرفوض</span>
-</td>
-<td class="px-6 py-5 text-center">
-<button class="text-primary font-bold text-xs hover:underline">عرض التفاصيل</button>
-</td>
-</tr>
-<tr class="group hover:bg-primary/5 transition-colors cursor-pointer">
-<td class="px-6 py-5">
-<div class="flex items-center gap-3">
-<div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">ل</div>
-<span class="text-sm font-semibold text-slate-900 dark:text-slate-100">ليلى القحطاني</span>
-</div>
-</td>
-<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 font-medium">مطور واجهات</td>
-<td class="px-6 py-5 text-sm text-slate-500 dark:text-slate-400 text-center">2023-10-10</td>
-<td class="px-6 py-5 text-center">
-<span class="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 text-xs font-bold">قيد الانتظار</span>
-</td>
-<td class="px-6 py-5 text-center">
-<button class="text-primary font-bold text-xs hover:underline">عرض التفاصيل</button>
-</td>
-</tr>
+<?php endforeach; ?>
 </tbody>
 </table>
 </div>
 </div>
 </div>
-<!-- Right Content: Detail View Sidebar -->
-<div class="lg:col-span-4 space-y-6">
+<!-- Right Content: Detail View Sidebar hidden by default when show button is clicked right content shows -->
+
+<div id="detailsPanel" class="lg:col-span-4 space-y-6  transition-all duration-300">
 <div class="sticky top-8 rounded-2xl border border-primary/10 bg-white dark:bg-primary/5 p-6 shadow-sm">
+ <div class="flex justify-end mb-2">
+    <button onclick="hideDetails()" class="text-sm text-red-500 hover:underline">
+         <span class="material-symbols-outlined">close</span>
+    </button>
+</div>
 <div class="flex flex-col items-center text-center">
 <div class="relative mb-4">
 <div class="h-24 w-24 rounded-full bg-primary/10 border-4 border-white dark:border-background-dark shadow-md overflow-hidden flex items-center justify-center">
@@ -205,8 +172,8 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 </div>
 <span class="absolute bottom-0 right-0 h-5 w-5 rounded-full border-2 border-white bg-emerald-500 dark:border-background-dark"></span>
 </div>
-<h2 class="text-xl font-bold text-slate-900 dark:text-slate-50">أحمد الفارسي</h2>
-<p class="text-sm font-medium text-primary">خريج جامعة الملك سعود</p>
+<h2 id="name" class="text-xl font-bold text-slate-900 dark:text-slate-50">أحمد الفارسي</h2>
+<!-- <p class="text-sm font-medium text-primary">خريج جامعة الملك سعود</p> -->
 <div class="mt-4 flex flex-wrap justify-center gap-2">
 <span class="rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary">Java</span>
 <span class="rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary">React</span>
@@ -232,11 +199,11 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <div class="space-y-3 pt-2">
 <div class="flex items-center gap-3">
 <span class="material-symbols-outlined text-slate-400 text-[18px]">mail</span>
-<span class="text-sm font-medium">ahmed.farsi@example.com</span>
+<span class="text-sm font-medium" id="email"></span>
 </div>
 <div class="flex items-center gap-3">
 <span class="material-symbols-outlined text-slate-400 text-[18px]">call</span>
-<span class="text-sm font-medium">050 123 4567</span>
+<span class="text-sm font-medium" id="phone"></span>
 </div>
 <div class="flex items-center gap-3">
 <span class="material-symbols-outlined text-slate-400 text-[18px]">school</span>
@@ -276,4 +243,14 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 </div>
 </footer>
 </div>
+<!-- script to active right content  -->
+ <script>
+function showDetails() {
+    document.getElementById("detailsPanel").classList.remove("hidden");
+}
+
+function hideDetails() {
+    document.getElementById("detailsPanel").classList.add("hidden");
+}
+</script>
 </body></html>

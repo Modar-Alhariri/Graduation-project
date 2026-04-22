@@ -24,10 +24,24 @@ class AuthController extends controller{
                 $_SESSION['user_id'] = $user->user_id;
                 $_SESSION['name']    = $user->name;
                 $_SESSION['role']    = $role->role_name;
-
                 
-                header("Location: " . BASE_URL . $_SESSION['role'] ."/dashboard");
-                exit; 
+                // check if profile completed or not for companies and graduates
+                if ($_SESSION['role']=="company"||$_SESSION['role'] =="graduate" ) {
+                        if($user->profile_completed==1){
+                    header("Location: " . BASE_URL . $_SESSION['role'] ."/dashboard");
+                    exit; 
+                    }else{
+                        header("Location: " . BASE_URL . $_SESSION['role'] ."/profileComplete");
+                        exit; 
+                    }
+                }
+                else{
+                     header("Location: " . BASE_URL . $_SESSION['role'] ."/dashboard");
+                    exit; 
+                }
+               
+                
+               
 
             } else {
                 die(" enter your information correctly  ");

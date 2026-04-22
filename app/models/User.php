@@ -93,6 +93,17 @@ public function updateUser($data){
 public function deleteUser($id){
     $this->db->query("DELETE FROM users WHERE user_id = :id");
     $this->db->bind(':id', $id);
-    return $this->db->execute(); // يعيد true إذا تم الحذف بنجاح
+    return $this->db->execute(); 
 }
+public function markProfileComplete($user_id)
+{
+    $this->db->query("UPDATE users 
+        SET profile_completed = 1
+        WHERE user_id = :user_id");
+
+    $this->db->bind(':user_id', $user_id);
+
+    return $this->db->execute();
+}
+
 }

@@ -12,7 +12,7 @@ class GraduateModel extends Model{
         GROUP BY MONTH(employment_date)
         ORDER BY MONTH(employment_date)
     ");
-    return $this->db->resultSet(); // مصفوفة من الصفوف
+    return $this->db->resultSet(); 
 }
     public function getNewRegistrationsLast6Months() {
     $this->db->query("
@@ -44,4 +44,53 @@ class GraduateModel extends Model{
 
     return $this->db->resultSet(); // مصفوفة من الصفوف جاهزة للاستخدام
 }
-}
+    public function getGraduatesInfo() {
+        // query to get graduates info name from users table and major from majors table and 3 skills from skills table and all from graduates table
+        $this->db->query("
+            SELECT u.name, m.name AS major, g.*,
+                (SELECT GROUP_CONCAT(s.name SEPARATOR ', ') 
+                 FROM skills s 
+                 JOIN graduate_skills gs ON s.id = gs.skill_id 
+                 WHERE gs.graduate_id = g.id) AS skills
+            FROM graduates g
+            JOIN users u ON g.user_id = u.user_id
+            JOIN majors m ON g.major_id = m.id 
+            ");
+
+        return $this->db->resultSet();  
+       
+    }
+    public function completeGraduateProfile($data)  {
+        $this->db->query("INSERT INTO graduates (user_id, major_id, graduate_id, graduation_year, gpa, phone, address, employment_status, employment_date, created_at) VALUES (:user_id, :major_id, :graduate_id, :graduation_year, :gpa, :phone, :address, :employment_status, :employment_date, NOW())");
+        $this->db->bind(":user_id",$data["user_id"]);
+        $this->db->bind(":major_id",$data["major_id"]);
+        $this->db->bind(":graduate_id",$data["graduate_id"]);
+        $this->db->bind(":graduation_year",$data["graduation_year"]);
+        $this->db->bind(":gpa",$data["gpa"]);
+        $this->db->bind(":phone",$data["phone"]);
+        $this->db->bind(":address",$data["address"]);
+        $this->db->bind(":employment_status",$data["employment_status"] ? $data["employment_status"] : "searching");
+        $this->db->bind(":employment_date",$data["employment_date"] ? $data["employment_date"] : null);
+
+            if($this->db->execute()){
+            $this->db->query("UPDATE users SET profile_completed = 1 WHERE user_id = :user_id");
+            $this->db->bind(":user_id", $data["user_id"]);
+            if($this->db->execute()){
+                // profile completed successfully
+                $_SESSION['flash_success'] = "تم إكمال الملف الشخصي بنجاح!";
+                return true;
+            }
+            else{
+                // failed to update user profile status
+                $_SESSION['flash_error'] = "حدث خطأ أثناء إكمال الملف الشخصي.";
+                return false;
+            }
+        }
+        else{   
+            $_SESSION['flash_error'] = "2حدث خطأ أثناء إكمال الملف الشخصي.";
+
+            return false;
+        }
+    }
+}        
+   

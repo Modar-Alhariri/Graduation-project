@@ -183,31 +183,29 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <th class="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider">الاسم</th>
 <th class="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider">التخصص</th>
 <th class="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider">المهارات</th>
-<th class="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider text-center">الخبرة</th>
 <th class="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider text-center">الإجراءات</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
-<!-- Row 1 -->
+<?php foreach($data["graduates"] as $graduate): ?>
 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
 <td class="px-6 py-4 whitespace-nowrap">
 <div class="flex items-center gap-3">
 <div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="Professional profile headshot of a candidate" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCr37uL4V2cOAJdWaOGXO8Y9leC50nzHs1jnve4NyfrW7ofq1wHvlEjlMP0t9TTNX4pOFsLL4OhHsnax4cE1tycbcOdEjs3V3m52qKrnP_01xjijgXFcuLneWq_poDenpa8Vtu_SYa0qLmS9olSGVQWoeaJ66RBVlln_ktjEen5dA5t5Fw8EYKNmTlhvcv58p2NPVUZ8fbN77u0u5pXf2Ag5Ny-FKyrSUWQ-dtulWwPozZ9K1qR31lHJQHhjvLdW_4OokjWeiM0-aE"); background-size: cover;'></div>
 <div>
-<div class="font-bold">أحمد محمد</div>
-<div class="text-xs text-slate-500">خريج 2023</div>
+<div class="font-bold"><?= $graduate->name ?></div>
+<div class="text-xs text-slate-500">خريج <?= $graduate->graduation_year ?></div>
 </div>
 </div>
 </td>
-<td class="px-6 py-4 text-sm">هندسة البرمجيات</td>
+<td class="px-6 py-4 text-sm"><?= $graduate->major ?></td>
 <td class="px-6 py-4">
 <div class="flex flex-wrap gap-1">
-<span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Python</span>
+<span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded"><?= $graduate->skills ?></span>
 <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">React</span>
 <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">AWS</span>
 </div>
 </td>
-<td class="px-6 py-4 text-sm text-center">2 سنة</td>
 <td class="px-6 py-4 whitespace-nowrap text-center">
 <div class="flex justify-center gap-2">
 <button class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors" title="View Profile">
@@ -219,115 +217,12 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 </div>
 </td>
 </tr>
-<!-- Row 2 -->
-<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4 whitespace-nowrap">
-<div class="flex items-center gap-3">
-<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="Abstract candidate avatar with brand color" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDqEieBg_yOAmwASujntBbTuiehmH6mKbPlAqivstSpr9VsnrrThMEr08DuQ4VnHThZRMyZrV2-lRz-pZwWFZe40XbOecyFJY5N2vZVROi4eFamdp7toi8PLXfXuQ4dxVXaT5mdqpgrTOQvnc7324-n_fK5eMkkLf8o0mOoGLIulV7qJ0jmaJLnzIPqaX4P_jfzMZs88IvU37LQ_3OZDRSNc2zLOWKhimdr6NoJLfS-O91Pbwwi1zD-Lq0mB2OS3okXPaHM_kkUdwQ"); background-size: cover;'></div>
-<div>
-<div class="font-bold">سارة خالد</div>
-<div class="text-xs text-slate-500">خريجة 2022</div>
-</div>
-</div>
-</td>
-<td class="px-6 py-4 text-sm">تصميم واجهة المستخدم</td>
-<td class="px-6 py-4">
-<div class="flex flex-wrap gap-1">
-<span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Figma</span>
-<span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">UI/UX</span>
-<span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">+2</span>
-</div>
-</td>
-<td class="px-6 py-4 text-sm text-center">1 سنة</td>
-<td class="px-6 py-4 whitespace-nowrap text-center">
-<div class="flex justify-center gap-2">
-<button class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors" title="View Profile">
-<span class="material-symbols-outlined">visibility</span>
-</button>
-<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" title="Send Message">
-<span class="material-symbols-outlined">mail</span>
-</button>
-</div>
-</td>
-</tr>
-<!-- Row 3 -->
-<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4 whitespace-nowrap">
-<div class="flex items-center gap-3">
-<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="Candidate profile picture placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC-Xq6UWLnBpy_p98x1rkWDMitUy-vnMMd_OxUIHK8tj43MBn5EfpmTb9LUighfF3Bz3LD7xGwp8htQ7LkSY8paP5zGHdf6_m0AFAgOUafcGN3zUzzm-PiwBwtxCMB0aEgEObDct_fnAbjz8cXxOONcsg40b7KzGwcF7XMIewetjD6e7xnWyVZFoqYQozFIMPl1MIuArkJ4LzYDZ28RqbjTzENKusWqq87AwDCGYcWqzecSMSWemdfs6XFtPQ8shkaTQS3nni4sjZE"); background-size: cover;'></div>
-<div>
-<div class="font-bold">فهد العتيبي</div>
-<div class="text-xs text-slate-500">خريج 2024</div>
-</div>
-</div>
-</td>
-<td class="px-6 py-4 text-sm">علوم البيانات</td>
-<td class="px-6 py-4">
-<div class="flex flex-wrap gap-1">
-<span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">SQL</span>
-<span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">R</span>
-<span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Tableau</span>
-</div>
-</td>
-<td class="px-6 py-4 text-sm text-center">حديث تخرج</td>
-<td class="px-6 py-4 whitespace-nowrap text-center">
-<div class="flex justify-center gap-2">
-<button class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors" title="View Profile">
-<span class="material-symbols-outlined">visibility</span>
-</button>
-<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" title="Send Message">
-<span class="material-symbols-outlined">mail</span>
-</button>
-</div>
-</td>
-</tr>
-<!-- Row 4 -->
-<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4 whitespace-nowrap">
-<div class="flex items-center gap-3">
-<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="Professional female headshot of a student graduate" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBWBjZYFD4PB_S9PSxgF9JRpuWzAUx7ROE1QzAYc4IqpEPQmnVGFjfLu7SBD4aav5jvzwRJoD0JechVfK1ytFV-t4nqM6ybTK2dC9A3fWHe3P2xLZ73rR8X-Acv1KOIvkTyY94ch_o5amF9Z4Cn09BAqB8pBuo-LmMvRZ6dbpqJoEq8QP3KWsAPdkY65xCEwRNoa-6mK1yhPcv4fKxi86clRpC2R69J9_rRTSQhSc5ZV8L2PbSdwSL3CcpRo9Fn9LyqjIE7LxABnmM"); background-size: cover;'></div>
-<div>
-<div class="font-bold">نورة العمري</div>
-<div class="text-xs text-slate-500">خريجة 2021</div>
-</div>
-</div>
-</td>
-<td class="px-6 py-4 text-sm">نظم المعلومات الإدارية</td>
-<td class="px-6 py-4">
-<div class="flex flex-wrap gap-1">
-<span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">SAP</span>
-<span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Agile</span>
-</div>
-</td>
-<td class="px-6 py-4 text-sm text-center">3 سنوات</td>
-<td class="px-6 py-4 whitespace-nowrap text-center">
-<div class="flex justify-center gap-2">
-<button class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors" title="View Profile">
-<span class="material-symbols-outlined">visibility</span>
-</button>
-<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" title="Send Message">
-<span class="material-symbols-outlined">mail</span>
-</button>
-</div>
-</td>
-</tr>
+<?php endforeach; ?>
 </tbody>
 </table>
 </div>
 <!-- Pagination -->
-<div class="p-6 border-t border-slate-200 dark:border-slate-800 flex justify-center">
-<nav class="flex gap-2">
-<button class="size-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800">
-<span class="material-symbols-outlined">chevron_right</span>
-</button>
-<button class="size-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold">1</button>
-<button class="size-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 font-bold">2</button>
-<button class="size-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 font-bold">3</button>
-<button class="size-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800">
-<span class="material-symbols-outlined">chevron_left</span>
-</button>
-</nav>
-</div>
+
 </div>
 </section>
 </div>
