@@ -153,7 +153,7 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <span class="text-xs font-bold text-red-500 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded-full">-٥٪</span>
 </div>
 <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">الطلبات المقدمة</p>
-<h4 class="text-3xl font-bold mt-1">١٥</h4>
+<h4 class="text-3xl font-bold mt-1"><?= $myApplication ?></h4>
 </div>
 <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 group hover:border-primary/50 transition-colors">
 <div class="flex items-center justify-between mb-4">
@@ -163,7 +163,7 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <span class="text-xs font-bold text-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded-full">+٢</span>
 </div>
 <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">رسائل الشركات</p>
-<h4 class="text-3xl font-bold mt-1">٨</h4>
+<h4 class="text-3xl font-bold mt-1"><?= $notificationsCount->total ?></h4>
 </div>
 <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 group hover:border-primary/50 transition-colors">
 <div class="flex items-center justify-between mb-4">

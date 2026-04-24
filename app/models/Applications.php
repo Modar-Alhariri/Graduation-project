@@ -51,4 +51,36 @@ public function getAllApplicationsByCompany($company_id) {
 
 }
 
+public function getMyApplicationsCount($graduate_id) {
+    $this->db->query("SELECT COUNT(*) as total FROM applications WHERE graduate_id = :graduate_id");
+    $this->db->bind(':graduate_id', (int)$graduate_id);
+    return $this->db->single()->total;  
+}
+public function getMyApplications($graduate_id) {
+    $this->db->query("
+        SELECT a.*, j.title as job_title, c.company_name as company_name
+        FROM applications a
+        JOIN jobs j ON a.job_id = j.id
+        JOIN companies c ON j.company_id = c.id
+        WHERE a.graduate_id = :graduate_id
+        ORDER BY a.applied_at DESC
+    ");
+    $this->db->bind(':graduate_id', (int)$graduate_id);
+    return $this->db->resultSet();
+}
+//  function to apply for a job
+public function apply($data) {
+    $this->db->query("
+        INSERT INTO applications 
+        (job_id , graduate_id , company_id, cv_link, status, applied_at) 
+        VALUES (:job_id, :graduate_id, :company_id, :cv, 'pending', NOW())
+    ");
+
+    $this->db->bind(":job_id", $data["job_id"]);
+    $this->db->bind(":graduate_id", $data["graduate_id"]);
+    $this->db->bind(":company_id", $data["company_id"]);
+    $this->db->bind(":cv", $data["cv"]);
+
+    return $this->db->execute();
+}
 }

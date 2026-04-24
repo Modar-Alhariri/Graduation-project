@@ -94,8 +94,6 @@ class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-sla
 </div>
 </div>
 </aside>
-<!-- Main Content -->
-<main class="flex-1 md:mr-64">
 <!-- Header -->
 <header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-40 px-8 flex items-center justify-between">
 <button onclick="toggleSidebar()" 
@@ -113,6 +111,9 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 
 </div>
 </header>
+<!-- Main Content -->
+<main class="flex-1 md:mr-64 px-4 sm:px-6 lg:px-8 py-6">
+
 <!-- Page Title & Hero -->
 <div class="mb-10 flex flex-col gap-2">
 <h1 class="text-4xl font-black tracking-tight text-slate-900 dark:text-white">فرص العمل والتدريب</h1>
@@ -156,9 +157,10 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <div class="flex items-center justify-between">
 <h3 class="text-xl font-bold flex items-center gap-2">
 <span class="material-symbols-outlined text-primary">work</span>
-                            الوظائف المتاحة (24)
+                            الوظائف المتاحة 
                         </h3>
 </div>
+<?php foreach($jobs as $job): ?>
 <!-- Job Card 1 -->
 <div class="group relative flex flex-col gap-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 hover:border-primary/50 transition-all shadow-sm">
 <div class="flex items-start justify-between">
@@ -167,73 +169,39 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <img alt="" class="h-10 w-10" data-alt="Company logo for STC" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXCbxdG-oi4Et6jG5moHdKSv_UJMw9E8KoPDZ8YGeCO7cRzAdErhXCBFwZ20aZ4SPc27Meilkm3zn2SOgl369RJrLRlwlIU2hvHTPa58cnI0SOwiNsq4CSyE3gwg0z8zPNDcSLKmfqH1MktY2ta_zAVwWRskDadR0cAVY-J24R1wLo0J83VqAo8kiIxsORzXdiZPgju9I_lizImAewNccmBOJ2gDw7FOHsmZKTCUPtUo7dIXAFJvl-WyAPfV6QmZt1-rzt2ZITcOE"/>
 </div>
 <div>
-<h4 class="text-lg font-bold group-hover:text-primary transition-colors">مطور واجهات أمامية (React)</h4>
-<p class="text-sm text-slate-500">شركة الاتصالات السعودية (STC) • الرياض</p>
+<h4 class="text-lg font-bold group-hover:text-primary transition-colors"><?= $job->title ?></h4>
+<p class="text-sm text-slate-500"><?= $job->location ?></p>
 </div>
 </div>
-<span class="rounded-lg bg-green-100 dark:bg-green-900/30 px-3 py-1 text-xs font-bold text-green-700 dark:text-green-400">دوام كامل</span>
-</div>
-<div class="flex items-center justify-between mt-2 border-t border-slate-100 dark:border-slate-800 pt-4">
-<div class="flex gap-4 text-xs text-slate-500">
-<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> منذ يومين</span>
-<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">groups</span> +50 متقدم</span>
-</div>
-<div class="flex gap-2">
-<button class="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800">التفاصيل</button>
-<button class="rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white hover:bg-primary/90">قدم الآن</button>
-</div>
-</div>
-</div>
-<!-- Job Card 2 -->
-<div class="group relative flex flex-col gap-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 hover:border-primary/50 transition-all shadow-sm">
-<div class="flex items-start justify-between">
-<div class="flex gap-4">
-<div class="h-14 w-14 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
-<img alt="" class="h-10 w-10" data-alt="Company logo for Aramco" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb-w1Ch5bWzFOOsm-Nb6bkHzL6SQo5KkSfeDa5Ei7fEN6L9BAe5sKvvDaMPjS_Sb1fHm_-tPWLD3WK4JcA5RcxHT1WU1wg0RA65ahLi4slw9h3tpbOkZB0VQZbNeuVHQbiqEOIa1s3jX-oWylCNkeCL9z__RjGL-jD5qyqCmU3IXLkVDqyYH_n6J88fr8DQPUST3sfrMav7mLC6ot_r50iVPHnBLT4W_20NU0UzbfuSdp8-2quxnX0defrFRchTdVxRhkazAmbiF8"/>
-</div>
-<div>
-<h4 class="text-lg font-bold group-hover:text-primary transition-colors">محلل بيانات ناشئ</h4>
-<p class="text-sm text-slate-500">أرامكو السعودية • الظهران</p>
-</div>
-</div>
-<span class="rounded-lg bg-blue-100 dark:bg-blue-900/30 px-3 py-1 text-xs font-bold text-blue-700 dark:text-blue-400">تدريب تعاوني</span>
+<span class="rounded-lg bg-green-100 dark:bg-green-900/30 px-3 py-1 text-xs font-bold text-green-700 dark:text-green-400"><?= $job->job_type ?></span>
 </div>
 <div class="flex items-center justify-between mt-2 border-t border-slate-100 dark:border-slate-800 pt-4">
 <div class="flex gap-4 text-xs text-slate-500">
-<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> منذ 5 ساعات</span>
-<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">groups</span> 12 متقدم</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span>$<?= $job->deadline ?></span>
 </div>
 <div class="flex gap-2">
-<button class="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800">التفاصيل</button>
-<button class="rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white hover:bg-primary/90">قدم الآن</button>
+<button 
+onclick="openJobModal(this)"
+data-id="<?= $job->id ?>"
+data-title="<?= htmlspecialchars($job->title) ?>"
+data-location="<?= htmlspecialchars($job->location) ?>"
+data-description="<?= htmlspecialchars($job->description ?? '') ?>"
+data-Jobtype="<?= htmlspecialchars($job->job_type) ?>"
+data-salary="<?= htmlspecialchars($job->salary ?? '') ?>"
+data-deadline="<?= htmlspecialchars($job->deadline) ?>"
+class="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800">
+التفاصيل
+</button>
+<button
+onclick="toggleApplyForm(this)"
+data-id="<?= $job->id ?>"
+data-graduate="<?= $_SESSION['graduate_id'] ?>"
+data-company="<?= $job->company_id ?>"
+ class="rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white hover:bg-primary/90">قدم الآن</button>
 </div>
 </div>
 </div>
-<!-- Job Card 3 -->
-<div class="group relative flex flex-col gap-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 hover:border-primary/50 transition-all shadow-sm">
-<div class="flex items-start justify-between">
-<div class="flex gap-4">
-<div class="h-14 w-14 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
-<img alt="" class="h-10 w-10" data-alt="Company logo for SDAIA" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfqhl5R22HouFh_esRzrlc98W6tKdxQqYLUvEHLTxEdahnjeOoPCEgNMLaR3yoi3u-3SKhf4ICXFO13aetqiJNZdnc3bjSynlZIjnAZpbjmVZqyKf3c5x75x1SicRcVl-NwQ2hHA1wFBZ50-dz6lm97Spw4ohlc2tD4asaw0vpDxRpHaCcGF6AKy84Jp19hX5_BQLEM6Pm3dz53HnINhmy_yfftr-4Af_3H2uxULTn5o5Fm4NWG8IDUllCqsGF51h0isn5PDz12es"/>
-</div>
-<div>
-<h4 class="text-lg font-bold group-hover:text-primary transition-colors">مهندس أمن سيبراني</h4>
-<p class="text-sm text-slate-500">سدايا (SDAIA) • عن بعد</p>
-</div>
-</div>
-<span class="rounded-lg bg-purple-100 dark:bg-purple-900/30 px-3 py-1 text-xs font-bold text-purple-700 dark:text-purple-400">عن بعد</span>
-</div>
-<div class="flex items-center justify-between mt-2 border-t border-slate-100 dark:border-slate-800 pt-4">
-<div class="flex gap-4 text-xs text-slate-500">
-<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> أسبوع مضى</span>
-<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">groups</span> +100 متقدم</span>
-</div>
-<div class="flex gap-2">
-<button class="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800">التفاصيل</button>
-<button class="rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white hover:bg-primary/90">قدم الآن</button>
-</div>
-</div>
-</div>
+<?php endforeach; ?>
 </div>
 <!-- Applications Sidebar -->
 <div class="flex flex-col gap-4">
@@ -251,33 +219,17 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 </tr>
 </thead>
 <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<?php foreach($myapplications as $application): ?>
 <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50">
 <td class="px-4 py-4">
-<div class="font-bold">مصمم واجهات</div>
-<div class="text-xs text-slate-500">شركة علم • 12 أكتوبر</div>
+<div class="font-bold"><?= $application->job_title ?></div>
+<div class="text-xs text-slate-500"> <?= $application->company_name ?> . <?= $application->applied_at ?></div>
 </td>
 <td class="px-4 py-4">
 <span class="inline-flex items-center gap-1 rounded-full bg-yellow-100 dark:bg-yellow-900/30 px-2 py-0.5 text-[10px] font-bold text-yellow-700 dark:text-yellow-400 uppercase">قيد المراجعة</span>
 </td>
 </tr>
-<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50">
-<td class="px-4 py-4">
-<div class="font-bold">مطور بايثون</div>
-<div class="text-xs text-slate-500">البنك الأهلي • 05 أكتوبر</div>
-</td>
-<td class="px-4 py-4">
-<span class="inline-flex items-center gap-1 rounded-full bg-green-100 dark:bg-green-900/30 px-2 py-0.5 text-[10px] font-bold text-green-700 dark:text-green-400 uppercase">تم القبول</span>
-</td>
-</tr>
-<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50">
-<td class="px-4 py-4">
-<div class="font-bold">محلل أمن</div>
-<div class="text-xs text-slate-500">نيوم • 28 سبتمبر</div>
-</td>
-<td class="px-4 py-4">
-<span class="inline-flex items-center gap-1 rounded-full bg-red-100 dark:bg-red-900/30 px-2 py-0.5 text-[10px] font-bold text-red-700 dark:text-red-400 uppercase">مرفوض</span>
-</td>
-</tr>
+<?php endforeach; ?>
 </tbody>
 </table>
 </div>
@@ -308,4 +260,246 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 </div>
 </footer>
 </div>
+<!-- script to activate toogle button  -->
+<script>
+  function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("translate-x-full");
+    }
+</script>
+<!-- hidden model for showing job details -->
+ <div id="jobDetailsModal"
+     class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center hidden z-50">
+
+    <div class="bg-white dark:bg-slate-900 rounded-2xl w-full max-w-xl shadow-2xl p-6 animate-fadeIn">
+
+        <!-- Header -->
+        <div class="flex items-start justify-between mb-4">
+            <h2 id="modalTitle"
+                class="text-2xl font-extrabold text-slate-900 dark:text-white"></h2>
+
+            <button onclick="closeModal()"
+                    class="text-slate-400 hover:text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg p-1 transition">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-6">
+            <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
+                وصف الوظيفة
+            </h3>
+            <p id="modalDescription"
+               class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+        </div>
+
+        <!-- Details Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+
+            <!-- Salary -->
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800">
+                <div class="text-xs text-slate-500 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">payments</span>
+                    الراتب
+                </div>
+                <div id="modalSalary"
+                     class="text-sm font-bold text-slate-900 dark:text-white mt-1"></div>
+            </div>
+
+            <!-- Job Type -->
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800">
+                <div class="text-xs text-slate-500 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">work</span>
+                    نوع الوظيفة
+                </div>
+
+                <span id="modalType"
+                      class="inline-block mt-2 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 px-3 py-1 rounded-full text-xs font-bold">
+                </span>
+            </div>
+
+            <!-- Location -->
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800">
+                <div class="text-xs text-slate-500 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">location_on</span>
+                    الموقع
+                </div>
+                <div id="modalLocation"
+                     class="text-sm font-bold text-slate-900 dark:text-white mt-1"></div>
+            </div>
+
+            <!-- Deadline -->
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800">
+                <div class="text-xs text-slate-500 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">schedule</span>
+                    آخر موعد
+                </div>
+                <div id="modalDeadline"
+                     class="text-sm font-bold text-slate-900 dark:text-white mt-1"></div>
+            </div>
+
+        </div>
+
+        <!-- Actions -->
+        <div class="flex gap-3">
+
+            <!-- Apply -->
+            <button type="button"
+                    onclick="toggleApplyForm(this)"
+                    data-id="<?= $job->id ?>"
+                    data-graduate="<?= $_SESSION['graduate_id'] ?>"
+                    data-company="<?= $job->company_id ?>"
+                    class="flex-1 bg-primary text-white py-2 rounded-lg font-bold hover:bg-primary/90 transition flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-sm">send</span>
+                قدم الآن
+            </button>
+
+            <!-- Cancel -->
+            <button onclick="closeModal()"
+                    class="flex-1 border border-slate-200 dark:border-slate-700 py-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+                إلغاء
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+ <!--script to avtivate showing job details model  -->
+<script>
+function openJobModal(button) {
+    const modal = document.getElementById('jobDetailsModal');
+
+    const title = button.dataset.title || '';
+    const location = button.dataset.location || '';
+    const description = button.dataset.description || '';
+    const jobId = button.dataset.id || '';
+    const jobType = button.dataset.jobtype || '';
+    const salary = button.dataset.salary || '';
+    const deadline = button.dataset.deadline || '';
+
+    // تعبئة البيانات
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalLocation').textContent = location;
+    document.getElementById('modalDescription').textContent = description;
+    document.getElementById('modalType').textContent = jobType;
+    document.getElementById('modalSalary').textContent = salary;
+    document.getElementById('modalDeadline').textContent = deadline;
+
+    // مهم: لو عندك input hidden لازم يكون موجود
+    const jobInput = document.getElementById('modalJobId');
+    if (jobInput) {
+        jobInput.value = jobId;
+    }
+
+    modal.classList.remove('hidden');
+}
+
+function closeModal() {
+    document.getElementById('jobDetailsModal').classList.add('hidden');
+}
+
+// إغلاق عند الضغط خارج المودال (نسخة آمنة)
+document.addEventListener('click', function (e) {
+    const modal = document.getElementById('jobDetailsModal');
+
+    if (e.target === modal) {
+        closeModal();
+    }
+});
+</script>
+<!-- for upload cv  -->
+ <div id="applyForm"
+     class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center hidden z-50">
+
+    <form method="POST"
+          action="<?= BASE_URL ?>Graduate/apply"
+          enctype="multipart/form-data"
+          class="space-y-4 bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-md shadow-lg">
+
+        <!-- Job ID (يتم تعبئته من JS) -->
+        <input type="hidden" name="job_id" id="applyJobId">
+
+        <!-- Graduate ID -->
+        <input type="hidden" name="graduate_id" id="applyGraduateId"
+               value="<?= $_SESSION['graduate_id'] ?>">
+
+        <!-- Company ID (يتم تعبئته من JS) -->
+        <input type="hidden" name="company_id" id="applyCompanyId">
+
+        <!-- CV Options -->
+        <div>
+            <label class="block font-bold mb-2">اختر السيرة الذاتية</label>
+
+            <!-- profile CV -->
+            <label class="flex items-center gap-2 cursor-pointer mb-2">
+                <input type="radio" name="cv_option" value="profile" checked onchange="toggleCVInput()">
+                <span>استخدام CV من ملفي</span>
+            </label>
+
+            <!-- upload CV -->
+            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="cv_option" value="upload" onchange="toggleCVInput()">
+                <span>رفع CV من الجهاز</span>
+            </label>
+
+            <!-- file input -->
+            <div id="cvFileInput" class="hidden mt-3">
+                <input type="file"
+                       name="cv_file"
+                       accept="application/pdf"
+                       class="block w-full border p-2 rounded-lg">
+            </div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit"
+                class="w-full bg-green-600 text-white px-4 py-2 rounded-xl hover:opacity-90">
+            إرسال الطلب
+        </button>
+
+    </form>
+</div>
+<!-- script for handling CV upload -->
+<script>
+function toggleApplyForm(btn) {
+    const form = document.getElementById("applyForm");
+
+    // فتح/إغلاق
+    form.classList.toggle("hidden");
+
+    // إذا تم فتحه من زر وظيفة
+    if (btn) {
+        const jobId = btn.dataset.id || '';
+        const companyId = btn.dataset.company || '';
+        const graduateId = btn.dataset.graduate || '';
+
+        document.getElementById("applyJobId").value = jobId;
+        document.getElementById("applyCompanyId").value = companyId;
+        document.getElementById("applyGraduateId").value = graduateId;
+    }
+}
+
+function toggleCVInput() {
+    const selected = document.querySelector('input[name="cv_option"]:checked');
+    const fileInput = document.getElementById("cvFileInput");
+
+    if (!selected) return;
+
+    if (selected.value === "upload") {
+        fileInput.classList.remove("hidden");
+    } else {
+        fileInput.classList.add("hidden");
+    }
+}
+
+// إغلاق عند الضغط خارج الفورم (آمن)
+document.addEventListener("click", function (e) {
+    const modal = document.getElementById("applyForm");
+
+    if (e.target === modal) {
+        modal.classList.add("hidden");
+    }
+});
+</script>
 </body></html>

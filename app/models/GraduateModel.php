@@ -92,5 +92,15 @@ class GraduateModel extends Model{
             return false;
         }
     }
+    public function getGraduateIdByUserId($user_id) {
+        $this->db->query("SELECT id FROM graduates WHERE user_id = :user_id");
+        $this->db->bind(":user_id", $user_id);
+        $row = $this->db->single();
+        return $row ? $row->id : null;
 }        
-   
+    public function getCV($user_id) {
+        $this->db->query("SELECT cv_file  AS cv  FROM graduates WHERE id = :user_id");  
+        $this->db->bind(":user_id", $user_id);
+        return $this->db->single();
+    }
+}

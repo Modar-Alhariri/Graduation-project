@@ -145,8 +145,6 @@ class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-sla
 </div>
 </div>
 </aside>
-<!-- Main Content -->
-<main class="flex-1 md:mr-64">
 <!-- Header -->
 <header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-40 px-8 flex items-center justify-between">
 <button onclick="toggleSidebar()" 
@@ -164,6 +162,9 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 
 </div>
 </header>
+<!-- Main Content -->
+<main class="flex-1 md:mr-64 px-4 sm:px-6 lg:px-8 py-6">
+
 <!-- Hero / Page Header Section -->
 <section class="mb-12">
 <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">

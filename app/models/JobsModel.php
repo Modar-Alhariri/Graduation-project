@@ -124,5 +124,9 @@ public function getAllJobs($company_id) {
     $this->db->bind(':company_id', (int)$company_id);
     return $this->db->resultSet();      
 }
+public function getPostedJobs() {
+    $this->db->query("SELECT * FROM jobs ");
+    return $this->db->resultSet();   
+}
 
 }
