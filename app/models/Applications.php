@@ -71,6 +71,23 @@ public function getMyApplications($graduate_id) {
 //  function to apply for a job
 public function apply($data) {
     $this->db->query("
+        SELECT COUNT(*) as count 
+        FROM applications 
+        WHERE graduate_id = :graduate_id 
+        AND job_id = :job_id
+    ");
+
+    $this->db->bind(":graduate_id", $data["graduate_id"]);
+    $this->db->bind(":job_id", $data["job_id"]);
+
+    $row = $this->db->single();
+
+    if($row->count > 0){
+        return false;
+    }
+
+
+    $this->db->query("
         INSERT INTO applications 
         (job_id , graduate_id , company_id, cv_link, status, applied_at) 
         VALUES (:job_id, :graduate_id, :company_id, :cv, 'pending', NOW())

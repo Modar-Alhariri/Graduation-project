@@ -71,6 +71,7 @@ class CompanyController extends ProtectionController{
         $info["acceptedapplications"]=$this->GetAcceptedApplications();
         $info["rejectedapplications"]=$this->GetRejectedApplications();
         $info["lastJobs"]=$this->GetLastJobs();
+        $info["bestGraduate"]=$this->BestGraduates();
         $this->view("company/dashboard",$info);    
     }
     function jobsManagment()  {
@@ -227,5 +228,7 @@ public function GetAllApplications() {
 public function GetGraduates() {
     return $this->graduateModel->getGraduatesInfo();
 }
-
+public function BestGraduates() {
+    
+}
 }

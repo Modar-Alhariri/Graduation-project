@@ -166,7 +166,7 @@ class GraduateController extends ProtectionController{
             header("location:" . BASE_URL . "Graduate/jobs");
             exit();
         } else {
-            $_SESSION["flash_error"] = "حدث خطأ أثناء إرسال الطلب.";
+            $_SESSION["flash_error"] = "تم تقديم الطلب مسبقا";
             header("location:" . BASE_URL . "Graduate/jobs");
             exit();
         }
@@ -452,7 +452,7 @@ public function DeleteCourse(){
 //  }
   public function suitableJobs() {
      // fetch graduate skills
-    $graduateSkills=$this->graduateSkillsModel->getGraduateSkills($_SESSION["graduate_id"]);
+     $graduateSkills=$this->graduateSkillsModel->getGraduateSkills($_SESSION["graduate_id"]);
        $graduateSkills = array_map(function($s) {
         return strtolower(trim($s->name));
         }, $graduateSkills);
