@@ -60,7 +60,7 @@ class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-sla
     </button>
 </div>
 <nav class="flex-1 p-4 space-y-2">
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-semibold" href="<?= BASE_URL ?>company/dashboard">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-semibold" href="<?= BASE_URL ?>Company/dashboard">
 <span class="material-symbols-outlined">dashboard</span>
 <span>Dashboard</span>
 </a>

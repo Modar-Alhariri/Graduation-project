@@ -33,6 +33,7 @@ class GraduateController extends ProtectionController{
         $info["myApplication"]=$this-> GetMyApplicationsCount();
         $info["notificationsCount"]=$this->GetNotificationsCount();
         $info["notifications"]=$this->GetNotifications();
+        $info["suitJobs"]=$this->suitableJobs();
         $this->view("graduate/dashboard",$info);
     }
     function jobs()  {
@@ -449,16 +450,39 @@ public function DeleteCourse(){
 //     return $this->jobsModel->getJobsBySkills($skill_ids);
     
 //  }
-public function suitableJobs() {
-    // fetch graduate skills
-    $skills = $this->graduateSkillsModel->getGraduateSkills($_SESSION["graduate_id"]);
-    $skill_ids = array_map(function($skill) {
-        return $skill->id;
-    }, $skills);
-    // fetch jobs that match skills
-    $jobs = $this->jobsModel->getJobsBySkills($skill_ids);
-    return $jobs;
-    
+  public function suitableJobs() {
+     // fetch graduate skills
+    $graduateSkills=$this->graduateSkillsModel->getGraduateSkills($_SESSION["graduate_id"]);
+       $graduateSkills = array_map(function($s) {
+        return strtolower(trim($s->name));
+        }, $graduateSkills);
+        // fetch jobs
+        $jobs=$this->jobsModel->getAllAvailableJobs();
+        $suitableJobs = [];
+        foreach ($jobs as $job) {
+
+        // تحويل skills من string إلى array
+        $jobSkills = array_map(function($s) {
+            return strtolower(trim($s));
+        }, explode(',', $job->skills));
+
+        // مقارنة
+        $matches = array_intersect($graduateSkills, $jobSkills);
+
+        if (!empty($matches)) {
+
+            $job->match_count = count($matches);
+
+            $suitableJobs[] = $job;
+    }
+  }
+
+
+    usort($suitableJobs, function($a, $b) {
+        return $b->match_count <=> $a->match_count;
+    });
+
+  return $suitableJobs;
 }
 
   

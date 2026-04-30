@@ -59,32 +59,32 @@ class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-sla
     </button>
 </div>
 <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-bold" href="<?= BASE_URL ?>graduate/dashboard">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-bold" href="<?= BASE_URL ?>Graduate/dashboard">
 <span class="material-symbols-outlined">dashboard</span>
 <span>لوحة القيادة</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>graduate/jobs">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>Graduate/jobs">
 <span class="material-symbols-outlined">work</span>
 <span>الوظائف المتاحة</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>graduate/myApplecations">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>Graduate/myApplecations">
 <span class="material-symbols-outlined">description</span>
 <span>طلباتي</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>graduate/surveys">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>Graduate/surveys">
 <span class="material-symbols-outlined">mail</span>
 <span>Surveys</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>graduate/cvBuilder">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>Graduate/cvBuilder">
     <span class="material-symbols-outlined">badge</span>
     <span>CV</span>
 </a>
 <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800">
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="#">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" href="<?= BASE_URL ?>Graduate/profileManagement">
     <span class="material-symbols-outlined">account_circle</span>
     <span>حسابي</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-50 text-red-600 transition-colors" href="#">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-50 text-red-600 transition-colors" href="">
 <span class="material-symbols-outlined">logout</span>
 <span>تسجيل الخروج</span>
 </a>
@@ -194,22 +194,22 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 </tr>
 </thead>
 <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-
+<?php foreach($suitJobs as $suitJob):?>
 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
 <td class="px-6 py-4">
 <div class="flex items-center gap-3">
 <div class="size-8 rounded bg-primary/10 text-primary flex items-center justify-center">
 </div>
-<span class="font-medium">مبرمج</span>
+<span class="font-medium"><?= $suitJob->title ?></span>
 </div>
 </td>
-<td class="px-6 py-4 text-slate-500 dark:text-slate-400">السيف</td>
-<td class="px-6 py-4 text-slate-500 dark:text-slate-400"> عمان</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400"><?= $suitJob->job_type ?></td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400"> <?= $suitJob->location ?></td>
 <td class="px-6 py-4 text-center">
 <button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all">تقديم</button>
 </td>
 </tr>
-
+<?php endforeach;?>
 </tbody>
 </table>
 </div>

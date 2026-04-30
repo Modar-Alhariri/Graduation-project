@@ -11,7 +11,9 @@ class CompanyController extends ProtectionController{
         $this->companyModel=$this->model("CompanyModel");
         $this->applecations=$this->model("Applications");
         $this->graduateModel=$this->model("GraduateModel");
-
+        $company= $this->companyInfo();
+        $_SESSION["company_id"]=$company->id;
+        $_SESSION["company_name"]=$company->company_name;
         return parent::__construct();
     }
     function companyInfo(){
@@ -62,9 +64,7 @@ class CompanyController extends ProtectionController{
     $this->view("company/profileComplete");
 }
     function dashboard()  {
-        $company= $this->companyInfo();
-        $_SESSION["company_id"]=$company->id;
-        $_SESSION["company_name"]=$company->company_name;
+        
         $info=[];
         $info["totalJobs"]= $this->GetJobsCount();
         $info["totalApplications"]=$this->GetAllapplecations();
