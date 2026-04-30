@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html dir="rtl" lang="ar"><head>
@@ -104,10 +105,8 @@ class="w-64 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-sla
 </div>
 </div>
 </aside>
-<!-- Main Content -->
-<main class="flex-1 md:mr-64">
 <!-- Header -->
-<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-40 px-8 flex items-center justify-between">
+<header class=" h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-40 px-8 flex items-center justify-between">
 <button onclick="toggleSidebar()" 
 class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
     <span class="material-symbols-outlined">menu</span>
@@ -123,6 +122,18 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 
 </div>
 </header>
+<!-- Main Content -->
+<main class="flex-1 md:mr-64 px-4 sm:px-6 lg:px-8 py-6">
+<?php if(isset($_SESSION['flash_success'])): ?>
+<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+    <?= $_SESSION['flash_success']; unset($_SESSION['flash_success']); ?>
+</div>
+<?php elseif(isset($_SESSION['flash_error'])): ?>
+<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+    <?= $_SESSION['flash_error']; unset($_SESSION['flash_error']); ?>
+</div>
+<?php endif; ?>
+
 <!-- Content Area -->
 <div class="flex-1 flex flex-col gap-6">
 <!-- Tabs Navigation -->
@@ -131,102 +142,95 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <button class="flex-1 py-3 text-sm font-bold text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">الأكاديمية</button>
 <button class="flex-1 py-3 text-sm font-bold text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">المهارات والخبرات</button>
 </div>
+<?php $info =  $myInfo;?>
 <!-- Personal Info Section -->
-<section class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6">
+<section id="personal" class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6">
+    <form action="<?= BASE_URL ?>Graduate/UpdateMyInfo" method="POST">
 <div class="flex items-center gap-2 mb-6 border-r-4 border-primary pr-3">
 <h2 class="text-xl font-bold">المعلومات الشخصية</h2>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="flex flex-col gap-2">
 <label class="text-sm font-medium text-slate-700 dark:text-slate-300">الاسم الكامل</label>
-<input class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary" type="text" value="أحمد محمد علي"/>
+<input id="name" name="full_name" class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary" type="text" placeholder="<?= $myInfo->name ?>" required/>
 </div>
 <div class="flex flex-col gap-2">
 <label class="text-sm font-medium text-slate-700 dark:text-slate-300">البريد الإلكتروني</label>
-<input class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary text-left" dir="ltr" type="email" value="ahmed.m@example.com"/>
+<input id="email" name="email" class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary text-left" dir="ltr" type="email" placeholder="<?= $myInfo->email ?>" required/>
 </div>
 <div class="flex flex-col gap-2">
 <label class="text-sm font-medium text-slate-700 dark:text-slate-300">رقم الهاتف</label>
-<input class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary text-left" dir="ltr" type="tel" value="+966 50 123 4567"/>
+<input id="phone" name="phone" class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary text-left" dir="ltr" type="tel" placeholder="<?= $myInfo->phone ?>" required/>
 </div>
 <div class="flex flex-col gap-2">
 <label class="text-sm font-medium text-slate-700 dark:text-slate-300">العنوان</label>
-<input class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary" type="text" value="الرياض، المملكة العربية السعودية"/>
+<input id="address" name="address" class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary" type="text" placeholder="<?= $myInfo->address ?>" required />
 </div>
 </div>
+<br>
+<button
+ type="submit" class="bg-primary hover:bg-primary/80 text-white font-bold py-2 px-4 rounded-lg transition-colors">حفظ التغييرات</button>
+</form>
 </section>
 <!-- Academic Info Section -->
-<section class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6">
+<section id="academic" class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6">
 <div class="flex items-center gap-2 mb-6 border-r-4 border-primary pr-3">
 <h2 class="text-xl font-bold">المعلومات الأكاديمية</h2>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 <div class="flex flex-col gap-2 col-span-1 md:col-span-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">الجامعة</label>
-<input class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary" type="text" value="جامعة الملك سعود"/>
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300">الرقم الجامعي </label>
+<input id="graduateNumber" name="graduate_id" class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary" type="text" placeholder="20224738" required disabled value="<?= $myInfo->graduate_id ?>"/>
 </div>
 <div class="flex flex-col gap-2">
 <label class="text-sm font-medium text-slate-700 dark:text-slate-300">سنة التخرج</label>
-<select class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary">
-<option>2023</option>
-<option selected="">2024</option>
-<option>2025 (متوقع)</option>
-</select>
+<input id="graduate_Year" name="graduate_year" type="number" class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary" required placeholder="2020" disabled value="<?= $myInfo->graduate_year ?>">
 </div>
 <div class="flex flex-col gap-2">
 <label class="text-sm font-medium text-slate-700 dark:text-slate-300">الكلية</label>
-<input class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary" type="text" value="علوم الحاسب والمعلومات"/>
+<input id="college" name="college" class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary" type="text" placeholder="<?= $myInfo->college ?>" required disabled value="<?= $myInfo->college ?>"/>
 </div>
 <div class="flex flex-col gap-2">
-<label class="text-sm font-medium text-slate-700 dark:text-slate-300">التخصص الرئيسي</label>
-<input class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary" type="text" value="هندسة البرمجيات"/>
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300">التخصص </label>
+<input id="major" name="major" class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary" type="text" placeholder="<?= $myInfo->major ?>" required disabled value="<?= $myInfo->major ?>"/>
 </div>
 <div class="flex flex-col gap-2">
 <label class="text-sm font-medium text-slate-700 dark:text-slate-300">المعدل التراكمي (GPA)</label>
-<input class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary text-left" dir="ltr" type="text" value="4.85 / 5.0"/>
+<input id="gpa" name="gpa" class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary text-left" dir="ltr" type="number" step="0.01" min="0" max="100" placeholder="87.7" required disabled value="<?= $myInfo->gpa ?>"/>
 </div>
 </div>
 </section>
 <!-- Skills Section -->
-<section class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6">
+<section id="skills" class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6">
 <div class="flex items-center justify-between mb-6 border-r-4 border-primary pr-3">
 <h2 class="text-xl font-bold">المهارات التقنية</h2>
-<button class="text-primary text-sm font-bold flex items-center gap-1">
+<button onclick="addSkillModel()" id="addSkillButton" class="text-primary text-sm font-bold flex items-center gap-1">
 <span class="material-symbols-outlined text-base">add</span>
                                 إضافة مهارة
                             </button>
 </div>
 <div class="flex flex-wrap gap-2">
+    <?php foreach($skills as $skill): ?>
 <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 flex items-center gap-2">
-                                تطوير الويب (React)
-                                <button class="material-symbols-outlined text-xs">close</button>
+                               <?= $skill->name ?>
+<form action="<?= BASE_URL?>Graduate/DeleteSkill" method="POST">
+    <input type="hidden" name="skill_id" value="<?= $skill->id ?>">
+    <button type="submit" class="material-symbols-outlined text-xs">close</button>
+</form>
 </span>
-<span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 flex items-center gap-2">
-                                قواعد البيانات (SQL)
-                                <button class="material-symbols-outlined text-xs">close</button>
-</span>
-<span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 flex items-center gap-2">
-                                Python
-                                <button class="material-symbols-outlined text-xs">close</button>
-</span>
-<span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 flex items-center gap-2">
-                                تحليل البيانات
-                                <button class="material-symbols-outlined text-xs">close</button>
-</span>
-<span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 flex items-center gap-2">
-                                UI/UX Design
-                                <button class="material-symbols-outlined text-xs">close</button>
-</span>
+
+<?php endforeach; ?>
 </div>
 </section>
 <!-- Training Courses Section -->
-<section class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6">
+<section id="trainign" class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6">
 <div class="flex items-center justify-between mb-6 border-r-4 border-primary pr-3">
 <h2 class="text-xl font-bold">الدورات التدريبية</h2>
-<button class="text-primary text-sm font-bold flex items-center gap-1">
-<span class="material-symbols-outlined text-base">add</span>
-                                إضافة دورة
-                            </button>
+<button onclick="openCourseModal()" id="addCourseButton" 
+        class="text-primary text-sm font-bold flex items-center gap-1">
+    <span class="material-symbols-outlined text-base">add</span> 
+    إضافة دورة
+</button>
 </div>
 <div class="overflow-x-auto">
 <table class="w-full text-right border-collapse">
@@ -239,50 +243,30 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 </tr>
 </thead>
 <tbody>
+    <?php foreach($courses as $course): ?>
 <tr class="border-b border-slate-50 dark:border-slate-700/50 hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors">
-<td class="py-4 px-2 text-sm font-medium">مطور ويب محترف</td>
-<td class="py-4 px-2 text-sm">أكاديمية طويق</td>
-<td class="py-4 px-2 text-sm">2023</td>
+<td class="py-4 px-2 text-sm font-medium"><?= $course->title ?></td>
+<td class="py-4 px-2 text-sm"><?= $course->the_entity ?></td>
+<td class="py-4 px-2 text-sm"><?= $course->gain_in ?></td>
 <td class="py-4 px-2">
-<button class="text-slate-400 hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-xl">edit</span>
-</button>
+<form action="<?= BASE_URL ?>Graduate/DeleteCourse" method="POST">
+    <input type="hidden" name="course_id" value="<?= $course->id ?>">
+    <button type="submit" class="text-slate-400 hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-xl">delete</span>
+    </button>
+</form>
 </td>
 </tr>
-<tr class="border-b border-slate-50 dark:border-slate-700/50 hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors">
-<td class="py-4 px-2 text-sm font-medium">أمن المعلومات والسيبراني</td>
-<td class="py-4 px-2 text-sm">Udemy (Online)</td>
-<td class="py-4 px-2 text-sm">2022</td>
-<td class="py-4 px-2">
-<button class="text-slate-400 hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-xl">edit</span>
-</button>
-</td>
-</tr>
-<tr class="border-b border-slate-50 dark:border-slate-700/50 hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors">
-<td class="py-4 px-2 text-sm font-medium">إدارة المشاريع البرمجية</td>
-<td class="py-4 px-2 text-sm">Coursera</td>
-<td class="py-4 px-2 text-sm">2021</td>
-<td class="py-4 px-2">
-<button class="text-slate-400 hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-xl">edit</span>
-</button>
-</td>
-</tr>
+    <?php endforeach; ?>
 </tbody>
 </table>
 </div>
 </section>
-<!-- Action Buttons -->
-<div class="flex items-center justify-end gap-4 pb-12">
-<button class="px-8 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                            إلغاء
-                        </button>
-<button class="px-8 py-3 rounded-xl bg-primary text-white font-bold shadow-lg shadow-primary/30 hover:bg-primary/90 hover:scale-[1.02] transition-all">
-                            حفظ التعديلات
-                        </button>
+<!-- end foreach -->
+
+
 </div>
-</div>
+
 </main>
 <!-- Footer -->
 <footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 py-6 px-10 text-center text-slate-500 dark:text-slate-400 text-sm">
@@ -290,4 +274,101 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 </footer>
 </div>
 </div>
+<!-- hidden model to add courses as course name the entity and  date  -->
+<div id="addCourseModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 w-full max-w-md relative">
+        
+        <h2 class="text-xl font-bold mb-4 text-center">إضافة دورة جديدة</h2>
+        
+        <form action="<?= BASE_URL ?>Graduate/AddCourse" method="POST">
+            <input type="hidden" name="gradiate_id" value="<?= $_SESSION["graduate_id"] ?>">
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300">اسم الدورة</label>
+                    <input type="text" name="course_name" required
+                           class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary"
+                           placeholder="مثال: تطوير الويب (React)">
+                </div>
+                
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300">الجهة المانحة</label>
+                    <input type="text" name="entity_name" required
+                           class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary"
+                           placeholder="مثال: Udemy">
+                </div>
+                
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300">التاريخ</label>
+                    <input type="date" name="date" required
+                           class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary">
+                </div>
+                
+                <div class="flex justify-end gap-2 mt-2">
+                    
+                    <button type="submit"
+                            class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/80 transition-colors">
+                        إضافة الدورة
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- script to handel courses model -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const addCourseModal = document.getElementById('addCourseModal');
+    const addCourseButton = document.getElementById('addCourseButton');
+
+    // فتح المودال
+    addCourseButton.addEventListener('click', function () {
+        addCourseModal.classList.remove('hidden');
+    });
+
+    // إغلاق من زر X
+    window.closeCourseModal = function () {
+        addCourseModal.classList.add('hidden');
+    }
+
+    // إغلاق عند الضغط خارج المودال
+    addCourseModal.addEventListener('click', function (e) {
+        if (e.target === addCourseModal) {
+            addCourseModal.classList.add('hidden');
+        }
+    });
+
+});
+</script>
+<!-- hidden model for adding skills -->
+<div id="addSkillModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+<div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 w-full max-w-md">
+<h2 class="text-xl font-bold mb-4">إضافة مهارة جديدة</h2>
+<form action="<?= BASE_URL ?>Graduate/AddSkill" method="POST">
+<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300">اسم المهارة</label>
+<input id="skill" name="skill_name" class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg
+-slate-50 dark:bg-slate-900 focus:border-primary focus:ring-primary" type="text" placeholder="مثال: تطوير الويب (React)" required/>
+</div>
+<div class="flex justify-end gap-2"></div>
+<button type="submit" class="bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary-dark transition-colors">إضافة مهارة</button>
+</form>
+</div>
+</div>
+<!-- script to handle skills modal -->
+<script>
+    const addSkillModal = document.getElementById('addSkillModal');
+    const addSkillButton = document.getElementById('addSkillButton');
+    function addSkillModel() {
+        addSkillModal.classList.remove('hidden');
+    }
+    // close modal when clicking outside of it
+    addSkillModal.addEventListener('click', (e) => {
+        if (e.target === addSkillModal) {
+            addSkillModal.classList.add('hidden');
+        }
+    });
+</script>
+
 </body></html>

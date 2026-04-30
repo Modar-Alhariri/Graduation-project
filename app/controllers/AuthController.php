@@ -91,7 +91,31 @@ class AuthController extends controller{
     }
      
 
-    public function logout()  {
-        $this->view("auth/logout");
+    public function logout(){
+
+    // بدء الجلسة إذا لم تكن مبدوءة
+    if(session_status() === PHP_SESSION_NONE){
+        session_start();
     }
+
+    // حذف جميع بيانات الجلسة
+    $_SESSION = [];
+
+    // تدمير الجلسة
+    session_unset();
+    session_destroy();
+
+    // حذف الكوكيز (اختياري لكن احترافي)
+    if (ini_get("session.use_cookies")) {
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 42000,
+            $params["path"], $params["domain"],
+            $params["secure"], $params["httponly"]
+        );
+    }
+
+    // إعادة التوجيه
+    header("Location: " . BASE_URL . "Auth/login");
+    exit();
+}
 }

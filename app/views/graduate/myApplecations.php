@@ -1,3 +1,12 @@
+<?php if(isset($_SESSION['flash_success'])): ?>
+<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+    <?= $_SESSION['flash_success']; unset($_SESSION['flash_success']); ?>
+</div>
+<?php elseif(isset($_SESSION['flash_error'])): ?>
+<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+    <?= $_SESSION['flash_error']; unset($_SESSION['flash_error']); ?>
+</div>
+<?php endif; ?>
 <!DOCTYPE html>
 
 <html dir="rtl" lang="ar"><head>
@@ -169,17 +178,17 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <section class="mb-12">
 <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
 <div>
-<h1 class="text-4xl font-extrabold text-on-surface mb-2 tracking-tight">طلباتي (My Applications)</h1>
+<h1 class="text-4xl font-extrabold text-on-surface mb-2 tracking-tight">طلباتي </h1>
 <p class="text-secondary max-w-2xl font-medium">تتبع مسار حياتك المهنية وإدارتها بكل سهولة من خلال عرض كافة طلبات التوظيف التي قمت بتقديمها في مكان واحد.</p>
 </div>
 <div class="flex gap-3">
 <div class="bg-surface-container-low px-4 py-3 rounded-xl flex items-center gap-3">
 <span class="text-xs uppercase tracking-widest font-bold text-secondary">إجمالي الطلبات</span>
-<span class="text-2xl font-bold text-primary">12</span>
+<span class="text-2xl font-bold text-primary"><?= $myapplications ?></span>
 </div>
 <div class="bg-tertiary-container/10 px-4 py-3 rounded-xl flex items-center gap-3">
 <span class="text-xs uppercase tracking-widest font-bold text-tertiary">مقبول</span>
-<span class="text-2xl font-bold text-tertiary">2</span>
+<span class="text-2xl font-bold text-tertiary"><?= $accepted ?></span>
 </div>
 </div>
 </div>
@@ -220,8 +229,9 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <th class="px-8 py-5 text-left">الإجراءات</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-outline-variant/10">
+<tbody class="divide-y divide-outline-variant/10 text-sm text-on-surface">
 <!-- Row 1 -->
+ <?php foreach($applications as $application): ?>
 <tr class="bg-surface-container-lowest hover:bg-surface transition-colors">
 <td class="px-8 py-6">
 <div class="flex items-center gap-4">
@@ -229,122 +239,38 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <img class="w-8 h-8 object-contain" data-alt="minimalist corporate tech logo design on a clean grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV2AAwJk4jN-IrZerT7dth-YBMEHJAwpCiu0cp5Ksy2Cx0p-YtD7aLQ5WyZerbjND_EekTmvWjq4piwsH1LZlZaz1l8dpw60GZkk9bG2ZRFJ9s4O1tNtFgcxYr74gdpMbY-_v3anhcKg7Mv29K95d8TwQy26Wv-s3vEIJV_GL2MPMXn_T9G-NajDR7x0bC_ajnqOgDSwAwfk9o-DUFG1bfuJfDwiWyly31hXSmrEx0r75BDU1rFfZHcnFZlNz6hYo6w-CIfvQPhww"/>
 </div>
 <div>
-<div class="font-bold text-on-surface">مطور واجهات</div>
-<div class="text-xs text-secondary">دوام كامل • الرياض</div>
+<div class="font-bold text-on-surface"><?= $application->job_title ?></div>
+<div class="text-xs text-secondary"><?= $application->job_type ?> • <?= $application->job_location ?></div>
 </div>
 </div>
 </td>
 <td class="px-8 py-6">
-<span class="font-semibold text-on-surface-variant">شركة علم</span>
+<span class="font-semibold text-on-surface-variant"><?= $application->company_name ?></span>
 </td>
-<td class="px-8 py-6 text-center text-sm font-medium text-secondary">
-                                2024-05-10
-                            </td>
+<td class="px-8 py-6 text-center text-sm font-medium text-secondary"><?= $application->applied_at ?></td>
 <td class="px-8 py-6 text-center">
 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary-container/10 text-tertiary text-xs font-bold">
 <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
-                                    قيد المراجعة
-                                </span>
+<?= $application->status ?>
+</span>
 </td>
-<td class="px-8 py-6 text-left">
-<button class="p-2 hover:bg-surface-container-high rounded-lg transition-colors">
-<span class="material-symbols-outlined text-secondary">visibility</span>
+<td class="px-3 py-6 text-left text-sm">
+<button onclick="toggleApplyForm(this)"
+data-id="<?= $application->id ?>"
+data-graduate="<?= $_SESSION['graduate_id'] ?>"
+data-company="<?= $application->company_id ?>"
+ class="p-2 hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined text-secondary">edit</span>
 </button>
+<a href="<?= BASE_URL ?>graduate/deleteApplication/<?= $application->id ?>" onclick="return confirm('هل أنت متأكد أنك تريد حذف هذا الطلب؟');">
+<button
+ class="p-2 hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined text-secondary">delete</span>
+</button>
+</a>
 </td>
 </tr>
-<!-- Row 2 -->
-<tr class="bg-surface-container-lowest hover:bg-surface transition-colors">
-<td class="px-8 py-6">
-<div class="flex items-center gap-4">
-<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden flex items-center justify-center">
-<img class="w-8 h-8 object-contain" data-alt="professional energy sector company logo with abstract circular shapes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNgdqurqbeSy4jQ2R95l4aREiE3KvzL3ZVTR7rp1kHrck6ZQb3eh42V8QuvoAJSP8jue97__84AsURcr2Mng_yT8UFB8UaWN0RSjaCYmRXLNmG9Z5Nd8UnVkccNxk_-9AARLS6gpQzPZbpZNaKXa0JaAl9dmq1MYuZp4C9INB1zdgspKJCuvh4WsxH76_RkiapeAghV7X1rROElyQqC3UkmaxqDOKEZmm05OCH1PGRM6rhKmqGFxZvEMv044g0svOKV25ntLpZcKg"/>
-</div>
-<div>
-<div class="font-bold text-on-surface">محلل بيانات</div>
-<div class="text-xs text-secondary">دوام كامل • الظهران</div>
-</div>
-</div>
-</td>
-<td class="px-8 py-6">
-<span class="font-semibold text-on-surface-variant">أرامكو</span>
-</td>
-<td class="px-8 py-6 text-center text-sm font-medium text-secondary">
-                                2024-04-15
-                            </td>
-<td class="px-8 py-6 text-center">
-<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">
-<span class="w-1.5 h-1.5 rounded-full bg-green-600"></span>
-                                    مقبول
-                                </span>
-</td>
-<td class="px-8 py-6 text-left">
-<button class="p-2 hover:bg-surface-container-high rounded-lg transition-colors">
-<span class="material-symbols-outlined text-secondary">visibility</span>
-</button>
-</td>
-</tr>
-<!-- Row 3 -->
-<tr class="bg-surface-container-lowest hover:bg-surface transition-colors">
-<td class="px-8 py-6">
-<div class="flex items-center gap-4">
-<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden flex items-center justify-center">
-<img class="w-8 h-8 object-contain" data-alt="simple modern financial services icon or logo with geometric lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxlwRetQoMInJQ7vi5dGJZ5vFBWZg-031t-Py0W9hHQ-Syha5CQrRkQln0C_OJoXKaFhlY_6d1QyUzkFolOAcK--g5fPTDUGfndldTJ4uG5as0_caX_yxWAJG60sbNnPo3d3tyI3bo3hDhH_tJWcexTQwesnsNlmFSie0g4OUHzre9IOdg62ty5qD1MXJY6u1_-EwjWDnmr2U1de2vKWjzqM8B1TmiB1JpcypPvs9zZFEtAAulH7igP-zTOsKeiAfN9qhvhIbF6TY"/>
-</div>
-<div>
-<div class="font-bold text-on-surface">مهندس برمجيات</div>
-<div class="text-xs text-secondary">عن بعد</div>
-</div>
-</div>
-</td>
-<td class="px-8 py-6">
-<span class="font-semibold text-on-surface-variant">بنك الراجحي</span>
-</td>
-<td class="px-8 py-6 text-center text-sm font-medium text-secondary">
-                                2024-03-22
-                            </td>
-<td class="px-8 py-6 text-center">
-<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-error-container/20 text-error text-xs font-bold">
-<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
-                                    مرفوض
-                                </span>
-</td>
-<td class="px-8 py-6 text-left">
-<button class="p-2 hover:bg-surface-container-high rounded-lg transition-colors">
-<span class="material-symbols-outlined text-secondary">visibility</span>
-</button>
-</td>
-</tr>
-<!-- Row 4 -->
-<tr class="bg-surface-container-lowest hover:bg-surface transition-colors">
-<td class="px-8 py-6">
-<div class="flex items-center gap-4">
-<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden flex items-center justify-center">
-<img class="w-8 h-8 object-contain" data-alt="minimalist design agency logo featuring sleek bold lettering" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxgKIK_VULPgJp8zgh5LcGFdsqKLOJJJfF5FZ6V-_qeboFiotSmXjvEnIfArN7oVBdRmd_QZevffMoDGXjFpschANgYuvWPwFHZHuNA7y_hOvXHeBpOumWSHx_GIHfsZ-7pR4vB5jp4i5yCgc0S1P20tKLAMqLRbWWc8C48cnPY-21S1VL42I7lQSKnuYDRdH6w0WZh9NYZzdOjv9AMmDBCVq_XFbZqngtXaRRfS9ifwkvPkhg_6O0gxUw70WPUhBo40JJOwVqUDc"/>
-</div>
-<div>
-<div class="font-bold text-on-surface">أخصائي تسويق رقمي</div>
-<div class="text-xs text-secondary">دوام جزئي • جدة</div>
-</div>
-</div>
-</td>
-<td class="px-8 py-6">
-<span class="font-semibold text-on-surface-variant">شركة تطوير</span>
-</td>
-<td class="px-8 py-6 text-center text-sm font-medium text-secondary">
-                                2024-05-12
-                            </td>
-<td class="px-8 py-6 text-center">
-<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary-container/10 text-tertiary text-xs font-bold">
-<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
-                                    قيد المراجعة
-                                </span>
-</td>
-<td class="px-8 py-6 text-left">
-<button class="p-2 hover:bg-surface-container-high rounded-lg transition-colors">
-<span class="material-symbols-outlined text-secondary">visibility</span>
-</button>
-</td>
-</tr>
+<?php endforeach; ?>
 </tbody>
 </table>
 </div>
@@ -376,4 +302,100 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <p class="font-['Inter'] text-xs uppercase tracking-wider font-medium text-[#586062] dark:text-slate-400">© 2024 Scholar Metric. All rights reserved.</p>
 </div>
 </footer>
+<!-- for upload cv  -->
+ <div id="applyForm"
+     class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center hidden z-50">
+
+    <form method="POST"
+          action="<?= BASE_URL ?>Graduate/EditApplication"
+          enctype="multipart/form-data"
+          class="space-y-4 bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-md shadow-lg">
+
+        <!-- Job ID (يتم تعبئته من JS) -->
+        <input type="hidden" name="job_id" id="applyJobId">
+        <input type="hidden" name="application_id" id="applyApplicationId">
+
+        <!-- Graduate ID -->
+        <input type="hidden" name="graduate_id" id="applyGraduateId"
+               value="<?= $_SESSION['graduate_id'] ?>">
+
+        <!-- Company ID (يتم تعبئته من JS) -->
+        <input type="hidden" name="company_id" id="applyCompanyId">
+
+        <!-- CV Options -->
+        <div>
+            <label class="block font-bold mb-2">اختر السيرة الذاتية</label>
+
+            <!-- profile CV -->
+            <label class="flex items-center gap-2 cursor-pointer mb-2">
+                <input type="radio" name="cv_option" value="profile" checked onchange="toggleCVInput()">
+                <span>استخدام CV من ملفي</span>
+            </label>
+
+            <!-- upload CV -->
+            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="cv_option" value="upload" onchange="toggleCVInput()">
+                <span>رفع CV من الجهاز</span>
+            </label>
+
+            <!-- file input -->
+            <div id="cvFileInput" class="hidden mt-3">
+                <input type="file"
+                       name="cv_file"
+                       accept="application/pdf"
+                       class="block w-full border p-2 rounded-lg">
+            </div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit"
+                class="w-full bg-green-600 text-white px-4 py-2 rounded-xl hover:opacity-90">
+            إرسال الطلب
+        </button>
+
+    </form>
+</div>
+<!-- script for handling CV upload -->
+<script>
+function toggleApplyForm(btn) {
+    const form = document.getElementById("applyForm");
+
+    // فتح/إغلاق
+    form.classList.toggle("hidden");
+
+    // إذا تم فتحه من زر وظيفة
+    if (btn) {
+        const jobId = btn.dataset.id || '';
+        const companyId = btn.dataset.company || '';
+        const graduateId = btn.dataset.graduate || '';
+        const applicationId = btn.dataset.application || '';
+        document.getElementById("applyApplicationId").value = applicationId;
+        document.getElementById("applyJobId").value = jobId;
+        document.getElementById("applyCompanyId").value = companyId;
+        document.getElementById("applyGraduateId").value = graduateId;
+    }
+}
+
+function toggleCVInput() {
+    const selected = document.querySelector('input[name="cv_option"]:checked');
+    const fileInput = document.getElementById("cvFileInput");
+
+    if (!selected) return;
+
+    if (selected.value === "upload") {
+        fileInput.classList.remove("hidden");
+    } else {
+        fileInput.classList.add("hidden");
+    }
+}
+
+// إغلاق عند الضغط خارج الفورم (آمن)
+document.addEventListener("click", function (e) {
+    const modal = document.getElementById("applyForm");
+
+    if (e.target === modal) {
+        modal.classList.add("hidden");
+    }
+});
+</script>
 </body></html>

@@ -194,66 +194,22 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 </tr>
 </thead>
 <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+
 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
 <td class="px-6 py-4">
 <div class="flex items-center gap-3">
 <div class="size-8 rounded bg-primary/10 text-primary flex items-center justify-center">
-<span class="material-symbols-outlined text-lg">code</span>
 </div>
-<span class="font-medium">مطور واجهات أمامية</span>
+<span class="font-medium">مبرمج</span>
 </div>
 </td>
-<td class="px-6 py-4 text-slate-500 dark:text-slate-400">حلول التقنية</td>
-<td class="px-6 py-4 text-slate-500 dark:text-slate-400">الرياض، المملكة العربية السعودية</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">السيف</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400"> عمان</td>
 <td class="px-6 py-4 text-center">
 <button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all">تقديم</button>
 </td>
 </tr>
-<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4">
-<div class="flex items-center gap-3">
-<div class="size-8 rounded bg-primary/10 text-primary flex items-center justify-center">
-<span class="material-symbols-outlined text-lg">database</span>
-</div>
-<span class="font-medium">محلل بيانات</span>
-</div>
-</td>
-<td class="px-6 py-4 text-slate-500 dark:text-slate-400">نظم المعلومات</td>
-<td class="px-6 py-4 text-slate-500 dark:text-slate-400">جدة، المملكة العربية السعودية</td>
-<td class="px-6 py-4 text-center">
-<button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all">تقديم</button>
-</td>
-</tr>
-<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4">
-<div class="flex items-center gap-3">
-<div class="size-8 rounded bg-primary/10 text-primary flex items-center justify-center">
-<span class="material-symbols-outlined text-lg">cloud</span>
-</div>
-<span class="font-medium">مهندس سحابة</span>
-</div>
-</td>
-<td class="px-6 py-4 text-slate-500 dark:text-slate-400">ارامكو</td>
-<td class="px-6 py-4 text-slate-500 dark:text-slate-400">الظهران، المملكة العربية السعودية</td>
-<td class="px-6 py-4 text-center">
-<button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all">تقديم</button>
-</td>
-</tr>
-<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-<td class="px-6 py-4">
-<div class="flex items-center gap-3">
-<div class="size-8 rounded bg-primary/10 text-primary flex items-center justify-center">
-<span class="material-symbols-outlined text-lg">security</span>
-</div>
-<span class="font-medium">أخصائي أمن سيبراني</span>
-</div>
-</td>
-<td class="px-6 py-4 text-slate-500 dark:text-slate-400">شركة الثقة</td>
-<td class="px-6 py-4 text-slate-500 dark:text-slate-400">عن بُعد</td>
-<td class="px-6 py-4 text-center">
-<button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all">تقديم</button>
-</td>
-</tr>
+
 </tbody>
 </table>
 </div>
@@ -267,46 +223,24 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 </button>
 </div>
 <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-2 shadow-sm space-y-1">
-<div class="flex gap-4 p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer border-r-4 border-primary">
-<div class="size-10 shrink-0 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center">
-<span class="material-symbols-outlined">mail</span>
-</div>
-<div class="flex-1 min-w-0">
-<p class="text-sm font-bold text-slate-900 dark:text-slate-100">رسالة جديدة من شركة "حلول"</p>
-<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">لقد تم عرض ملفك الشخصي وطلب مقابلة...</p>
-<span class="text-[10px] text-slate-400 mt-2 block">منذ ٢٠ دقيقة</span>
-</div>
-</div>
-<div class="flex gap-4 p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer border-r-4 border-emerald-500">
+<?php foreach($notifications as $notification): ?>
+<a type="button" onclick="showNotification(this)"   
+data-title='<?= $notification->title ?>'
+data-message='<?= $notification->message ?>'
+data-created_at='<?= $notification->created_at ?>'
+>
+    <div class="flex gap-4 p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer border-r-4 border-emerald-500">
 <div class="size-10 shrink-0 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 flex items-center justify-center">
 <span class="material-symbols-outlined">work_outline</span>
 </div>
 <div class="flex-1 min-w-0">
-<p class="text-sm font-bold text-slate-900 dark:text-slate-100">وظيفة جديدة في تخصصك</p>
-<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">شركة أرامكو أعلنت عن شواغر هندسية جديدة...</p>
-<span class="text-[10px] text-slate-400 mt-2 block">منذ ساعتين</span>
+<p class="text-sm font-bold text-slate-900 dark:text-slate-100"><?= $notification->title ?> </p>
+<span class="text-[10px] text-slate-400 mt-2 block"> <?= $notification->created_at ?></span>
 </div>
 </div>
-<div class="flex gap-4 p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer border-r-4 border-amber-500">
-<div class="size-10 shrink-0 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 flex items-center justify-center">
-<span class="material-symbols-outlined">poll</span>
-</div>
-<div class="flex-1 min-w-0">
-<p class="text-sm font-bold text-slate-900 dark:text-slate-100">استطلاع رأي جديد للجامعة</p>
-<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">يهمنا رأيك في مستوى الخدمات المقدمة للخريجين...</p>
-<span class="text-[10px] text-slate-400 mt-2 block">منذ ٥ ساعات</span>
-</div>
-</div>
-<div class="flex gap-4 p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer">
-<div class="size-10 shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center justify-center">
-<span class="material-symbols-outlined">event</span>
-</div>
-<div class="flex-1 min-w-0">
-<p class="text-sm font-bold text-slate-900 dark:text-slate-100">لقاء توظيف غداً</p>
-<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">تذكير بموعد لقاء التوظيف المباشر في قاعة المؤتمرات...</p>
-<span class="text-[10px] text-slate-400 mt-2 block">أمس</span>
-</div>
-</div>
+</a>
+<?php endforeach; ?>
+
 </div>
 </div>
 </div>
@@ -320,4 +254,34 @@ function toggleSidebar() {
     sidebar.classList.toggle("translate-x-full");
 }
 </script>
+<!-- model to view notification details -->
+ <div id="applyForm"
+     class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center hidden z-50">
+    <div class="bg-white dark:bg-slate-900 rounded-xl p-6 w-full max-w-md">
+        <h2 id="title" class="text-xl font-bold mb-4">عنوان الإشعار</h2>
+        <p id="message" class="text-slate-700 dark:text-slate-300 mb-4">تفاصيل الإشعار...</p>
+        <span id="created_at" class="text-xs text-slate-400">تاريخ الإنشاء</span>
+</div>
+ <!-- script to handle notification details -->
+    <script>
+        function showNotification(element) {
+            const title = element.getAttribute("data-title");
+            const message = element.getAttribute("data-message");
+            const created_at = element.getAttribute("data-created_at");
+    
+            document.getElementById("title").innerText = title;
+            document.getElementById("message").innerText = message;
+            document.getElementById("created_at").innerText = created_at;
+    
+            document.getElementById("applyForm").classList.remove("hidden");
+        }
+    
+        // Close the modal when clicking outside of it
+        window.addEventListener("click", function(event) {
+            const modal = document.getElementById("applyForm");
+            if (event.target === modal) {
+                modal.classList.add("hidden");
+            }
+        });
+    </script>
 </body></html>

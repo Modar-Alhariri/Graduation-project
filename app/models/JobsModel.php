@@ -128,5 +128,10 @@ public function getPostedJobs() {
     $this->db->query("SELECT * FROM jobs ");
     return $this->db->resultSet();   
 }
-
+// function to get all jobs
+public function getAllAvailableJobs() {
+    $this->db->query("SELECT * FROM jobs WHERE deadline >= CURDATE() ORDER BY deadline ASC");
+    return $this->db->resultSet();   
+}
+// function to get job by skills
 }

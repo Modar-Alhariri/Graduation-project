@@ -103,4 +103,77 @@ class GraduateModel extends Model{
         $this->db->bind(":user_id", $user_id);
         return $this->db->single();
     }
+    public function getCV_info($user_id){
+        $this->db->query("SELECT cv_file  AS cv  FROM graduates WHERE user_id = :user_id");  
+        $this->db->bind(":user_id", $user_id);
+        return $this->db->single();
+    }
+    public function updateCV($user_id, $cv_file) {
+        $this->db->query("UPDATE graduates SET cv_file = :cv_file WHERE user_id = :user_id");
+        $this->db->bind(":cv_file", $cv_file);
+        $this->db->bind(":user_id", $user_id);
+        return $this->db->execute();
+    }
+   public function getGraduateInfo($user_id) {
+
+    $this->db->query("
+        SELECT 
+            u.name,
+            u.email,
+            m.name AS major,
+            c.name AS college,
+            d.name AS department,
+            g.*,
+
+            GROUP_CONCAT(DISTINCT s.name SEPARATOR ', ') AS skills,
+            GROUP_CONCAT(DISTINCT co.title SEPARATOR ', ') AS courses
+
+        FROM graduates g
+
+        JOIN users u ON g.user_id = u.user_id
+
+        JOIN majors m ON g.major_id = m.id
+        JOIN departments d ON m.department_id = d.id
+        JOIN colleges c ON d.college_id = c.id
+
+        LEFT JOIN graduate_skills gs ON gs.graduate_id = g.id
+        LEFT JOIN skills s ON s.id = gs.skill_id
+
+        LEFT JOIN courses co ON co.graduate_id = g.id
+
+        WHERE g.user_id = :user_id
+
+        GROUP BY g.id
+    ");
+
+    $this->db->bind(":user_id", $user_id);
+
+    return $this->db->single();
+}
+   public function updateGraduateProfile($data) {
+    // save name and email in user table and phone and address in graduate table 
+    $this->db->query("UPDATE users SET name = :name, email = :email WHERE user_id = :user_id");
+    $this->db->bind(":name", $data["full_name"]);
+    $this->db->bind(":email", $data["email"]);
+    $this->db->bind(":user_id", $_SESSION["user_id"]);
+    if($this->db->execute()){
+        $this->db->query("UPDATE graduates SET phone = :phone, address = :address WHERE user_id = :user_id");
+        $this->db->bind(":phone", $data["phone"]);
+        $this->db->bind(":address", $data["address"]);
+        $this->db->bind(":user_id", $_SESSION["user_id"]);
+        if($this->db->execute()){
+           
+            return true;
+        }
+        else{
+           
+            return false;
+        }
+    }
+    else{
+        
+        return false;
+    }
+   }
+
 }
