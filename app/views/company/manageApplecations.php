@@ -122,9 +122,9 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-300 text-center">إجراءات</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-primary/10">
+<tbody class="divide-y divide-primary/10 text-sm">
     <?php foreach($data["allApplications"] as $application): ?>
-<tr class="group hover:bg-primary/5 transition-colors cursor-pointer bg-primary/2">
+<tr class="group hover:bg-primary/5 transition-colors cursor-pointer bg-primary/2 ">
 <td class="px-6 py-5">
 <div class="flex items-center gap-3">
 <div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">أ</div>
@@ -135,19 +135,14 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <td class="px-6 py-5 text-center">
 <span class="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 text-xs font-bold"> <?= $application->status ?></span>
 </td>
-<td class="px-6 py-5 text-center">
+<td class="px-3 py-5 text-center  ">
     <!-- button to show details that send all application data as data parameters  -->
 <button onclick="showDetails(this)"
 data-graduate-name="<?= $application->graduate_name ?>"
 data-graduate-email="<?= $application->graduate_email ?>"
-data-phone="<?= $application->phone ?>"
+data-graduate-phone="<?= $application->graduate_phone ?>"
+data-graduate-cv="<?= $application->cv_link ?>"
 class="text-slate-400 hover:text-primary transition-colors" title="عرض"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
-<button
- 
-class="text-slate-400 hover:text-blue-500 transition-colors" title="تعديل"><span class="material-symbols-outlined text-[20px]">check_circle</span></button>
-<button
-  
-class="text-slate-400 hover:text-red-500 transition-colors" title="حذف"><span class="material-symbols-outlined text-[20px]">cancel</span></button>
 </td>
 </tr>
 <?php endforeach; ?>
@@ -158,7 +153,7 @@ class="text-slate-400 hover:text-red-500 transition-colors" title="حذف"><span
 </div>
 <!-- Right Content: Detail View Sidebar hidden by default when show button is clicked right content shows -->
 
-<div id="detailsPanel" class="lg:col-span-4 space-y-6  transition-all duration-300">
+<div id="detailsPanel" class="hidden lg:col-span-4 space-y-6  transition-all duration-300">
 <div class="sticky top-8 rounded-2xl border border-primary/10 bg-white dark:bg-primary/5 p-6 shadow-sm">
  <div class="flex justify-end mb-2">
     <button onclick="hideDetails()" class="text-sm text-red-500 hover:underline">
@@ -172,13 +167,8 @@ class="text-slate-400 hover:text-red-500 transition-colors" title="حذف"><span
 </div>
 <span class="absolute bottom-0 right-0 h-5 w-5 rounded-full border-2 border-white bg-emerald-500 dark:border-background-dark"></span>
 </div>
-<h2 id="name" class="text-xl font-bold text-slate-900 dark:text-slate-50">أحمد الفارسي</h2>
+<h2 id="gname" class="text-xl font-bold text-slate-900 dark:text-slate-50">أحمد الفارسي</h2>
 <!-- <p class="text-sm font-medium text-primary">خريج جامعة الملك سعود</p> -->
-<div class="mt-4 flex flex-wrap justify-center gap-2">
-<span class="rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary">Java</span>
-<span class="rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary">React</span>
-<span class="rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary">PostgreSQL</span>
-</div>
 </div>
 <div class="mt-8 space-y-4">
 <div class="rounded-xl bg-background-light dark:bg-background-dark/40 p-4">
@@ -190,8 +180,8 @@ class="text-slate-400 hover:text-red-500 transition-colors" title="حذف"><span
 <span class="text-[10px] text-slate-400">PDF • 1.2 MB</span>
 </div>
 <div class="flex gap-2">
-<button class="flex-1 rounded-lg bg-white dark:bg-primary/20 border border-primary/10 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 transition-colors hover:bg-primary/10">عرض الملف</button>
-<button class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white shadow-sm transition-transform hover:scale-105">
+<button id="gcv" class="flex-1 rounded-lg bg-white dark:bg-primary/20 border border-primary/10 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 transition-colors hover:bg-primary/10">عرض الملف</button>
+<button id="gcvdown" class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white shadow-sm transition-transform hover:scale-105">
 <span class="material-symbols-outlined text-[18px]">download</span>
 </button>
 </div>
@@ -199,22 +189,20 @@ class="text-slate-400 hover:text-red-500 transition-colors" title="حذف"><span
 <div class="space-y-3 pt-2">
 <div class="flex items-center gap-3">
 <span class="material-symbols-outlined text-slate-400 text-[18px]">mail</span>
-<span class="text-sm font-medium" id="email"></span>
+<span class="text-sm font-medium" id="gemail"></span>
 </div>
 <div class="flex items-center gap-3">
 <span class="material-symbols-outlined text-slate-400 text-[18px]">call</span>
-<span class="text-sm font-medium" id="phone"></span>
+<span class="text-sm font-medium" id="gphone"></span>
 </div>
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-slate-400 text-[18px]">school</span>
-<span class="text-sm font-medium">علوم حاسب - جيد جداً</span>
-</div>
+
 </div>
 </div>
 <div class="mt-8 border-t border-primary/10 pt-6">
 <h3 class="mb-4 text-sm font-bold text-slate-900 dark:text-slate-100">الإجراءات</h3>
 <div class="grid grid-cols-2 gap-3">
-<button class="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90">
+<button onclick="sendNotification()"
+class="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90">
 <span class="material-symbols-outlined text-[18px]">check_circle</span>
                                     قبول
                                 </button>
@@ -245,12 +233,30 @@ class="text-slate-400 hover:text-red-500 transition-colors" title="حذف"><span
 </div>
 <!-- script to active right content  -->
  <script>
-function showDetails() {
+function showDetails(btn) {
     document.getElementById("detailsPanel").classList.remove("hidden");
+    document.getElementById("gname").innerText = btn.dataset.graduateName;
+    document.getElementById("gemail").innerText= btn.dataset.graduateEmail;
+    document.getElementById("gphone").innerText= btn.dataset.graduatePhone;
+    let cvdownload =document.getElementById("gcvdown");
+    cvdownload.value=btn.dataset.graduateCv;
+    cvdownload.addEventListener("click",()=>{
+        let link = cvdownload.value;  
+        window.location.href = "<?= BASE_URL ?>" + link ;
+
+    });
+    let cv = document.getElementById("gcv");
+    cv.value = btn.dataset.graduateCv;
+    cv.addEventListener("click",()=>{
+        let link = cv.value;  
+    window.open("<?= BASE_URL ?>"+link, "_blank");
+    });
 }
 
 function hideDetails() {
     document.getElementById("detailsPanel").classList.add("hidden");
 }
 </script>
+<!-- hidden form to send notification for accepted graduate  -->
+ 
 </body></html>

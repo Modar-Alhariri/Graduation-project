@@ -40,4 +40,8 @@ class Database {
     $this->stmt->execute();
     return $this->stmt->fetchAll(PDO::FETCH_OBJ);
 }
+ public function __destruct() {
+        $this->stmt = null;
+        $this->dbh = null;
+    }
 }

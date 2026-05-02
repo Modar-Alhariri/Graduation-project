@@ -170,13 +170,38 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <table class="w-full text-right border-collapse">
 <thead class="bg-slate-50 dark:bg-slate-800/50">
 <tr>
-<th class="px-6 py-4 text-slate-500 text-sm font-semibold">الخريج</th>
 <th class="px-6 py-4 text-slate-500 text-sm font-semibold">الوظيفة</th>
-<th class="px-6 py-4 text-slate-500 text-sm font-semibold">الحالة</th>
+<th class="px-6 py-4 text-slate-500 text-sm font-semibold">العدد</th>
 <th class="px-6 py-4 text-slate-500 text-sm font-semibold">الاجراء</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+
+<?php foreach($candidateGraduates as $job): ?>
+
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+
+    <!-- اسم الوظيفة -->
+    <td class="px-6 py-4 font-medium">
+        <?= $job->title ?>
+    </td>
+
+    <!-- عدد المرشحين -->
+    <td class="px-6 py-4 text-slate-500">
+        <?= count($job->candidates) ?>
+    </td>
+
+    <!-- زر عرض التفاصيل -->
+    <td class="px-6 py-4">
+        <a href="<?= BASE_URL ?>company/jobCandidates/<?= $job->id ?>"
+           class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold">
+            عرض
+        </a>
+    </td>
+
+</tr>
+
+<?php endforeach; ?>
 
 </tbody>
 </table>
@@ -197,7 +222,7 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <th class="px-6 py-4 text-slate-500 text-sm font-semibold">مسمى الوظيفة</th>
 <th class="px-6 py-4 text-slate-500 text-sm font-semibold">المتقدمين</th>
 <th class="px-6 py-4 text-slate-500 text-sm font-semibold">تاريخ النشر</th>
-<th class="px-6 py-4 text-slate-500 text-sm font-semibold">الإجراءات</th>
+<th class="px-3 py-4 text-slate-500 text-sm font-semibold">الإجراءات</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
@@ -215,8 +240,8 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
     <td class="px-3 py-4 text-sm">
         <?= $job->deadline ?>
     </td>
-    <td class="px-4 py-4">
-       
+    <td class="px-2 py-4">
+        <div class="flex items-center gap-2">
         <button 
             onclick="openEditModal(this)"
             data-id="<?= $job->id ?>"
@@ -230,7 +255,7 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 
             class=" text-sm px-2 py-1 text-gray rounded-lg hover:bg-yellow-400">
             
-            <span class="material-symbols-outlined text-xl">edit</span>
+            <span class="material-symbols-outlined text-sm">edit</span>
         </button>
         <button 
             onclick="openDeleteModal(<?= $job->id ?>)" 
@@ -238,6 +263,7 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
             <span class="material-symbols-outlined text-xl">delete</span>
         </button>   
      </td>
+     </div>
 </tr>
 <?php endforeach; ?>
 </tbody>

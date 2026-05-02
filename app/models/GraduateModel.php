@@ -175,5 +175,52 @@ class GraduateModel extends Model{
         return false;
     }
    }
+  public function getGraduatesBySkills($jobSkills, $limit = 20)
+{
+    if (empty($jobSkills)) {
+        return [];
+    }
+
+    $placeholders = implode(',', array_fill(0, count($jobSkills), '?'));
+
+    $sql = "
+        SELECT 
+            g.id,
+            g.user_id,
+            u.name,
+            u.email,
+
+            GROUP_CONCAT(DISTINCT LOWER(s.name)) AS skills,
+
+            COUNT(DISTINCT s.id) AS match_count
+
+        FROM graduates g
+
+        INNER JOIN users u 
+            ON u.user_id = g.user_id
+
+        INNER JOIN graduate_skills gs 
+            ON gs.graduate_id = g.id
+
+        INNER JOIN skills s 
+            ON s.id = gs.skill_id
+
+        WHERE LOWER(s.name) IN ($placeholders)
+
+        GROUP BY g.id, g.user_id, u.name, u.email
+
+        ORDER BY match_count DESC
+
+        LIMIT $limit
+    ";
+
+    $this->db->query($sql);
+
+    foreach ($jobSkills as $i => $skill) {
+        $this->db->bind($i + 1, strtolower(trim($skill)));
+    }
+
+    return $this->db->resultSet();
+}
 
 }

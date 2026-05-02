@@ -11,13 +11,14 @@ class CompanyController extends ProtectionController{
         $this->companyModel=$this->model("CompanyModel");
         $this->applecations=$this->model("Applications");
         $this->graduateModel=$this->model("GraduateModel");
-        $company= $this->companyInfo();
-        $_SESSION["company_id"]=$company->id;
-        $_SESSION["company_name"]=$company->company_name;
+       
         return parent::__construct();
     }
     function companyInfo(){
-        return $this->companyModel->getCompanyInfo($_SESSION["user_id"]);
+         $company= $this->companyModel->getCompanyInfo($_SESSION["user_id"]);
+        $_SESSION["company_id"]=$company->id;
+        $_SESSION["company_name"]=$company->company_name;
+        
     }
     public function profileComplete()
 {
@@ -64,14 +65,14 @@ class CompanyController extends ProtectionController{
     $this->view("company/profileComplete");
 }
     function dashboard()  {
-        
+        $this->companyInfo();
         $info=[];
         $info["totalJobs"]= $this->GetJobsCount();
         $info["totalApplications"]=$this->GetAllapplecations();
         $info["acceptedapplications"]=$this->GetAcceptedApplications();
         $info["rejectedapplications"]=$this->GetRejectedApplications();
         $info["lastJobs"]=$this->GetLastJobs();
-        $info["bestGraduate"]=$this->BestGraduates();
+        $info["candidateGraduates"]=$this->candidateGraduates();
         $this->view("company/dashboard",$info);    
     }
     function jobsManagment()  {
@@ -230,5 +231,77 @@ public function GetGraduates() {
 }
 public function BestGraduates() {
     
+}
+public function ViewGraduateCV($link) {
+
+    $fileName = basename($link);
+
+    $filePath = "http://localhost/GTS-System/uploads/cvs/" . $fileName;
+
+    if (file_exists($filePath)) {
+
+        header("Content-Type: application/pdf");
+        header("Content-Disposition: inline; filename=\"cv.pdf\"");
+        header("Content-Length: " . filesize($filePath));
+
+        readfile($filePath);
+        exit();
+
+    } else {
+        $_SESSION["flash_error"] = "الملف غير موجود.";
+        header("location:" . BASE_URL . "Graduate/cvBuilder");
+        exit();
+    }
+}
+public function candidateGraduates() {
+
+    // 1. جلب الوظائف
+    $jobs = $this->jobModel->getcompanyAvailableJobs($_SESSION["company_id"]);
+
+    $jobsWithCandidates = [];
+
+    foreach ($jobs as $job) {
+
+        // 2. مهارات الوظيفة
+        $jobSkills = array_map(function($s) {
+            return strtolower(trim($s));
+        }, explode(',', $job->skills));
+
+        // 3. جلب الخريجين (من DB) الذين لديهم أي مهارة مطلوبة (limit 20)
+        $graduates = $this->graduateModel->getGraduatesBySkills($jobSkills, 20);
+
+        $matchedGraduates = [];
+
+        foreach ($graduates as $grad) {
+
+            // تحويل مهارات الخريج إلى array
+            $gradSkills = array_map(function($s) {
+                return strtolower(trim($s));
+            }, explode(',', $grad->skills ?? "")); // إذا كانت string
+
+            // 4. حساب التطابق
+            $matches = array_intersect($gradSkills, $jobSkills);
+
+            if (!empty($matches)) {
+
+                $grad->match_count = count($matches);
+                $grad->matched_skills = array_values($matches);
+
+                $matchedGraduates[] = $grad;
+            }
+        }
+
+        // 5. ترتيب حسب الأفضل (الأكثر تطابق)
+        usort($matchedGraduates, function($a, $b) {
+            return $b->match_count <=> $a->match_count;
+        });
+
+        // 6. ربط الخريجين بالوظيفة
+        $job->candidates = $matchedGraduates;
+
+        $jobsWithCandidates[] = $job;
+    }
+
+    return $jobsWithCandidates;
 }
 }

@@ -94,7 +94,7 @@ public function deleteJob($id) {
 //  get avtive jobs for company dashboard
 public function getActiveJobs($company_id) {
     $this->db->query("
-        SELECT COUNT(*) as total FROM jobs 
+        SELECT  COUNT(*) as total FROM jobs 
         WHERE company_id = :company_id 
         AND deadline >= CURDATE()
         ORDER BY deadline ASC
@@ -131,6 +131,11 @@ public function getPostedJobs() {
 // function to get all jobs
 public function getAllAvailableJobs() {
     $this->db->query("SELECT * FROM jobs WHERE deadline >= CURDATE() ORDER BY deadline ASC");
+    return $this->db->resultSet();   
+}
+public function getcompanyAvailableJobs($company_id) {
+    $this->db->query("SELECT * FROM jobs WHERE company_id = :company_id AND deadline >= CURDATE() ORDER BY deadline ASC");
+    $this->db->bind(':company_id', (int)$company_id);
     return $this->db->resultSet();   
 }
 // function to get job by skills
