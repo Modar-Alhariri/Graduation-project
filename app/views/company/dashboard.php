@@ -193,10 +193,15 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 
     <!-- زر عرض التفاصيل -->
     <td class="px-6 py-4">
-        <a href="<?= BASE_URL ?>company/jobCandidates/<?= $job->id ?>"
-           class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold">
-            عرض
-        </a>
+       <button
+    data-job="<?= $job->id ?>"
+    data-jobtitle="<?= htmlspecialchars($job->title) ?>"
+    data-graduates='<?= json_encode($job->candidates) ?>'
+    onclick="openCandidatesModal(this)" 
+    class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold"
+    type="button">
+    عرض
+</button>
     </td>
 
 </tr>
@@ -498,6 +503,86 @@ function populateEditForm(jobData) {
 
 function closeDeleteModal() {
     document.getElementById('deleteModal').classList.add('hidden');
+}
+</script>
+<!-- hidden model to show all candidate graduates related to spicific job -->
+ <div id="candidatesModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg w-full max-w-4xl max-h-[80vh] p-6 flex flex-col">
+
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-bold">الخريجين المرشحين</h2>
+            <button onclick="closeCandidatesModal()" class="text-red-500">✖</button>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-right border-collapse">
+                <thead>
+                    <tr class="border-b">
+                        <th class="py-2">اسم الخريج</th>
+                        <th class="py-2">CV</th>
+                    </tr>
+                </thead>
+
+                <tbody id="candidatesTable">
+                    <!-- سيتم تعبئته بـ JS -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<!-- script for candidates modal -->
+ <script>
+function openCandidatesModal(btn) {
+
+    let modal = document.getElementById('candidatesModal');
+    let table = document.getElementById('candidatesTable');
+
+    // ✅ استخدم btn مباشرة
+    let graduatesData = JSON.parse(btn.getAttribute('data-graduates'));
+
+    table.innerHTML = '';
+
+    if (graduatesData.length === 0) {
+        table.innerHTML = `<tr><td colspan="2">لا يوجد مرشحين</td></tr>`;
+    }
+
+    graduatesData.forEach(graduate => {
+
+        let row = document.createElement('tr');
+        row.classList.add('border-b');
+
+        // الاسم
+        let nameCell = document.createElement('td');
+        nameCell.classList.add('py-2');
+        nameCell.textContent = graduate.name ?? 'غير متوفر';
+        // CV
+        let cvCell = document.createElement('td');
+        cvCell.classList.add('py-2');
+
+        let cvLink = document.createElement('a');
+      
+        // ⚠️ تأكد من اسم الحقل
+        cvLink.href ='<?= BASE_URL ?>uploads/cvs/'+graduate.cv_file ?? graduate.cv_url ?? '#';
+
+        cvLink.textContent = 'عرض السيرة الذاتية';
+        cvLink.target = '_blank';
+        cvLink.classList.add('text-blue-500', 'hover:underline');
+
+        cvCell.appendChild(cvLink);
+
+        row.appendChild(nameCell);
+        row.appendChild(cvCell);
+
+        table.appendChild(row);
+    });
+
+    modal.classList.remove('hidden');
+}
+
+function closeCandidatesModal() {
+    document.getElementById("candidatesModal").classList.add("hidden");
 }
 </script>
 </body>

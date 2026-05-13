@@ -43,7 +43,7 @@ public function getAllApplicationsByCompany($company_id) {
         JOIN jobs j ON a.job_id = j.id
         JOIN users u ON a.graduate_id = u.user_id
         JOIN graduates g ON a.graduate_id = g.id
-        WHERE j.company_id = :company_id
+        WHERE j.company_id = :company_id and a.status = 'pending'
         ORDER BY a.applied_at DESC
     ");
     $this->db->bind(':company_id', (int)$company_id);
@@ -161,6 +161,16 @@ public function deleteApplication($application_id) {
     $this->db->query("DELETE FROM applications WHERE id = :application_id");
     $this->db->bind(':application_id', (int)$application_id);
 
+    return $this->db->execute();
+}
+public function rejectApplication($application_id) {
+    $this->db->query("UPDATE applications SET status = 'rejected' WHERE id = :application_id");
+    $this->db->bind(':application_id', (int)$application_id);
+    return $this->db->execute();
+}
+public function acceptApplication($application_id) {
+    $this->db->query("UPDATE applications SET status = 'accepted' WHERE id = :application_id");
+    $this->db->bind(':application_id', (int)$application_id);
     return $this->db->execute();
 }
 }

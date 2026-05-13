@@ -187,6 +187,7 @@ class GraduateModel extends Model{
         SELECT 
             g.id,
             g.user_id,
+            g.cv_file,
             u.name,
             u.email,
 

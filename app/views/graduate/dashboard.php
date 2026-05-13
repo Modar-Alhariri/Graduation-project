@@ -206,7 +206,13 @@ class="md:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 r
 <td class="px-6 py-4 text-slate-500 dark:text-slate-400"><?= $suitJob->job_type ?></td>
 <td class="px-6 py-4 text-slate-500 dark:text-slate-400"> <?= $suitJob->location ?></td>
 <td class="px-6 py-4 text-center">
-<button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all">تقديم</button>
+<button
+                    type="button"
+                    onclick="toggleApplyForm(this)"
+                    data-id="<?= $suitJob->id ?>"
+                    data-graduate="<?= $_SESSION['graduate_id'] ?>"
+                    data-company="<?= $suitJob->company_id ?>"
+ class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all">تقديم</button>
 </td>
 </tr>
 <?php endforeach;?>
@@ -247,6 +253,99 @@ data-created_at='<?= $notification->created_at ?>'
 </div>
 </main>
 </div>
+<!-- for upload cv  -->
+ <div id="applyForm"
+     class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center hidden z-50">
+
+    <form method="POST"
+          action="<?= BASE_URL ?>Graduate/apply"
+          enctype="multipart/form-data"
+          class="space-y-4 bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-md shadow-lg">
+
+        <!-- Job ID (يتم تعبئته من JS) -->
+        <input type="hidden" name="job_id" id="applyJobId">
+
+        <!-- Graduate ID -->
+        <input type="hidden" name="graduate_id" id="applyGraduateId"
+               value="<?= $_SESSION['graduate_id'] ?>">
+
+        <!-- Company ID (يتم تعبئته من JS) -->
+        <input type="hidden" name="company_id" id="applyCompanyId">
+
+        <!-- CV Options -->
+        <div>
+            <label class="block font-bold mb-2">اختر السيرة الذاتية</label>
+
+            <!-- profile CV -->
+            <label class="flex items-center gap-2 cursor-pointer mb-2">
+                <input type="radio" name="cv_option" value="profile" checked onchange="toggleCVInput()">
+                <span>استخدام CV من ملفي</span>
+            </label>
+
+            <!-- upload CV -->
+            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="cv_option" value="upload" onchange="toggleCVInput()">
+                <span>رفع CV من الجهاز</span>
+            </label>
+
+            <!-- file input -->
+            <div id="cvFileInput" class="hidden mt-3">
+                <input type="file"
+                       name="cv_file"
+                       accept="application/pdf"
+                       class="block w-full border p-2 rounded-lg">
+            </div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit"
+                class="w-full bg-green-600 text-white px-4 py-2 rounded-xl hover:opacity-90">
+            إرسال الطلب
+        </button>
+
+    </form>
+</div>
+<!-- script for handling CV upload -->
+<script>
+function toggleApplyForm(btn) {
+    const form = document.getElementById("applyForm");
+    // فتح/إغلاق
+    form.classList.toggle("hidden");
+
+    // إذا تم فتحه من زر وظيفة
+    if (btn) {
+        const jobId = btn.dataset.id || '';
+        const companyId = btn.dataset.company || '';
+       
+
+        document.getElementById("applyJobId").value = jobId;
+        document.getElementById("applyCompanyId").value = companyId;
+       
+    }
+}
+
+function toggleCVInput() {
+    const selected = document.querySelector('input[name="cv_option"]:checked');
+    const fileInput = document.getElementById("cvFileInput");
+
+    if (!selected) return;
+
+    if (selected.value === "upload") {
+        fileInput.classList.remove("hidden");
+    } else {
+        fileInput.classList.add("hidden");
+    }
+}
+
+// إغلاق عند الضغط خارج الفورم (آمن)
+document.addEventListener("click", function (e) {
+    const modal = document.getElementById("applyForm");
+
+    if (e.target === modal) {
+        modal.classList.add("hidden");
+    }
+});
+</script>
 <!-- script to activate toogle button  -->
 <script>
 function toggleSidebar() {
@@ -284,4 +383,5 @@ function toggleSidebar() {
             }
         });
     </script>
+
 </body></html>

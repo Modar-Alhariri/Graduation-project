@@ -17,6 +17,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<!-- save pdf library  -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -43,6 +46,23 @@
             box-shadow: 0 10px 25px -5px rgba(236, 91, 19, 0.1), 0 8px 10px -6px rgba(236, 91, 19, 0.1);
         }
     </style>
+    <style>
+
+#cvTemplate {
+    width: 794px;
+    background: #e2e8f0;
+    padding: 40px;
+    direction: rtl;
+    text-align: right;
+}
+
+#cvDocument {
+    max-width: 794px !important;
+    width: 794px !important;
+    font-family: 'Cairo', sans-serif;
+}
+
+</style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
 <!-- Main Layout Container -->
@@ -193,8 +213,8 @@ class=" p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg
 </div>
 </div>
 <!-- Left Column: CV Preview -->
- <div class="lg:col-span-7">
-                <div class="relative bg-slate-200 dark:bg-slate-800 rounded-3xl p-8 min-h-[800px] flex justify-center">
+ <div id="cvTemplate" class="lg:col-span-7 bg-white">
+                <div class="relative bg-slate-200 dark:bg-slate-800 rounded-3xl p-8 min-h-[1123px] flex justify-center">
                     <!-- CV Document -->
                     <div id="cvDocument" class="w-full max-w-[600px] bg-white text-slate-900 rounded-sm shadow-2xl p-10 flex flex-col gap-6 origin-top">
                         <!-- Header -->
@@ -261,7 +281,7 @@ class=" p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg
                         <span class="material-symbols-outlined text-sm">verified</span> نموذج معتمد
                     </div>
                 </div>
-            </div>
+ </div>
 </div>
 </main>
 <!-- Footer Section -->
@@ -350,7 +370,7 @@ function toggleSidebar() {
                 <textarea name="other_info" class="w-full border p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500" placeholder="أي معلومات إضافية..."></textarea>
             </div>
 
-            <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg w-full font-bold shadow-lg transition">💾 حفظ السيرة الذاتية</button>
+            <button id="savePdf" type="button" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg w-full font-bold shadow-lg transition">💾 حفظ السيرة الذاتية</button>
         </form>
     </div>
 </div>
@@ -630,5 +650,38 @@ function toggleSidebar() {
             closeApplyModal();
         }
     });
+</script>
+<!-- script to save cv file  -->
+ <script>
+document.getElementById("savePdf").addEventListener("click", () => {
+
+    const element = document.getElementById("cvTemplate");
+
+    const opt = {
+        margin: 0,
+        filename: "cv.pdf",
+
+        image: {
+            type: "jpeg",
+            quality: 1
+        },
+
+        html2canvas: {
+            scale: 3,              // مهم جدًا للعربية
+            useCORS: true,
+            scrollY: 0,
+            backgroundColor: "#ffffff",
+            letterRendering: true
+        },
+
+        jsPDF: {
+            unit: "px",
+            format: [794, 1123],
+            orientation: "portrait"
+        }
+    };
+
+    html2pdf().set(opt).from(element).save();
+});
 </script>
 </body></html>

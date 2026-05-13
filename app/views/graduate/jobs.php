@@ -230,11 +230,11 @@ data-company="<?= $job->company_id ?>"
 <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
 <?php foreach($myapplications as $application): ?>
 <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50">
-<td class="px-4 py-4">
+<td class="px-2 py-2">
 <div class="font-bold"><?= $application->job_title ?></div>
 <div class="text-xs text-slate-500"> <?= $application->company_name ?> . <?= $application->applied_at ?></div>
 </td>
-<td class="px-4 py-4">
+<td class="px-2 py-2">
 <span class="inline-flex items-center gap-1 rounded-full bg-yellow-100 dark:bg-yellow-900/30 px-2 py-0.5 text-[10px] font-bold text-yellow-700 dark:text-yellow-400 uppercase">قيد المراجعة</span>
 </td>
 </tr>
@@ -243,7 +243,7 @@ data-company="<?= $job->company_id ?>"
 </table>
 </div>
 <div class="p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800">
-<a class="text-xs font-bold text-primary flex items-center justify-center gap-1" href="#">عرض كل الطلبات <span class="material-symbols-outlined text-sm">arrow_back</span></a>
+<a class="text-xs font-bold text-primary flex items-center justify-center gap-1" href="<?= BASE_URL ?>Graduate/myApplecations">عرض كل الطلبات <span class="material-symbols-outlined text-sm">arrow_back</span></a>
 </div>
 </div>
 <!-- Quick Stats -->
@@ -473,7 +473,6 @@ document.addEventListener('click', function (e) {
 <script>
 function toggleApplyForm(btn) {
     const form = document.getElementById("applyForm");
-
     // فتح/إغلاق
     form.classList.toggle("hidden");
 
@@ -481,11 +480,11 @@ function toggleApplyForm(btn) {
     if (btn) {
         const jobId = btn.dataset.id || '';
         const companyId = btn.dataset.company || '';
-        const graduateId = btn.dataset.graduate || '';
+       
 
         document.getElementById("applyJobId").value = jobId;
         document.getElementById("applyCompanyId").value = companyId;
-        document.getElementById("applyGraduateId").value = graduateId;
+       
     }
 }
 

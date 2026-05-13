@@ -1,3 +1,12 @@
+<?php if(isset($_SESSION['flash_success'])): ?>
+<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+    <?= $_SESSION['flash_success']; unset($_SESSION['flash_success']); ?>
+</div>
+<?php elseif(isset($_SESSION['flash_error'])): ?>
+<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+    <?= $_SESSION['flash_error']; unset($_SESSION['flash_error']); ?>
+</div>
+<?php endif; ?>
 <!DOCTYPE html>
 
 <html dir="rtl" lang="ar"><head>
@@ -205,15 +214,18 @@ class="text-slate-400 hover:text-primary transition-colors" title="عرض"><span
 class="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90">
 <span class="material-symbols-outlined text-[18px]">check_circle</span>
                                     قبول
-                                </button>
-<button class="flex items-center justify-center gap-2 rounded-xl bg-rose-600 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90">
+  </button>
+  <form action="<?= BASE_URL ?>Company/cancelGraduate" method="POST">
+    <input type="hidden" name="application_id" value=<?= $application->id ?>/>
+    <button type="submit"
+     class="flex items-center justify-center gap-2 rounded-xl bg-rose-600 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90">
+
 <span class="material-symbols-outlined text-[18px]">cancel</span>
                                     رفض
-                                </button>
-<button class="col-span-2 flex items-center justify-center gap-2 rounded-xl bg-primary/10 py-3 text-sm font-bold text-primary transition-colors hover:bg-primary/20">
-<span class="material-symbols-outlined text-[18px]">send</span>
-                                    إرسال رسالة للمرشح
-                                </button>
+ </button>
+  </form>
+
+
 </div>
 </div>
 </div>
@@ -258,5 +270,45 @@ function hideDetails() {
 }
 </script>
 <!-- hidden form to send notification for accepted graduate  -->
+ <div id="sendNotificationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+
+  <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] p-6 flex flex-col animate-fadeIn">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6 border-b pb-3">
+      <h2 class="text-xl font-bold text-slate-700 dark:text-white">📢 إرسال إشعار</h2>
+      <button onclick="closeSendNotification()" class="text-red-500 hover:text-red-700 transition">✖</button>
+    </div>
+
+    <!-- Form -->
+    <form action="<?= BASE_URL ?>Company/acceptGraduate" method="post" class="space-y-4">
+      <input type="hidden" name="application_id" value=<?= $application->id ?>>
+      <input type="hidden" name="senderId" value=<?= $_SESSION["user_id"] ?>>
+      <input type="hidden" name="reciverId" value=<?= $application->graduate_id ?>>
+
+      <input type="text" name="title" placeholder="العنوان" 
+             class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none">
+
+      <textarea name="message" placeholder="نص الرسالة" rows="4"
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none"></textarea>
+
+      <input type="submit" value="🚀 ارسال" 
+             class="w-full bg-primary text-white font-semibold py-3 rounded-lg shadow hover:bg-green-600 transition">
+    </form>
+
+  </div>
+</div>
+
+<!-- script to handle send notification -->
+<script>
+    let sendNotificationModel= document.getElementById("sendNotificationModal");
+    function sendNotification(){
+        sendNotificationModel.classList.remove("hidden");
+    }
+    function closeSendNotification(){
+         sendNotificationModel.classList.add("hidden");
+    }
+
+</script>
  
 </body></html>

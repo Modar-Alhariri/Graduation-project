@@ -5,13 +5,14 @@ class CompanyController extends ProtectionController{
     private $companyModel;
     private $applecations;
     private $graduateModel;
+    private $notifications;
     public function __construct()
     {   $this->jobModel=$this->model("JobsModel");
         $this->userModel= $this->model('User');
         $this->companyModel=$this->model("CompanyModel");
         $this->applecations=$this->model("Applications");
         $this->graduateModel=$this->model("GraduateModel");
-       
+        $this->notifications=$this->model("NotificationsModel");
         return parent::__construct();
     }
     function companyInfo(){
@@ -303,5 +304,42 @@ public function candidateGraduates() {
     }
 
     return $jobsWithCandidates;
+}
+public function acceptGraduate(){
+ if($_SERVER['REQUEST_METHOD']=="POST"){
+    $data=[];
+    $data["application_id"]=$_POST["application_id"];
+    $data["sender"]=$_POST["senderId"];
+    $data["reciver"]=$_POST["reciverId"];
+    $data["title"]=$_POST["title"];
+    $data["message"]=$_POST["message"];
+    if($this->notifications->createNotification($data)){
+       $_SESSION["flash_success"]="تم إرسال الإشعار بنجاح";
+       if($this->applecations->acceptApplication($data["application_id"])){
+         header("Location: " . BASE_URL . "Company/manageApplecations");
+         exit;
+         }
+    }
+    else{
+        $_SESSION["flash_error"]="حدث خطأ اثناء ارسال الاشعار ";
+        header("Location: " . BASE_URL . "Company/manageApplecations");
+        exit;
+    }
+ }
+}
+public function cancelGraduate() {
+    if($_SERVER['REQUEST_METHOD']=="POST"){
+       $id=$_POST["application_id"];
+       if($this->applecations->rejectApplication($id)){
+          $_SESSION["flash_success"]="تم رفض الطلب بنجاح";
+          header("Location: " . BASE_URL . "Company/manageApplecations");
+          exit;
+       }
+       else{
+        $_SESSION["flash_error"]="حدث خطأ اثناء رفض الطلب ";
+        header("Location: " . BASE_URL . "Company/manageApplecations");
+        exit;
+       }
+    }
 }
 }

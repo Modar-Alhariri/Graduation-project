@@ -113,7 +113,7 @@ class GraduateController extends ProtectionController{
     if($_SERVER['REQUEST_METHOD'] == "POST"){
 
         $data = [];
-        $data["graduate_id"] = trim($_POST["graduate_id"]);
+        $data["graduate_id"] = $_SESSION["graduate_id"];
         $data["company_id"] = trim($_POST["company_id"]);
         $data["job_id"] = trim($_POST["job_id"]);
         $option = $_POST["cv_option"] ?? "profile";
